@@ -20,11 +20,9 @@ public class GameMaster : NetworkComponent
                 {
                     npm.transform.GetChild(0).gameObject.SetActive(false);
                 }
-
             }
         }
     }
-
 
     public override void NetworkedStart()
     {
@@ -43,11 +41,20 @@ public class GameMaster : NetworkComponent
 
             if (players.Count > 1 && players.TrueForAll(p => p.IsReady))
             {
+                AssignPlayerNames();
                 SendUpdate("GAMESTART", "1");
-                SpawnPlayers(); 
+                SpawnPlayers();
                 break;
             }
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+    void AssignPlayerNames()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].PName = "Player " + (i + 1);
         }
     }
 
@@ -58,13 +65,12 @@ public class GameMaster : NetworkComponent
             foreach (NPM npm in players)
             {
                 Transform spawnPoint = GameObject.Find("P" + (npm.Owner + 1) + "Start").transform;
-                GameObject newPlayer = MyCore.NetCreateObject(npm.CharSelected, npm.Owner, spawnPoint.position, Quaternion.identity);
+                GameObject newPlayer = MyCore.NetCreateObject(npm.ElementSelected, npm.Owner, spawnPoint.position, Quaternion.identity);
                 PlayerCharacter pc = newPlayer.GetComponent<PlayerCharacter>();
                 if (pc != null)
                 {
-                    pc.ColorSelected = npm.ColorSelected;
                     pc.PName = npm.PName;
-                    pc.ApplyCustomization(); 
+                    pc.ApplyCustomization();
                 }
             }
         }

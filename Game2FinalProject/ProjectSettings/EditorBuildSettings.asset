@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/NetworkEngine_5.0/NetworkEngine/TemplateAssets/Template_Scenes/MainMenu.unity
+    guid: 44a73099d6321fc44bd0422326ec77db
+  - enabled: 1
+    path: Assets/NetworkEngine_5.0/NetworkEngine/TemplateAssets/Template_Scenes/WAN_Game.unity
+    guid: 646d32d828b9ece4bae9613529fd952c
+  - enabled: 1
+    path: Assets/Scenes/KelseaDev.unity
+    guid: 2343d696ba0d1b541a9b271e4d6c9d78
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

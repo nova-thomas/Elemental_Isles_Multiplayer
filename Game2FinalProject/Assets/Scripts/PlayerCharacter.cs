@@ -3,24 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using NETWORK_ENGINE;
 using UnityEngine.UI;
+
 public class PlayerCharacter : NetworkComponent
 {
     public Text PlayerName;
-    public Material[] MColor;
-    public int ColorSelected = -1;
     public string PName = "<Default>";
+
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "SETUP")
         {
-            string[] data = value.Split(',');
-            ColorSelected = int.Parse(data[0]);
-            PName = data[1];
+            PName = value;
             ApplyCustomization();
-        }
-
-        if (flag == "GAMESTART")
-        {
         }
     }
 
@@ -28,21 +22,17 @@ public class PlayerCharacter : NetworkComponent
     {
         if (IsServer)
         {
-            SendUpdate("SETUP", ColorSelected + "," + PName);
+            SendUpdate("SETUP", PName);
         }
     }
 
     public override IEnumerator SlowUpdate()
     {
-      while(IsConnected)
+        while (IsConnected)
         {
-
-            if(IsServer)
+            if (IsServer && IsDirty)
             {
-                if(IsDirty)
-                {
-                    SendUpdate("SETUP", ColorSelected + "," + PName);
-                }
+                SendUpdate("SETUP", PName);
             }
             yield return new WaitForSeconds(.1f);
         }
@@ -50,28 +40,13 @@ public class PlayerCharacter : NetworkComponent
 
     public void ApplyCustomization()
     {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr != null && ColorSelected >= 0 && ColorSelected < MColor.Length)
-        {
-            sr.color = MColor[ColorSelected].color; 
-        }
         if (PlayerName != null)
         {
             PlayerName.text = PName;
         }
     }
 
+    void Start() { }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() { }
 }

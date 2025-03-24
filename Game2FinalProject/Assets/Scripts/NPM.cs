@@ -1,52 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using NETWORK_ENGINE;
-
 
 public class NPM : NetworkComponent
 {
     public string PName;
     public bool IsReady;
-    public int ColorSelected;
-    public int CharSelected;
+    public int ElementSelected;
 
     public override void HandleMessage(string flag, string value)
     {
-        if(flag == "READY")
+        if (flag == "READY")
         {
             IsReady = bool.Parse(value);
-            if(IsServer)
+            if (IsServer)
             {
                 SendUpdate("READY", value);
             }
         }
 
-        if(flag == "NAME")
+        if (flag == "ELEMENT")
         {
-            PName = value;
-            if(IsServer)
+            ElementSelected = int.Parse(value);
+            if (IsServer)
             {
-                SendUpdate("NAME", value);
-            }
-        }
-
-        if(flag =="COLOR")
-        {
-            ColorSelected = int.Parse(value);
-            if(IsServer)
-            {
-                SendUpdate("COLOR", value);
-            }
-        }
-
-        if(flag == "CHAR")
-        {
-            CharSelected = int.Parse(value);
-            if(IsServer)
-            {
-                SendUpdate("CHAR", value);
+                SendUpdate("ELEMENT", value);
             }
         }
 
@@ -57,78 +36,46 @@ public class NPM : NetworkComponent
                 this.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
-
     }
+
     public void UI_Ready(bool r)
     {
-        if(IsLocalPlayer)
+        if (IsLocalPlayer)
         {
             SendCommand("READY", r.ToString());
         }
     }
+
     public override void NetworkedStart()
     {
-       if(!IsLocalPlayer)
+        if (!IsLocalPlayer)
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
-    public void UI_NameInput(string s)
+    public void UI_ElementInput(int e)
     {
-        if(IsLocalPlayer)
+        if (IsLocalPlayer)
         {
-            SendCommand("NAME", s);
-        }
-
-    }
-    public void UI_ColorInput(int c)
-    {
-        if(IsLocalPlayer)
-        {
-            SendCommand("COLOR", c.ToString());
+            SendCommand("ELEMENT", e.ToString());
         }
     }
-
-    public void UI_CharInput(int c)
-    {
-        if(IsLocalPlayer)
-        {
-            SendCommand("CHAR", c.ToString());
-        }
-    }
-
 
     public override IEnumerator SlowUpdate()
     {
-        while(IsConnected)
+        while (IsConnected)
         {
-            if(IsServer)
+            if (IsServer && IsDirty)
             {
-
-                if(IsDirty)
-                {
-                    SendUpdate("NAME", PName);
-                    SendUpdate("COLOR", ColorSelected.ToString());
-                    SendUpdate("CHAR", CharSelected.ToString());
-
-                    IsDirty = false;
-                }
+                SendUpdate("ELEMENT", ElementSelected.ToString());
+                IsDirty = false;
             }
             yield return new WaitForSeconds(.1f);
         }
     }
 
+    void Start() { }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() { }
 }
