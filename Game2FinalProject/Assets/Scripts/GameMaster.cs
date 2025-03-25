@@ -8,6 +8,8 @@ public class GameMaster : NetworkComponent
     public bool GameStarted = false;
     private List<NPM> players = new List<NPM>();
 
+    public GameObject ScoreScreenPanel;  
+
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "GAMESTART")
@@ -19,6 +21,22 @@ public class GameMaster : NetworkComponent
                 if (npm.transform.childCount > 0)
                 {
                     npm.transform.GetChild(0).gameObject.SetActive(false);
+                }
+            }
+
+            if (IsServer)
+            {
+                StartCoroutine(GameCycle());
+            }
+        }
+
+        if (flag == "SHOWSCORES")
+        {
+            if (IsClient)
+            {
+                if (ScoreScreenPanel != null)
+                {
+                    ScoreScreenPanel.SetActive(true);
                 }
             }
         }
@@ -41,20 +59,11 @@ public class GameMaster : NetworkComponent
 
             if (players.Count > 1 && players.TrueForAll(p => p.IsReady))
             {
-                AssignPlayerNames();
                 SendUpdate("GAMESTART", "1");
                 SpawnPlayers();
                 break;
             }
             yield return new WaitForSeconds(1f);
-        }
-    }
-
-    void AssignPlayerNames()
-    {
-        for (int i = 0; i < players.Count; i++)
-        {
-            players[i].PName = "Player " + (i + 1);
         }
     }
 
@@ -74,6 +83,12 @@ public class GameMaster : NetworkComponent
                 }
             }
         }
+    }
+
+    private IEnumerator GameCycle()
+    {
+        yield return new WaitForSeconds(5f);  
+        SendUpdate("SHOWSCORES", "1");
     }
 
     public override IEnumerator SlowUpdate()

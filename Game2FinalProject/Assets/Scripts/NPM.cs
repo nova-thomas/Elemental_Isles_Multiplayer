@@ -9,16 +9,16 @@ public class NPM : NetworkComponent
     public string PName;
     public bool IsReady;
     public int ElementSelected;
-    public Text PlayerNumberText;  // Reference to the UI Text object
+    public Text PlayerNumberText;  
 
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "READY")
         {
-            IsReady = bool.Parse(value);  // Correctly update IsReady when received
+            IsReady = bool.Parse(value);  
             if (IsServer)
             {
-                SendUpdate("READY", value);  // Sync the value to all clients
+                SendUpdate("READY", value);  
             }
         }
 
@@ -33,22 +33,20 @@ public class NPM : NetworkComponent
 
         if (flag == "PNAME")
         {
-            PName = value;
+            PName = "Player" + value.ToString();
             if (PlayerNumberText != null)
             {
-                PlayerNumberText.text = PName;  // Update UI text
+                PlayerNumberText.text = PName;  
             }
         }
 
         if (flag == "GAMESTART")
         {
-            // Hide the canvas UI when the game starts (restored from original script)
             if (this.transform.childCount > 0)
             {
                 this.transform.GetChild(0).gameObject.SetActive(false);
             }
 
-            // Spawn the players
             SpawnPlayers();
         }
     }
@@ -57,8 +55,8 @@ public class NPM : NetworkComponent
     {
         if (IsLocalPlayer)
         {
-            IsReady = r;  // Ensure local IsReady updates immediately
-            SendCommand("READY", r.ToString());  // Send to server
+            IsReady = r;
+            SendCommand("READY", r.ToString());  
         }
     }
 
@@ -72,6 +70,7 @@ public class NPM : NetworkComponent
         if (IsServer)
         {
             SendUpdate("PNAME", PName);
+            
         }
     }
 
@@ -89,7 +88,7 @@ public class NPM : NetworkComponent
         {
             if (IsServer && IsDirty)
             {
-                SendUpdate("READY", IsReady.ToString());  // Ensure READY is always updated
+                SendUpdate("READY", IsReady.ToString()); 
                 SendUpdate("ELEMENT", ElementSelected.ToString());
                 SendUpdate("PNAME", PName);
                 IsDirty = false;
@@ -102,13 +101,10 @@ public class NPM : NetworkComponent
     {
     }
 
-
-    // Method to spawn the players after the game starts
     void SpawnPlayers()
     {
         if (IsServer)
         {
-            // Ensure that the server spawns the players based on their selected elements
             foreach (NPM npm in FindObjectsOfType<NPM>())
             {
                 Transform spawnPoint = GameObject.Find("P" + (npm.Owner + 1) + "Start").transform;
