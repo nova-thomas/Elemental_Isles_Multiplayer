@@ -280,7 +280,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  PlayerName: {fileID: 0}
+  PlayerName: {fileID: 40481051655439986}
   PName: <name>
 --- !u!54 &-2956490418619582865
 Rigidbody:

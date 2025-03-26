@@ -197,7 +197,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  PlayerName: {fileID: 0}
+  PlayerName: {fileID: 7726523084104294051}
   PName: <Default>
 --- !u!1 &6170684634504785867
 GameObject:

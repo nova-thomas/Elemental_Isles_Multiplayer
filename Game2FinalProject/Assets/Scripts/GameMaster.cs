@@ -2,19 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NETWORK_ENGINE;
+using UnityEngine.UI;
 
 public class GameMaster : NetworkComponent
 {
     public bool GameStarted = false;
     private List<NPM> players = new List<NPM>();
 
-    public GameObject ScoreScreenPanel;  
+    public GameObject TimerPanel;  // Assign this in Unity Inspector (the panel containing the timer)
+    public Text GameTimerText;  // Assign the Timer Text in Unity Inspector
+
+    public int TimerDuration = 5;  // Set default countdown time
+    private int currentTime;
 
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "GAMESTART")
         {
             GameStarted = true;
+
+            // Show the timer panel
+            if (TimerPanel != null)
+            {
+                TimerPanel.SetActive(true);
+            }
 
             foreach (NPM npm in FindObjectsOfType<NPM>())
             {
@@ -26,18 +37,16 @@ public class GameMaster : NetworkComponent
 
             if (IsServer)
             {
-                StartCoroutine(GameCycle());
+                StartCoroutine(StartCountdown());
             }
         }
 
-        if (flag == "SHOWSCORES")
+        if (flag == "UPDATETIMER")
         {
-            if (IsClient)
+            currentTime = int.Parse(value);
+            if (GameTimerText != null)
             {
-                if (ScoreScreenPanel != null)
-                {
-                    ScoreScreenPanel.SetActive(true);
-                }
+                GameTimerText.text = currentTime.ToString();
             }
         }
     }
@@ -47,6 +56,12 @@ public class GameMaster : NetworkComponent
         if (IsServer)
         {
             StartCoroutine(WaitForPlayers());
+        }
+
+        // Hide the timer panel at the start
+        if (TimerPanel != null)
+        {
+            TimerPanel.SetActive(false);
         }
     }
 
@@ -85,10 +100,16 @@ public class GameMaster : NetworkComponent
         }
     }
 
-    private IEnumerator GameCycle()
+    private IEnumerator StartCountdown()
     {
-        yield return new WaitForSeconds(5f);  
-        SendUpdate("SHOWSCORES", "1");
+        currentTime = TimerDuration;
+        while (currentTime > 0)
+        {
+            SendUpdate("UPDATETIMER", currentTime.ToString());  // Sync timer with all clients
+            yield return new WaitForSeconds(1f);
+            currentTime--;
+        }
+        SendUpdate("UPDATETIMER", "0");  // Ensure the timer reaches 0
     }
 
     public override IEnumerator SlowUpdate()
