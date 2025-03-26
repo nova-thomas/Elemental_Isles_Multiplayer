@@ -9,10 +9,10 @@ public class GameMaster : NetworkComponent
     public bool GameStarted = false;
     private List<NPM> players = new List<NPM>();
 
-    public GameObject TimerPanel;  // Assign this in Unity Inspector (the panel containing the timer)
-    public Text GameTimerText;  // Assign the Timer Text in Unity Inspector
+    public GameObject TimerPanel;  
+    public Text GameTimerText; 
 
-    public int TimerDuration = 5;  // Set default countdown time
+    public int TimerDuration = 5; 
     private int currentTime;
 
     public override void HandleMessage(string flag, string value)
@@ -21,7 +21,6 @@ public class GameMaster : NetworkComponent
         {
             GameStarted = true;
 
-            // Show the timer panel
             if (TimerPanel != null)
             {
                 TimerPanel.SetActive(true);
@@ -58,7 +57,6 @@ public class GameMaster : NetworkComponent
             StartCoroutine(WaitForPlayers());
         }
 
-        // Hide the timer panel at the start
         if (TimerPanel != null)
         {
             TimerPanel.SetActive(false);
@@ -105,11 +103,11 @@ public class GameMaster : NetworkComponent
         currentTime = TimerDuration;
         while (currentTime > 0)
         {
-            SendUpdate("UPDATETIMER", currentTime.ToString());  // Sync timer with all clients
+            SendUpdate("UPDATETIMER", currentTime.ToString());  
             yield return new WaitForSeconds(1f);
             currentTime--;
         }
-        SendUpdate("UPDATETIMER", "0");  // Ensure the timer reaches 0
+        SendUpdate("UPDATETIMER", "0");  
     }
 
     public override IEnumerator SlowUpdate()
