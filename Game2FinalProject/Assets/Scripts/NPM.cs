@@ -9,16 +9,16 @@ public class NPM : NetworkComponent
     public string PName;
     public bool IsReady;
     public int ElementSelected;
-    public Text PlayerNumberText;  
+    public Text PlayerNumberText;
 
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "READY")
         {
-            IsReady = bool.Parse(value);  
+            IsReady = bool.Parse(value);
             if (IsServer)
             {
-                SendUpdate("READY", value);  
+                SendUpdate("READY", value);
             }
         }
 
@@ -33,10 +33,10 @@ public class NPM : NetworkComponent
 
         if (flag == "PNAME")
         {
-            PName = "Player" + value.ToString();
+            PName = value;  
             if (PlayerNumberText != null)
             {
-                PlayerNumberText.text = PName;  
+                PlayerNumberText.text = PName;
             }
         }
 
@@ -56,7 +56,7 @@ public class NPM : NetworkComponent
         if (IsLocalPlayer)
         {
             IsReady = r;
-            SendCommand("READY", r.ToString());  
+            SendCommand("READY", r.ToString());
         }
     }
 
@@ -69,8 +69,8 @@ public class NPM : NetworkComponent
 
         if (IsServer)
         {
+            PName = "Player " + (Owner + 1); 
             SendUpdate("PNAME", PName);
-            
         }
     }
 
@@ -88,7 +88,7 @@ public class NPM : NetworkComponent
         {
             if (IsServer && IsDirty)
             {
-                SendUpdate("READY", IsReady.ToString()); 
+                SendUpdate("READY", IsReady.ToString());
                 SendUpdate("ELEMENT", ElementSelected.ToString());
                 SendUpdate("PNAME", PName);
                 IsDirty = false;

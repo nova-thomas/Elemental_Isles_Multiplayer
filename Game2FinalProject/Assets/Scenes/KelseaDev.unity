@@ -512,10 +512,10 @@ MonoBehaviour:
   DisconnectScreen: {fileID: 0}
   ObjectCounter: 0
   SpawnPrefab:
-  - {fileID: 8561337585866627333, guid: 4cba771ace9eb8d489649b6ed1f9647a, type: 3}
-  - {fileID: -2750827072566090580, guid: efb447a503fc0fe4db9bf65a7099eacf, type: 3}
-  - {fileID: -6312067846309357117, guid: 66c04638a90f6bb44b9ce438b85d6943, type: 3}
-  - {fileID: 4282644819632490878, guid: 2c837f689eded03419c76b042ae7faad, type: 3}
+  - {fileID: 1770990511746538976, guid: 11fc2f14d0510604fb1ffce3acb14f62, type: 3}
+  - {fileID: 1980030565370476337, guid: 8311abfd94e28674b9d54472a0a6ecef, type: 3}
+  - {fileID: 8495658550107598847, guid: 9367b048fb47eca49b2216d417998736, type: 3}
+  - {fileID: 2560129438889377749, guid: 2e52b82ef80858f488ab97802ac67ae8, type: 3}
   - {fileID: 8498577632964782703, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
   NetworkPlayerManager: {fileID: 8924587938452622135, guid: bbc6e7936f077814e9f553b70ddb5d2b, type: 3}
   DefaultReturnScene: 0
@@ -770,6 +770,14 @@ PrefabInstance:
     - target: {fileID: 2726837008244984232, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3118569387663064224, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
+      propertyPath: m_Name
+      value: Score Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4174812043198579280, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
+      propertyPath: m_Name
+      value: Timer Panel
       objectReference: {fileID: 0}
     - target: {fileID: 4549135489234627880, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
       propertyPath: m_Name

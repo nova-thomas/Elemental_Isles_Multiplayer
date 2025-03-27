@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6218895206952802093
 RectTransform:
   m_ObjectHideFlags: 0
@@ -404,9 +404,9 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   GameStarted: 0
-  TimerPanel: {fileID: 4174812043198579280}
-  GameTimerText: {fileID: 8107025560657377783}
   TimerDuration: 5
+  TimerPanel: {fileID: 4174812043198579280}
+  TimerText: {fileID: 8107025560657377783}
 --- !u!1 &7112420557916821791
 GameObject:
   m_ObjectHideFlags: 0

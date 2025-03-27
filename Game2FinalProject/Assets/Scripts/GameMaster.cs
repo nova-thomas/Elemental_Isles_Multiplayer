@@ -1,30 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NETWORK_ENGINE;
 using UnityEngine.UI;
+using NETWORK_ENGINE;
 
 public class GameMaster : NetworkComponent
 {
     public bool GameStarted = false;
     private List<NPM> players = new List<NPM>();
 
-    public GameObject TimerPanel;  
-    public Text GameTimerText; 
+    public float TimerDuration = 5f;  
+    private float currentTimer;
 
-    public int TimerDuration = 5; 
-    private int currentTime;
+    public GameObject TimerPanel;  
+    public Text TimerText; 
 
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "GAMESTART")
         {
             GameStarted = true;
-
-            if (TimerPanel != null)
-            {
-                TimerPanel.SetActive(true);
-            }
 
             foreach (NPM npm in FindObjectsOfType<NPM>())
             {
@@ -36,16 +31,26 @@ public class GameMaster : NetworkComponent
 
             if (IsServer)
             {
-                StartCoroutine(StartCountdown());
+                currentTimer = TimerDuration;
+                StartCoroutine(StartTimer());
+            }
+
+            SendUpdate("SHOWTIMER", "1");  
+        }
+
+        if (flag == "SHOWTIMER")
+        {
+            if (TimerPanel != null)
+            {
+                TimerPanel.SetActive(true);  
             }
         }
 
-        if (flag == "UPDATETIMER")
+        if (flag == "TIMER")
         {
-            currentTime = int.Parse(value);
-            if (GameTimerText != null)
+            if (TimerText != null)
             {
-                GameTimerText.text = currentTime.ToString();
+                TimerText.text = value;  
             }
         }
     }
@@ -55,11 +60,10 @@ public class GameMaster : NetworkComponent
         if (IsServer)
         {
             StartCoroutine(WaitForPlayers());
-        }
-
-        if (TimerPanel != null)
-        {
-            TimerPanel.SetActive(false);
+            if (TimerPanel != null)
+            {
+                TimerPanel.SetActive(false); 
+            }
         }
     }
 
@@ -95,20 +99,37 @@ public class GameMaster : NetworkComponent
                     pc.ApplyCustomization();
                 }
             }
+
+            currentTimer = TimerDuration;
+            StartCoroutine(StartTimer());
         }
     }
 
-    private IEnumerator StartCountdown()
+    private IEnumerator StartTimer()
     {
-        currentTime = TimerDuration;
-        while (currentTime > 0)
+        SendUpdate("SHOWTIMER", "1");  
+        SendFormattedTime();  
+
+        while (currentTimer > 0)
         {
-            SendUpdate("UPDATETIMER", currentTime.ToString());  
             yield return new WaitForSeconds(1f);
-            currentTime--;
+            currentTimer--;
+
+            SendFormattedTime();  // minutes : seconds instead of flat value 
         }
-        SendUpdate("UPDATETIMER", "0");  
+
+        SendUpdate("SHOWTIMER", "0");  
     }
+
+    private void SendFormattedTime()
+    {
+        int minutes = Mathf.FloorToInt(currentTimer / 60);
+        int seconds = Mathf.FloorToInt(currentTimer % 60);
+        string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        SendUpdate("TIMER", formattedTime);  
+    }
+
 
     public override IEnumerator SlowUpdate()
     {
