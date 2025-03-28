@@ -15,7 +15,8 @@ public class GameMaster : NetworkComponent
     public GameObject TimerPanel;
     public Text TimerText;
 
-    public GameObject ScorePanel;  
+    public GameObject ScorePanel;
+    public Text ScoreText; 
 
     public override void HandleMessage(string flag, string value)
     {
@@ -56,11 +57,16 @@ public class GameMaster : NetworkComponent
             }
         }
 
-        if (flag == "SHOWSCORE")  
+        if (flag == "SHOWSCORE")
         {
             if (ScorePanel != null)
             {
-                ScorePanel.SetActive(value == "1");
+                ScorePanel.SetActive(true);
+            }
+
+            if (ScoreText != null)
+            {
+                ScoreText.text = value;
             }
         }
     }
@@ -74,7 +80,7 @@ public class GameMaster : NetworkComponent
             {
                 TimerPanel.SetActive(false);
             }
-            if (ScorePanel != null)  
+            if (ScorePanel != null)
             {
                 ScorePanel.SetActive(false);
             }
@@ -133,7 +139,7 @@ public class GameMaster : NetworkComponent
         }
 
         SendUpdate("SHOWTIMER", "0");
-        SendUpdate("SHOWSCORE", "1"); 
+        UpdateScoreScreen(); 
     }
 
     private void SendFormattedTime()
@@ -144,6 +150,25 @@ public class GameMaster : NetworkComponent
 
         SendUpdate("TIMER", formattedTime);
     }
+
+    private void UpdateScoreScreen()
+    {
+        string scoreDisplay = ""; 
+
+        List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
+        sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
+
+        foreach (NPM npm in sortedPlayers)
+        {
+            int dummyScore = Random.Range(10, 100);
+            scoreDisplay += $"{npm.PName} - {dummyScore} Points\n"; 
+        }
+
+        SendUpdate("SHOWSCORE", scoreDisplay);
+    }
+
+
+
 
     public override IEnumerator SlowUpdate()
     {
