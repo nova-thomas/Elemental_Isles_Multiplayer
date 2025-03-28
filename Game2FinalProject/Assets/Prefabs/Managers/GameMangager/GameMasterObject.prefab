@@ -58,7 +58,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 4466958933886572732}
   - component: {fileID: 8107025560657377783}
   m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Name: Timer  Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 8247899559647137035}
   - component: {fileID: 5988620852229458256}
   - component: {fileID: 6805712697728243571}
+  - component: {fileID: 9082399880910729541}
   m_Layer: 0
   m_Name: Score Screen
   m_TagString: Untagged
@@ -212,7 +213,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2636150466515052943}
+  - {fileID: 7202753085261261806}
   m_Father: {fileID: 174051999500651032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -258,6 +259,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9082399880910729541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118569387663064224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &4174812043198579280
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6218895206952802093
 RectTransform:
   m_ObjectHideFlags: 0
@@ -407,7 +434,8 @@ MonoBehaviour:
   TimerDuration: 5
   TimerPanel: {fileID: 4174812043198579280}
   TimerText: {fileID: 8107025560657377783}
---- !u!1 &7112420557916821791
+  ScorePanel: {fileID: 3118569387663064224}
+--- !u!1 &5336938518317373177
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,9 +443,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2636150466515052943}
-  - component: {fileID: 2508298113655238463}
-  - component: {fileID: 5210349536691415451}
+  - component: {fileID: 7202753085261261806}
+  - component: {fileID: 2732736328166778028}
+  - component: {fileID: 8078799383324588810}
   m_Layer: 0
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -425,13 +453,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2636150466515052943
+--- !u!224 &7202753085261261806
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7112420557916821791}
+  m_GameObject: {fileID: 5336938518317373177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -439,26 +467,26 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8247899559647137035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 465.00003, y: -269.66666}
+  m_SizeDelta: {x: 582.44, y: 300.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2508298113655238463
+--- !u!222 &2732736328166778028
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7112420557916821791}
+  m_GameObject: {fileID: 5336938518317373177}
   m_CullTransparentMesh: 1
---- !u!114 &5210349536691415451
+--- !u!114 &8078799383324588810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7112420557916821791}
+  m_GameObject: {fileID: 5336938518317373177}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -473,16 +501,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 38
+    m_Font: {fileID: 12800000, guid: 7cb2912222469634ba17a77055919ea8, type: 3}
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 114
+    m_MaxSize: 57
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Player 1 - 500\nPlayer 2 - 0 \nPlayer 3 - 5000\nPlayer 4 - 1234"
+  m_Text: "Player 1 - 500 \nPlayer 2 - 0\nPlayer 3 - 1000\nPlayer 4 - 1234 \n"

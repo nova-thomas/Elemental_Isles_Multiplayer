@@ -9,11 +9,13 @@ public class GameMaster : NetworkComponent
     public bool GameStarted = false;
     private List<NPM> players = new List<NPM>();
 
-    public float TimerDuration = 5f;  
+    public float TimerDuration = 5f;
     private float currentTimer;
 
-    public GameObject TimerPanel;  
-    public Text TimerText; 
+    public GameObject TimerPanel;
+    public Text TimerText;
+
+    public GameObject ScorePanel;  
 
     public override void HandleMessage(string flag, string value)
     {
@@ -35,14 +37,14 @@ public class GameMaster : NetworkComponent
                 StartCoroutine(StartTimer());
             }
 
-            SendUpdate("SHOWTIMER", "1");  
+            SendUpdate("SHOWTIMER", "1");
         }
 
         if (flag == "SHOWTIMER")
         {
             if (TimerPanel != null)
             {
-                TimerPanel.SetActive(true);  
+                TimerPanel.SetActive(value == "1");
             }
         }
 
@@ -50,7 +52,15 @@ public class GameMaster : NetworkComponent
         {
             if (TimerText != null)
             {
-                TimerText.text = value;  
+                TimerText.text = value;
+            }
+        }
+
+        if (flag == "SHOWSCORE")  
+        {
+            if (ScorePanel != null)
+            {
+                ScorePanel.SetActive(value == "1");
             }
         }
     }
@@ -62,7 +72,11 @@ public class GameMaster : NetworkComponent
             StartCoroutine(WaitForPlayers());
             if (TimerPanel != null)
             {
-                TimerPanel.SetActive(false); 
+                TimerPanel.SetActive(false);
+            }
+            if (ScorePanel != null)  
+            {
+                ScorePanel.SetActive(false);
             }
         }
     }
@@ -107,18 +121,19 @@ public class GameMaster : NetworkComponent
 
     private IEnumerator StartTimer()
     {
-        SendUpdate("SHOWTIMER", "1");  
-        SendFormattedTime();  
+        SendUpdate("SHOWTIMER", "1");
+        SendFormattedTime();
 
         while (currentTimer > 0)
         {
             yield return new WaitForSeconds(1f);
             currentTimer--;
 
-            SendFormattedTime();  // minutes : seconds instead of flat value 
+            SendFormattedTime();
         }
 
-        SendUpdate("SHOWTIMER", "0");  
+        SendUpdate("SHOWTIMER", "0");
+        SendUpdate("SHOWSCORE", "1"); 
     }
 
     private void SendFormattedTime()
@@ -127,9 +142,8 @@ public class GameMaster : NetworkComponent
         int seconds = Mathf.FloorToInt(currentTimer % 60);
         string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        SendUpdate("TIMER", formattedTime);  
+        SendUpdate("TIMER", formattedTime);
     }
-
 
     public override IEnumerator SlowUpdate()
     {
