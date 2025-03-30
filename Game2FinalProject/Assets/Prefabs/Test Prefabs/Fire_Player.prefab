@@ -369,6 +369,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8971731809922582293}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8525548336340411770}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6418739817024205066}
   m_SourcePrefab: {fileID: 100100000, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
 --- !u!4 &6344961906080302898 stripped
 Transform:
@@ -492,6 +498,59 @@ MonoBehaviour:
   IsDirty: 0
   PlayerName: {fileID: 2853992983182905104}
   PName: <Default>
+--- !u!114 &8525548336340411770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146929900136804866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72333cb095b9023459ce9d25664726d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
+  LastPosition: {x: 0, y: 0, z: 0}
+  LastRotation: {x: 0, y: 0, z: 0}
+  LastScale: {x: 0, y: 0, z: 0}
+  MinThreshold: 0.1
+  MaxThreshold: 0.5
+  Smooth: 1
+  NavMeshSpeed: 1
+  RotationSpeed: 1.5707964
+--- !u!114 &6418739817024205066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146929900136804866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 133f91457061cd0468560e29c4e30f1e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &8810278066146896056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}

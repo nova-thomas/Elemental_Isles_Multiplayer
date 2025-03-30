@@ -16,7 +16,7 @@ public class GameMaster : NetworkComponent
     public Text TimerText;
 
     public GameObject ScorePanel;
-    public Text ScoreText; 
+    public Text Player1Text, Player2Text, Player3Text, Player4Text; 
 
     public override void HandleMessage(string flag, string value)
     {
@@ -36,6 +36,7 @@ public class GameMaster : NetworkComponent
             {
                 currentTimer = TimerDuration;
                 StartCoroutine(StartTimer());
+               
             }
 
             SendUpdate("SHOWTIMER", "1");
@@ -64,10 +65,11 @@ public class GameMaster : NetworkComponent
                 ScorePanel.SetActive(true);
             }
 
-            if (ScoreText != null)
-            {
-                ScoreText.text = value;
-            }
+            string[] scores = value.Split('|'); 
+            if (Player1Text != null) Player1Text.text = scores.Length > 0 ? scores[0] : "";
+            if (Player2Text != null) Player2Text.text = scores.Length > 1 ? scores[1] : "";
+            if (Player3Text != null) Player3Text.text = scores.Length > 2 ? scores[2] : "";
+            if (Player4Text != null) Player4Text.text = scores.Length > 3 ? scores[3] : "";
         }
     }
 
@@ -119,7 +121,7 @@ public class GameMaster : NetworkComponent
                     pc.ApplyCustomization();
                 }
             }
-
+            SpawnCoin();
             currentTimer = TimerDuration;
             StartCoroutine(StartTimer());
         }
@@ -139,7 +141,7 @@ public class GameMaster : NetworkComponent
         }
 
         SendUpdate("SHOWTIMER", "0");
-        UpdateScoreScreen(); 
+        UpdateScoreScreen();
     }
 
     private void SendFormattedTime()
@@ -153,22 +155,20 @@ public class GameMaster : NetworkComponent
 
     private void UpdateScoreScreen()
     {
-        string scoreDisplay = ""; 
-
         List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
         sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
 
-        foreach (NPM npm in sortedPlayers)
+        string[] playerScores = new string[4]; 
+
+        for (int i = 0; i < sortedPlayers.Count && i < 4; i++)
         {
             int dummyScore = Random.Range(10, 100);
-            scoreDisplay += $"{npm.PName} - {dummyScore} Points\n"; 
+            playerScores[i] = $"{sortedPlayers[i].PName} - {dummyScore} Points";
         }
 
-        SendUpdate("SHOWSCORE", scoreDisplay);
+        string scoreData = string.Join("|", playerScores); 
+        SendUpdate("SHOWSCORE", scoreData);
     }
-
-
-
 
     public override IEnumerator SlowUpdate()
     {
@@ -177,4 +177,22 @@ public class GameMaster : NetworkComponent
             yield return new WaitForSeconds(.1f);
         }
     }
+
+    void SpawnCoin()
+    {
+        if (IsServer)
+        {
+            GameObject coinSpawn = GameObject.Find("CoinSpawn");
+            if (coinSpawn != null)
+            {
+                Vector3 spawnPosition = coinSpawn.transform.position;
+                MyCore.NetCreateObject(38, -1, spawnPosition, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogError("CoinSpawn object not found in the scene!");
+            }
+        }
+    }
+
 }
