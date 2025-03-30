@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 194664144399309593}
   m_Layer: 0
   m_Name: WaterBoulder
-  m_TagString: Untagged
+  m_TagString: WaterType
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

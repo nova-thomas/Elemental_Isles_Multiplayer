@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1554253267852285508}
   m_Layer: 0
   m_Name: Antenna_Stem
-  m_TagString: Untagged
+  m_TagString: AntennaPiece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

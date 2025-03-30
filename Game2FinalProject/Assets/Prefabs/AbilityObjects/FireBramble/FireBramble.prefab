@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4643853607194544254}
   m_Layer: 0
   m_Name: FireBramble
-  m_TagString: Untagged
+  m_TagString: FireType
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
