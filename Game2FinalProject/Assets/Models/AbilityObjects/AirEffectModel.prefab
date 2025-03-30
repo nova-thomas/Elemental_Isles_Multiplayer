@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8f98158c1f9befb4a8898793338d568c, type: 2}
     - target: {fileID: 919132149155446097, guid: 1ed18a90a59799340846963e0a451dc9, type: 3}
       propertyPath: m_Name
-      value: AirEffect
+      value: AirEffectModel
       objectReference: {fileID: 0}
     - target: {fileID: 1541998606474349963, guid: 1ed18a90a59799340846963e0a451dc9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

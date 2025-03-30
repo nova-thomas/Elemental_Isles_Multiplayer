@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f54718b7aefead448893572da86c0e7, type: 3}
       propertyPath: m_Name
-      value: FireAbility
+      value: FireAbilityModel
       objectReference: {fileID: 0}
     - target: {fileID: 8100320773420232829, guid: 8f54718b7aefead448893572da86c0e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
