@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1580779572603180102}
+  - component: {fileID: 5124362752919735473}
+  - component: {fileID: 5078994471780444862}
+  - component: {fileID: 7115061780969131965}
   m_Layer: 0
   m_Name: Antenna_Dish
   m_TagString: AntennaPiece
@@ -32,6 +35,78 @@ Transform:
   - {fileID: 8813871703328787302}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &5124362752919735473
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6021531153232676228}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5078994471780444862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6021531153232676228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34ca87a457962d459c49c36b9753ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Owner: -10
+  NetId: -10
+  IsInit: 0
+  IsLocalPlayer: 0
+  UseLobby: 0
+  UpdateFrequency: 0.1
+  MyCore: {fileID: 0}
+--- !u!114 &7115061780969131965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6021531153232676228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5419f63af3324458724c5703526335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
+  LastPosition: {x: 0, y: 0, z: 0}
+  LastRotation: {x: 0, y: 0, z: 0}
+  LastVelocity: {x: 0, y: 0, z: 0}
+  LastAngular: {x: 0, y: 0, z: 0}
+  OffsetVelocity: {x: 0, y: 0, z: 0}
+  Threshold: 0.1
+  EThreshold: 2.5
+  MyRig: {fileID: 0}
+  UseOffsetVelocity: 1
+  ClientRecv: 0
 --- !u!1001 &5997920306333809643
 PrefabInstance:
   m_ObjectHideFlags: 0

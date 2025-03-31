@@ -10,6 +10,9 @@ public class NPM : NetworkComponent
     public bool IsReady;
     public int ElementSelected;
     public Text PlayerNumberText;
+    public Text ElementText;
+
+    private string[] elementNames = { "The water ability can push obstacles and enemies!", "The fire ability can burn and melt obstacles!", "The earth ability can build bridges!", "The air ability can launch you upwards!" };
 
     public override void HandleMessage(string flag, string value)
     {
@@ -25,6 +28,12 @@ public class NPM : NetworkComponent
         if (flag == "ELEMENT")
         {
             ElementSelected = int.Parse(value);
+
+            if (ElementText != null && ElementSelected >= 0 && ElementSelected < elementNames.Length)
+            {
+                ElementText.text = elementNames[ElementSelected];
+            }
+
             if (IsServer)
             {
                 SendUpdate("ELEMENT", value);
@@ -33,7 +42,7 @@ public class NPM : NetworkComponent
 
         if (flag == "PNAME")
         {
-            PName = value;  
+            PName = value;
             if (PlayerNumberText != null)
             {
                 PlayerNumberText.text = PName;
@@ -69,7 +78,7 @@ public class NPM : NetworkComponent
 
         if (IsServer)
         {
-            PName = "Player " + (Owner + 1); 
+            PName = "Player " + (Owner + 1);
             SendUpdate("PNAME", PName);
         }
     }
