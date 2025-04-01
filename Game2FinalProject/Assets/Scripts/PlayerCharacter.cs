@@ -8,6 +8,8 @@ using Unity.VisualScripting.AssemblyQualifiedNameParser;
 
 public class PlayerCharacter : NetworkComponent
 {
+    public enum Elements {Water, Fire, Earth, Air };
+
     /*              **Variables**              */
     //Name Variables
     public Text PlayerName;
@@ -25,6 +27,12 @@ public class PlayerCharacter : NetworkComponent
     private Vector3 rotIn;
     public Transform playerCam;
 
+    // Game Variables
+    public Elements playerElement;
+    public int score;
+    public int coins;
+    public int crystals;
+
 
     /*              **Functions**              */
     //Network Functions
@@ -34,12 +42,66 @@ public class PlayerCharacter : NetworkComponent
         return new Vector2(float.Parse(args[0]), float.Parse(args[1]));
     }
 
+    
+
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "SETUP")
         {
             PName = value;
             ApplyCustomization();
+        }
+
+        if (flag == "COINADD")
+        {
+            // coins += rand int from 100 - 500
+            coins += Random.Range(1, 6) * 100;
+
+            score += 100;
+
+            if (IsServer)
+            {
+                SendUpdate("COINADD", "");
+            }
+            if (IsLocalPlayer)
+            {
+                // Update UI
+            }
+        }
+
+        if (flag == "CRYSTALADD")
+        {
+            crystals++;
+            score += 500;
+            if (IsServer)
+            {
+                
+
+                SendUpdate("CRYSTALADD", "");
+            }
+            if (IsLocalPlayer)
+            {
+                // Update UI
+
+            }
+        }
+
+        if (flag == "ANTENNAADD")
+        {
+            // Update game master antenna int
+
+            score += 5000;
+            if (IsServer)
+            {
+                
+
+                SendUpdate("ANTENNAADD", "");
+            }
+            if (IsLocalPlayer)
+            {
+                // Update UI
+
+            }
         }
 
         if (flag == "MOVE")
@@ -156,6 +218,30 @@ public class PlayerCharacter : NetworkComponent
             SendCommand("ROT", lookIn.x.ToString());
             lookIn = Vector2.zero;
             Camera.main.transform.rotation = transform.rotation;
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Coin")
+        {
+            SendCommand("COINADD", "");
+        }
+
+        if (other.gameObject.tag == "Crystal")
+        {
+            CollectibleItem crystal = other.gameObject.GetComponent<CollectibleItem>();
+            if (crystal.CrystalElement == playerElement)
+            {
+                SendCommand("CRYSTALADD", "");
+            }
+
+        }
+
+        if (other.gameObject.tag == "AntennaPiece")
+        {
+            SendCommand("ANTENNAADD", "");
         }
     }
 }

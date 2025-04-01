@@ -9,6 +9,9 @@ TagManager:
   - FireType
   - WaterType
   - CoinSpawn
+  - Ice Power
+  - Chest
+  - Crystal
   layers:
   - Default
   - TransparentFX

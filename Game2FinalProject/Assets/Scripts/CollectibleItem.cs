@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using NETWORK_ENGINE;
 
+
+[RequireComponent(typeof(NetworkTransform))]
 public class CollectibleItem : NetworkComponent
 {
     public float floatSpeed = 0.5f;
@@ -11,6 +13,10 @@ public class CollectibleItem : NetworkComponent
 
     private Vector3 startPosition;
 
+    // Crystal
+    public PlayerCharacter.Elements CrystalElement;
+
+
     public override void HandleMessage(string flag, string value)
     {
         
@@ -18,10 +24,7 @@ public class CollectibleItem : NetworkComponent
 
     public override void NetworkedStart()
     {
-        if (IsServer)
-        {
-            StartCoroutine(SpawnCollectibles());
-        }
+
     }
 
     public override IEnumerator SlowUpdate()
@@ -35,6 +38,7 @@ public class CollectibleItem : NetworkComponent
     void Start()
     {
         startPosition = transform.position;
+
     }
 
     void Update()
@@ -52,16 +56,21 @@ public class CollectibleItem : NetworkComponent
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
-    private IEnumerator SpawnCollectibles()
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Find all empty objects with specific names like "CoinSpawn"
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("CoinSpawn");
-
-        foreach (GameObject spawn in spawnPoints)
+        if (other.gameObject.tag == "Player")
         {
-            MyCore.NetCreateObject(5 ,-1, spawn.transform.position, Quaternion.identity);
-        }
+            PlayerCharacter playerObj = other.gameObject.GetComponent<PlayerCharacter>();
+            if (this.tag == "Crystal" && playerObj.playerElement == CrystalElement)
+            {
+                MyCore.NetDestroyObject(this.NetId);
+            }
+            else
+            {
+                MyCore.NetDestroyObject(this.NetId);
+            }
 
-        yield return null;
+        }
     }
 }

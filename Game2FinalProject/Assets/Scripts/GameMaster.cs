@@ -18,11 +18,21 @@ public class GameMaster : NetworkComponent
     public GameObject ScorePanel;
     public Text Player1Text, Player2Text, Player3Text, Player4Text; 
 
+    // Game Variables
+    private List<int> PlayerScores = new List<int>();
+    public int AntennaCount;
+
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "GAMESTART")
         {
             GameStarted = true;
+            AntennaCount = 0;
+
+            foreach (int player in PlayerScores)
+            {
+                PlayerScores[player] = 0;
+            }
 
             foreach (NPM npm in FindObjectsOfType<NPM>())
             {
@@ -120,10 +130,31 @@ public class GameMaster : NetworkComponent
                 if (pc != null)
                 {
                     pc.PName = npm.PName;
+                    
+                    switch (npm.ElementSelected)
+                    {
+                        case 0:
+                            pc.playerElement = PlayerCharacter.Elements.Water;
+                            break;
+
+                        case 1:
+                            pc.playerElement = PlayerCharacter.Elements.Fire;
+                            break;
+
+                        case 2:
+                            pc.playerElement = PlayerCharacter.Elements.Earth;
+                            break;
+
+                        case 3:
+                            pc.playerElement = PlayerCharacter.Elements.Air;
+                            break;
+
+                    }
+
                     pc.ApplyCustomization();
                 }
             }
-            SpawnCoin();
+            //SpawnCoin();
             currentTimer = TimerDuration;
             StartCoroutine(StartTimer());
         }
@@ -177,6 +208,13 @@ public class GameMaster : NetworkComponent
     {
         if (IsServer)
         {
+            // Get variables from players
+
+            if (AntennaCount >= 4)
+            {
+                // Win Condition
+            }
+
             yield return new WaitForSeconds(.1f);
         }
     }
@@ -196,6 +234,11 @@ public class GameMaster : NetworkComponent
                 Debug.LogError("CoinSpawn object not found in the scene!");
             }
         }
+    }
+
+    public void CollectGameVariables()
+    {
+
     }
 
 }
