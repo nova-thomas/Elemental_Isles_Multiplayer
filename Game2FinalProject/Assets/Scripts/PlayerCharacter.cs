@@ -32,6 +32,8 @@ public class PlayerCharacter : NetworkComponent
     public int score;
     public int coins;
     public int crystals;
+    public Pillar nearestPillar;
+    public bool canTribute;
 
 
     /*              **Functions**              */
@@ -52,58 +54,6 @@ public class PlayerCharacter : NetworkComponent
             ApplyCustomization();
         }
 
-        if (flag == "COINADD")
-        {
-            // coins += rand int from 100 - 500
-            coins += Random.Range(1, 6) * 100;
-
-            score += 100;
-
-            if (IsServer)
-            {
-                SendUpdate("COINADD", "");
-            }
-            if (IsLocalPlayer)
-            {
-                // Update UI
-            }
-        }
-
-        if (flag == "CRYSTALADD")
-        {
-            crystals++;
-            score += 500;
-            if (IsServer)
-            {
-                
-
-                SendUpdate("CRYSTALADD", "");
-            }
-            if (IsLocalPlayer)
-            {
-                // Update UI
-
-            }
-        }
-
-        if (flag == "ANTENNAADD")
-        {
-            // Update game master antenna int
-
-            score += 5000;
-            if (IsServer)
-            {
-                
-
-                SendUpdate("ANTENNAADD", "");
-            }
-            if (IsLocalPlayer)
-            {
-                // Update UI
-
-            }
-        }
-
         if (flag == "MOVE")
         {
             if (IsServer)
@@ -116,6 +66,81 @@ public class PlayerCharacter : NetworkComponent
         {
             lookIn.x = float.Parse(value);
             transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
+        }
+
+        if (flag == "COINADD")
+        {
+            
+
+            if (IsServer)
+            {
+                // coins += rand int from 100 - 500
+                coins += Random.Range(1, 6) * 100;
+
+                score += 100;
+                SendUpdate("COINADD", "");
+            }
+            if (IsLocalPlayer)
+            {
+                // Update UI
+            }
+        }
+
+        if (flag == "CRYSTALADD")
+        {
+            
+            if (IsServer)
+            {
+                crystals++;
+                score += 500;
+
+
+                SendUpdate("CRYSTALADD", "");
+            }
+            if (IsLocalPlayer)
+            {
+                // Update UI
+
+            }
+        }
+
+        if (flag == "ANTENNAADD")
+        {
+            
+            if (IsServer)
+            {
+                // Update game master antenna int
+
+                score += 5000;
+
+                SendUpdate("ANTENNAADD", "");
+            }
+            if (IsLocalPlayer)
+            {
+                // Update UI
+
+            }
+        }
+
+        if (flag == "TRIBUTE")
+        {
+            if (IsServer)
+            {
+                crystals--;
+
+                SendUpdate("TRIBUTE", "");
+            }
+            if (IsClient)
+            {
+                if (IsLocalPlayer)
+                {
+                    // Update UI
+
+                }
+                nearestPillar.ActivatePedistal();
+
+            }
+            
         }
     }
 
@@ -221,6 +246,14 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
+    public void TributeCrystal()
+    {
+        if (canTribute)
+        {
+            SendCommand("TRIBUTE", "");
+        } 
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -242,6 +275,25 @@ public class PlayerCharacter : NetworkComponent
         if (other.gameObject.tag == "AntennaPiece")
         {
             SendCommand("ANTENNAADD", "");
+        }
+
+        if (other.gameObject.tag == "Pillar")
+        {
+            Pillar pillar = other.gameObject.GetComponent<Pillar>();
+            nearestPillar = pillar;
+            if (crystals > 0 && pillar.GateElement == playerElement)
+            { 
+                canTribute = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Pillar")
+        {
+            canTribute = false;
+            nearestPillar = null;
         }
     }
 }

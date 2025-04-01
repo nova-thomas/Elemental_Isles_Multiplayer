@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: -2420035559087175548}
   m_Layer: 0
   m_Name: CrystalPillar
-  m_TagString: Untagged
+  m_TagString: Pillar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
