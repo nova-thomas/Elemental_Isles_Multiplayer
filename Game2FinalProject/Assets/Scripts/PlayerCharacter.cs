@@ -3,11 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using NETWORK_ENGINE;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using Unity.VisualScripting.AssemblyQualifiedNameParser;
 
 public class PlayerCharacter : NetworkComponent
 {
+    /*              **Variables**              */
+    //Name Variables
     public Text PlayerName;
     public string PName = "<Default>";
+
+    //Prefab Components
+    public Rigidbody myRig;
+
+    //Movement Variables
+    public float speed = 8f;
+    public float lookSpeed = 12f;
+    private float xRotation = 0f;
+    private Vector2 moveIn;
+    private Vector2 lookIn;
+    private Vector3 rotIn;
+    public Transform playerCam;
+
+
+    /*              **Functions**              */
+    //Network Functions
+    public Vector2 Vector2FromString(string s)
+    {
+        string[] args = s.Trim().Trim('(').Trim(')').Split(',');
+        return new Vector2(float.Parse(args[0]), float.Parse(args[1]));
+    }
 
     public override void HandleMessage(string flag, string value)
     {
@@ -15,6 +40,20 @@ public class PlayerCharacter : NetworkComponent
         {
             PName = value;
             ApplyCustomization();
+        }
+
+        if (flag == "MOVE")
+        {
+            if (IsServer)
+            {
+                moveIn = Vector2FromString(value);
+            }
+        }
+
+        if (flag == "ROT" && IsServer)
+        {
+            lookIn.x = float.Parse(value);
+            transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
         }
     }
 
@@ -38,6 +77,7 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
+    //Player Name Function
     public void ApplyCustomization()
     {
         if (PlayerName != null)
@@ -46,7 +86,76 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
-    void Start() { }
+    //Default Functions
+    void Start()
+    {
+        myRig = GetComponent<Rigidbody>();
+        LockCursor();
+    }
 
-    void Update() { }
+    void Update()
+    {
+        if (IsServer)
+        {
+            Vector3 moveDirection = transform.forward * moveIn.y + transform.right * moveIn.x;
+            transform.position += moveDirection * speed * Time.deltaTime;
+            //myRig.rotation = Quaternion.Euler(rotIn);
+        }
+
+        if (IsLocalPlayer)
+        {
+            Camera.main.transform.position = playerCam.transform.position;
+            LookAround();
+        }
+    }
+
+    //Cursor Functions
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    //Input Callbacks
+    public void Move(InputAction.CallbackContext mv)
+    {
+        if (mv.phase == InputActionPhase.Performed)
+        {
+            SendCommand("MOVE", mv.ReadValue<Vector2>().ToString());
+        }
+        else if (mv.phase == InputActionPhase.Canceled)
+        {
+            SendCommand("MOVE", Vector2.zero.ToString());
+        }
+    }
+
+    public void Look(InputAction.CallbackContext lk)
+    {
+        if (lk.phase == InputActionPhase.Performed)
+        {
+            lookIn = lk.ReadValue<Vector2>() * lookSpeed;
+        }
+    }
+
+    //Camera Control
+    private void LookAround()
+    {
+        // Only rotate camera when the cursor is locked
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
+            xRotation -= lookIn.y * Time.deltaTime;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            playerCam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            SendCommand("ROT", lookIn.x.ToString());
+            lookIn = Vector2.zero;
+            Camera.main.transform.rotation = transform.rotation;
+        }
+    }
 }

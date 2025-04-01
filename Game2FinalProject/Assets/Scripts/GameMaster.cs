@@ -47,6 +47,8 @@ public class GameMaster : NetworkComponent
             if (TimerPanel != null)
             {
                 TimerPanel.SetActive(value == "1");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
 
@@ -141,6 +143,7 @@ public class GameMaster : NetworkComponent
         }
 
         SendUpdate("SHOWTIMER", "0");
+        Cursor.lockState = CursorLockMode.None;
         UpdateScoreScreen();
     }
 
