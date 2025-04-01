@@ -28,16 +28,13 @@ public class FloatingObject : NetworkComponent
 
     public override IEnumerator SlowUpdate()
     {
-        while (true)
+        while (IsServer)
         {
-            if (IsServer)
-            {
                 transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
 
                 SendUpdate("ROT", transform.eulerAngles.y.ToString());
-            }
 
-            yield return new WaitForSeconds(0.05f); 
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
