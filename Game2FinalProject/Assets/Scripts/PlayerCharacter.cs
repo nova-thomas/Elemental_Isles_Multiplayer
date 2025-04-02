@@ -24,7 +24,6 @@ public class PlayerCharacter : NetworkComponent
     private float xRotation = 0f;
     private Vector2 moveIn;
     private Vector2 lookIn;
-    private Vector3 rotIn;
     public Transform playerCam;
 
     // Game Variables
@@ -186,7 +185,6 @@ public class PlayerCharacter : NetworkComponent
         {
             Vector3 moveDirection = transform.forward * moveIn.y + transform.right * moveIn.x;
             transform.position += moveDirection * speed * Time.deltaTime;
-            //myRig.rotation = Quaternion.Euler(rotIn);
         }
 
         if (IsLocalPlayer)
@@ -239,10 +237,9 @@ public class PlayerCharacter : NetworkComponent
             transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
             xRotation -= lookIn.y * Time.deltaTime;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-            playerCam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             SendCommand("ROT", lookIn.x.ToString());
+            Camera.main.transform.rotation = Quaternion.Euler(xRotation, transform.localRotation.eulerAngles.y, 0f);
             lookIn = Vector2.zero;
-            Camera.main.transform.rotation = transform.rotation;
         }
     }
 
