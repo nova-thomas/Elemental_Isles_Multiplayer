@@ -39,6 +39,8 @@ public class GameMaster : NetworkComponent
                 if (npm.transform.childCount > 0)
                 {
                     npm.transform.GetChild(0).gameObject.SetActive(false);
+                    npm.transform.GetChild(1).gameObject.SetActive(true);
+
                 }
             }
 

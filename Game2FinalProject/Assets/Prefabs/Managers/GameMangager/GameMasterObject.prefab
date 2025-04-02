@@ -514,7 +514,7 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   GameStarted: 0
-  TimerDuration: 20
+  TimerDuration: 5
   TimerPanel: {fileID: 4174812043198579280}
   TimerText: {fileID: 8107025560657377783}
   ScorePanel: {fileID: 3118569387663064224}
@@ -522,6 +522,7 @@ MonoBehaviour:
   Player2Text: {fileID: 5994751532687886139}
   Player3Text: {fileID: 57696725073981721}
   Player4Text: {fileID: 5441088558073955583}
+  AntennaCount: 0
 --- !u!1 &4618970864080750085
 GameObject:
   m_ObjectHideFlags: 0

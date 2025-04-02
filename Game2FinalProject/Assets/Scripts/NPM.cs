@@ -11,8 +11,15 @@ public class NPM : NetworkComponent
     public int ElementSelected;
     public Text PlayerNumberText;
     public Text ElementText;
+    public GameObject HUDPanel; // Reference to the HUD panel
 
-    private string[] elementNames = { "The water ability can push obstacles and enemies!", "The fire ability can burn and melt obstacles!", "The earth ability can build bridges!", "The air ability can launch you upwards!" };
+    private string[] elementNames =
+    {
+        "The water ability can push obstacles and enemies!",
+        "The fire ability can burn and melt obstacles!",
+        "The earth ability can build bridges!",
+        "The air ability can launch you upwards!"
+    };
 
     public override void HandleMessage(string flag, string value)
     {
@@ -54,9 +61,14 @@ public class NPM : NetworkComponent
             if (this.transform.childCount > 0)
             {
                 this.transform.GetChild(0).gameObject.SetActive(false);
+                this.transform.GetChild(1).gameObject.SetActive(true);
             }
 
-            SpawnPlayers();
+            if (HUDPanel != null)
+            {
+                HUDPanel.SetActive(true);
+            }
+
         }
     }
 
@@ -80,6 +92,11 @@ public class NPM : NetworkComponent
         {
             PName = "Player " + (Owner + 1);
             SendUpdate("PNAME", PName);
+        }
+
+        if (HUDPanel != null)
+        {
+            HUDPanel.SetActive(false);
         }
     }
 
