@@ -240,7 +240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1552687316904698924, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
       propertyPath: TimerDuration
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2019307496673789829, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
       propertyPath: m_AnchorMax.y

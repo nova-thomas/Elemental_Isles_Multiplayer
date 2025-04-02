@@ -209,6 +209,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &5350167199946748564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8888629235428583312}
+  m_Layer: 0
+  m_Name: AbilitySpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8888629235428583312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350167199946748564}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00134, z: 0.00704}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5281566793000455186}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8791361828160457127
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +418,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 72632645845052813}
+    - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8888629235428583312}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
@@ -403,9 +437,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2964308012608698242}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3371172103959646709}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6175654768208229019}
@@ -536,29 +567,12 @@ MonoBehaviour:
   speed: 8
   lookSpeed: 12
   playerCam: {fileID: 667633520942293180}
---- !u!114 &3371172103959646709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6938223670773840162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72333cb095b9023459ce9d25664726d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyCore: {fileID: 0}
-  MyId: {fileID: 0}
-  IsDirty: 0
-  LastPosition: {x: 0, y: 0, z: 0}
-  LastRotation: {x: 0, y: 0, z: 0}
-  LastScale: {x: 0, y: 0, z: 0}
-  MinThreshold: 0.1
-  MaxThreshold: 0.5
-  Smooth: 1
-  NavMeshSpeed: 1
-  RotationSpeed: 1.5707964
+  playerElement: 0
+  score: 0
+  coins: 0
+  crystals: 0
+  nearestPillar: {fileID: 0}
+  canTribute: 0
 --- !u!114 &6175654768208229019
 MonoBehaviour:
   m_ObjectHideFlags: 0

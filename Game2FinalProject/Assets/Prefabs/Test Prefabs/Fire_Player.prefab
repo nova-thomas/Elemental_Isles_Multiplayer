@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2031750050130600618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7542178056491659559}
+  m_Layer: 0
+  m_Name: AbilitySpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7542178056491659559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031750050130600618}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.00135, z: 0.00676}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6344961906080302898}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4065356846193831690
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +418,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2423444938296334937}
+    - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7542178056491659559}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
@@ -403,9 +437,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8971731809922582293}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8525548336340411770}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6418739817024205066}
@@ -536,29 +567,12 @@ MonoBehaviour:
   speed: 8
   lookSpeed: 12
   playerCam: {fileID: 4313777880782144856}
---- !u!114 &8525548336340411770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8146929900136804866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72333cb095b9023459ce9d25664726d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyCore: {fileID: 0}
-  MyId: {fileID: 0}
-  IsDirty: 0
-  LastPosition: {x: 0, y: 0, z: 0}
-  LastRotation: {x: 0, y: 0, z: 0}
-  LastScale: {x: 0, y: 0, z: 0}
-  MinThreshold: 0.1
-  MaxThreshold: 0.5
-  Smooth: 1
-  NavMeshSpeed: 1
-  RotationSpeed: 1.5707964
+  playerElement: 0
+  score: 0
+  coins: 0
+  crystals: 0
+  nearestPillar: {fileID: 0}
+  canTribute: 0
 --- !u!114 &6418739817024205066
 MonoBehaviour:
   m_ObjectHideFlags: 0
