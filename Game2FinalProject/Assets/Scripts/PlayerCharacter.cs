@@ -105,15 +105,15 @@ public class PlayerCharacter : NetworkComponent
             switch (playerElement)
             {
                 case Elements.Fire:
-                    currentAbility = MyCore.NetCreateObject(24, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+                    currentAbility = MyCore.NetCreateObject(24, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
                     abilitySpeed = flameSpeed;
                     break;
                 case Elements.Earth:
-                    currentAbility = MyCore.NetCreateObject(25, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+                    currentAbility = MyCore.NetCreateObject(25, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
                     abilitySpeed = mudShotSpeed;
                     break;
                 case Elements.Water:
-                    currentAbility = MyCore.NetCreateObject(26, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+                    currentAbility = MyCore.NetCreateObject(26, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
                     abilitySpeed = waterBlastSpeed;
                     break;
             }
@@ -123,7 +123,7 @@ public class PlayerCharacter : NetworkComponent
                 Rigidbody abilityRig = currentAbility.GetComponent<Rigidbody>();
                 if (abilityRig != null)
                 {
-                    abilityRig.velocity = bulletLoc.transform.forward * abilitySpeed;
+                    abilityRig.velocity = elementLoc.transform.forward * abilitySpeed;
                     Debug.Log("Ability fired with speed: " + abilitySpeed);
                 }
             }
