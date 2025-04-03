@@ -70,6 +70,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
+  doorOpened: 0
 --- !u!1 &6958070383395808069
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +256,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a729229519b1b9041bfbe8f7302f8303, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0c93615a0fd8511808de93b9c0a219, type: 2}
     - target: {fileID: 919132149155446097, guid: a729229519b1b9041bfbe8f7302f8303, type: 3}
       propertyPath: m_Name
       value: Gate_Desert_Big_0_1
