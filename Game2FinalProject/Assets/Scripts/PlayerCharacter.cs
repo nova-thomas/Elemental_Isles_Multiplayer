@@ -329,10 +329,18 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
-    public void AbilityFire(InputAction.CallbackContext fr)
+    public void AbilityFire(InputAction.CallbackContext afr)
     {
         canShootAbility = false;
         SendCommand("FIREABILITY", " ");
+    }
+
+    public void Interact(InputAction.CallbackContext ia)
+    {
+        if (canTribute && nearestPillar != null)
+        {
+            SendCommand("TRIBUTE", "");
+        }
     }
 
     //Camera Control
@@ -348,14 +356,6 @@ public class PlayerCharacter : NetworkComponent
             Camera.main.transform.rotation = Quaternion.Euler(xRotation, transform.localRotation.eulerAngles.y, 0f);
             lookIn = Vector2.zero;
         }
-    }
-
-    public void TributeCrystal()
-    {
-        if (canTribute)
-        {
-            SendCommand("TRIBUTE", "");
-        } 
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -408,11 +408,5 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
-    public void Interact()
-    {
-        if (canTribute && nearestPillar != null)
-        {
-            TributeCrystal();
-        }
-    }
+    
 }
