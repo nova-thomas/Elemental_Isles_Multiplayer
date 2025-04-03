@@ -141,6 +141,7 @@ public class PlayerCharacter : NetworkComponent
 
     public override void NetworkedStart()
     {
+        gameObject.tag = "Player";
         if (IsServer)
         {
             SendUpdate("SETUP", PName);
