@@ -29,7 +29,6 @@ public class PlayerCharacter : NetworkComponent
     // Game Variables
     public Elements playerElement;
     public int score;
-    public int coins;
     public int crystals;
     public Pillar nearestPillar;
     public bool canTribute;
@@ -73,9 +72,6 @@ public class PlayerCharacter : NetworkComponent
 
             if (IsServer)
             {
-                // coins += rand int from 100 - 500
-                coins += Random.Range(1, 6) * 100;
-
                 score += 100;
                 SendUpdate("COINADD", "");
             }
