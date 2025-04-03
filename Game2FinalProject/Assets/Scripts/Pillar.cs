@@ -52,7 +52,10 @@ public class Pillar : NetworkComponent
 
     public void ActivatePedistal()
     {
-        SendCommand("ACTIVATE", "true");
+        if (!doorOpened)
+        {
+            SendCommand("ACTIVATE", "true");
+        }
     }
 
     public void OnTriggerEnter(Collider other)

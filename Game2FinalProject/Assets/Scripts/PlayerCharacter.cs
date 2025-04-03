@@ -362,4 +362,12 @@ public class PlayerCharacter : NetworkComponent
             nearestPillar = null;
         }
     }
+
+    public void Interact()
+    {
+        if (canTribute && nearestPillar != null)
+        {
+            TributeCrystal();
+        }
+    }
 }
