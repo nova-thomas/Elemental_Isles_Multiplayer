@@ -68,11 +68,20 @@ public class Pillar : NetworkComponent
                 }
             }
         }
-        
     }
 
     public void OnTriggerExit(Collider other)
     {
-        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        if (other.tag == "Player")
+        {
+            PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+            if (player.playerElement == this.GateElement)
+            {
+                if (IsLocalPlayer)
+                {
+                    this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                }
+            }
+        }
     }
 }
