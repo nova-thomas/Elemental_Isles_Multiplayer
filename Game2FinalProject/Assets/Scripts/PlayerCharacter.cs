@@ -23,6 +23,9 @@ public class PlayerCharacter : NetworkComponent
     public GameObject bulletLoc;
     public GameObject elementLoc;
     public float bulletSpeed = 3f;
+    public float flameSpeed = 1f;
+    public float waterBlastSpeed = 2f;
+    public float mudShotSpeed = 2f;
 
     //Movement Variables
     public bool canJump;
@@ -34,6 +37,7 @@ public class PlayerCharacter : NetworkComponent
     private Vector2 lookIn;
     public Transform playerCam;
     public bool canShoot;
+    public bool canShootAbility;
     public float ROF = 3;
 
     // Game Variables
@@ -42,6 +46,7 @@ public class PlayerCharacter : NetworkComponent
     public int crystals;
     public Pillar nearestPillar;
     public bool canTribute;
+    public int antennaCollected;
 
 
     /*              **Functions**              */
@@ -92,6 +97,39 @@ public class PlayerCharacter : NetworkComponent
             }
         }
 
+        if (flag == "FIREABILITY" && IsServer && (crystals >= 1))
+        {
+            GameObject currentAbility = null;
+            float abilitySpeed = 0f;
+
+            switch (playerElement)
+            {
+                case Elements.Fire:
+                    currentAbility = MyCore.NetCreateObject(24, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+                    abilitySpeed = flameSpeed;
+                    break;
+                case Elements.Earth:
+                    currentAbility = MyCore.NetCreateObject(25, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+                    abilitySpeed = mudShotSpeed;
+                    break;
+                case Elements.Water:
+                    currentAbility = MyCore.NetCreateObject(26, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+                    abilitySpeed = waterBlastSpeed;
+                    break;
+            }
+
+            if (currentAbility != null)
+            {
+                Rigidbody abilityRig = currentAbility.GetComponent<Rigidbody>();
+                if (abilityRig != null)
+                {
+                    abilityRig.velocity = bulletLoc.transform.forward * abilitySpeed;
+                    Debug.Log("Ability fired with speed: " + abilitySpeed);
+                }
+            }
+            crystals--;
+        }
+
         if (flag == "COINADD")
         {
             
@@ -130,7 +168,7 @@ public class PlayerCharacter : NetworkComponent
             
             if (IsServer)
             {
-                // Update game master antenna int
+                antennaCollected++;
 
                 score += 5000;
 
@@ -168,6 +206,7 @@ public class PlayerCharacter : NetworkComponent
     public override void NetworkedStart()
     {
         gameObject.tag = "Player";
+        antennaCollected = 0;
         if (IsServer)
         {
             SendUpdate("SETUP", PName);
@@ -288,6 +327,12 @@ public class PlayerCharacter : NetworkComponent
         {
             //Reload Animation
         }
+    }
+
+    public void AbilityFire(InputAction.CallbackContext fr)
+    {
+        canShootAbility = false;
+        SendCommand("FIREABILITY", " ");
     }
 
     //Camera Control

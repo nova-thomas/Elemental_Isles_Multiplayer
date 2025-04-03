@@ -1475,15 +1475,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8145726794103114823, guid: c34be984827288c44ad0f52f207510ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.33
+      value: -14.05
       objectReference: {fileID: 0}
     - target: {fileID: 8145726794103114823, guid: c34be984827288c44ad0f52f207510ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.44
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8145726794103114823, guid: c34be984827288c44ad0f52f207510ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.12
+      value: 14.14
       objectReference: {fileID: 0}
     - target: {fileID: 8145726794103114823, guid: c34be984827288c44ad0f52f207510ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1574,14 +1574,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
-      propertyPath: SpawnPrefab.Array.size
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
-      propertyPath: 'SpawnPrefab.Array.data[23]'
-      value: 
-      objectReference: {fileID: 2828953622798452954, guid: fc48edd57683673458c8b7f9297c4917, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

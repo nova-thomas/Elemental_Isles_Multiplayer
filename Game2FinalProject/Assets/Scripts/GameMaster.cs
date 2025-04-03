@@ -85,6 +85,11 @@ public class GameMaster : NetworkComponent
             if (Player3Text != null) Player3Text.text = scores.Length > 2 ? scores[2] : "";
             if (Player4Text != null) Player4Text.text = scores.Length > 3 ? scores[3] : "";
         }
+
+        if(flag == "WIN")
+        {
+
+        }
     }
 
     public override void NetworkedStart()
@@ -211,13 +216,14 @@ public class GameMaster : NetworkComponent
         if (IsServer)
         {
             // Get variables from players
+            CollectGameVariables();
 
             if (AntennaCount >= 4)
             {
-                // Win Condition
+                Win();
             }
 
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -240,7 +246,14 @@ public class GameMaster : NetworkComponent
 
     public void CollectGameVariables()
     {
+        // Collect player scores and (antennaCount = sum of all the players anntennaCollected)
 
+
+    }
+
+    public void Win()
+    {
+        SendUpdate("WIN", "");
     }
 
 }
