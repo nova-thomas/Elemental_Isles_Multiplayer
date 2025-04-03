@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using NETWORK_ENGINE;
+
+public class CollectableSpawner : NetworkComponent
+{
+    public Vector3 spawnAreaSize = new Vector3(10f, 0f, 10f);
+    public override void HandleMessage(string flag, string value)
+    {
+        
+    }
+
+    public override void NetworkedStart()
+    {
+        
+    }
+
+    public override IEnumerator SlowUpdate()
+    {
+        // Spawn collectable once every 3 seconds
+        while (IsConnected)
+        {
+            SpawnCollectable();
+
+            yield return new WaitForSeconds(5f);
+        }
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void SpawnCollectable()
+    {
+        if (!IsServer) return; // Only the server should spawn objects
+
+        // Choose a random collectable ID (5-8 antenna, 9 coins, 10-13 collectables)
+        int[] validIDs = { 5, 6, 7, 9, 10, 11, 12, 13 };
+        int randomID = validIDs[Random.Range(0, validIDs.Length)];
+        Debug.Log(randomID);
+
+        // Randomize spawn position within defined area
+        Vector3 randomOffset = new Vector3(
+            Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
+            0f, // Keep Y consistent unless floating collectables are needed
+            Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
+        );
+        Vector3 spawnPosition = this.transform.position + randomOffset;
+
+        // Spawn the collectable object
+        MyCore.NetCreateObject(randomID, this.Owner, spawnPosition, Quaternion.identity);
+    }
+}

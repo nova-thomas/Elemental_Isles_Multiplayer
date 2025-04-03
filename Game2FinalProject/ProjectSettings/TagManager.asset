@@ -12,6 +12,7 @@ TagManager:
   - Ice Power
   - Chest
   - Crystal
+  - Pillar
   layers:
   - Default
   - TransparentFX
