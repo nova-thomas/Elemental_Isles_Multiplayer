@@ -19,6 +19,8 @@ public class PlayerCharacter : NetworkComponent
     public Rigidbody myRig;
 
     //Movement Variables
+    public bool canJump;
+    public float jumpForce = 5f;
     public float speed = 8f;
     public float lookSpeed = 12f;
     private float xRotation = 0f;
@@ -42,8 +44,6 @@ public class PlayerCharacter : NetworkComponent
         return new Vector2(float.Parse(args[0]), float.Parse(args[1]));
     }
 
-    
-
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "SETUP")
@@ -64,6 +64,12 @@ public class PlayerCharacter : NetworkComponent
         {
             lookIn.x = float.Parse(value);
             transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
+        }
+
+        if (flag == "JUMP" && IsServer)
+        {
+            myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = false;
         }
 
         if (flag == "COINADD")
@@ -174,6 +180,7 @@ public class PlayerCharacter : NetworkComponent
     {
         myRig = GetComponent<Rigidbody>();
         LockCursor();
+        canJump = true;
     }
 
     void Update()
@@ -225,6 +232,15 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
+    public void Jump(InputAction.CallbackContext jm)
+    {
+        if (jm.phase == InputActionPhase.Started && canJump)
+        {
+            canJump = false;
+            SendCommand("JUMP", "");
+        }
+    }
+
     //Camera Control
     private void LookAround()
     {
@@ -248,6 +264,13 @@ public class PlayerCharacter : NetworkComponent
         } 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            canJump = true;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -569,12 +569,13 @@ MonoBehaviour:
   PlayerName: {fileID: 3279493007022744145}
   PName: <Default>
   myRig: {fileID: 0}
+  canJump: 0
+  jumpForce: 5
   speed: 8
   lookSpeed: 12
   playerCam: {fileID: 7542259090493816477}
   playerElement: 0
   score: 0
-  coins: 0
   crystals: 0
   nearestPillar: {fileID: 0}
   canTribute: 0
@@ -652,7 +653,19 @@ MonoBehaviour:
     m_ActionId: 1a9e5b1c-f225-4505-a362-6b80d5b82441
     m_ActionName: 'Player/Look at Scoreboard[/Keyboard/tab]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6721193727174612245}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: cc7c2353-5bbf-4bb1-897c-09aa496abd80
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
