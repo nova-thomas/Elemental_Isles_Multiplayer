@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2031750050130600618
+--- !u!1 &1010631745486041654
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7542178056491659559}
+  - component: {fileID: 2397127224993035969}
   m_Layer: 0
-  m_Name: AbilitySpawn
+  m_Name: ElementLoc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7542178056491659559
+--- !u!4 &2397127224993035969
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031750050130600618}
+  m_GameObject: {fileID: 1010631745486041654}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.00135, z: 0.00676}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.0000000745058, y: -0.000000059604638, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0005355209, z: 0.006645482}
+  m_LocalScale: {x: 0.013034079, y: 0.013034076, z: 0.01303408}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6344961906080302898}
@@ -212,6 +212,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &5542725754969415335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 778244331503953509}
+  m_Layer: 0
+  m_Name: BulletLoc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &778244331503953509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542725754969415335}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000745058, y: -0.000000059604638, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0013175659, z: 0.0070365025}
+  m_LocalScale: {x: 0.013034079, y: 0.013034076, z: 0.01303408}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6344961906080302898}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6111857320198236215
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,37 +350,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8810278066146896056}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7972244763230347862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2423444938296334937}
-  m_Layer: 0
-  m_Name: BulletSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2423444938296334937
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7972244763230347862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00056, z: 0.00641}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6344961906080302898}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9065425291398385491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,10 +417,10 @@ PrefabInstance:
       addedObject: {fileID: 4313777880782144856}
     - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2423444938296334937}
+      addedObject: {fileID: 778244331503953509}
     - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7542178056491659559}
+      addedObject: {fileID: 2397127224993035969}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
       insertIndex: -1
@@ -441,6 +441,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6418739817024205066}
   m_SourcePrefab: {fileID: 100100000, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
+--- !u!1 &1999003323626208464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1841058918131551357, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
+  m_PrefabInstance: {fileID: 9065425291398385491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3641647635854308066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3510723591172244047, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
+  m_PrefabInstance: {fileID: 9065425291398385491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6344961906080302898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2721029015609133153, guid: 3debf3e508ca8904c93decb1cc740ff0, type: 3}
@@ -564,11 +574,18 @@ MonoBehaviour:
   PlayerName: {fileID: 2853992983182905104}
   PName: <Default>
   myRig: {fileID: 0}
+  playerModel: {fileID: 1999003323626208464}
+  playerGun: {fileID: 3641647635854308066}
+  bulletLoc: {fileID: 5542725754969415335}
+  elementLoc: {fileID: 1010631745486041654}
+  bulletSpeed: 20
   canJump: 0
   jumpForce: 5
   speed: 8
   lookSpeed: 12
   playerCam: {fileID: 4313777880782144856}
+  canShoot: 0
+  ROF: 3
   playerElement: 0
   score: 0
   crystals: 0
@@ -632,7 +649,19 @@ MonoBehaviour:
     m_ActionId: 355bc65d-cc4e-4f79-a896-1fcaf9a72cb2
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8971731809922582293}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5356ec2d-77e6-4704-98a8-b9332bd469a5
     m_ActionName: 'Player/Fire[/Mouse/leftButton]'
   - m_PersistentCalls:

@@ -4,7 +4,6 @@ using UnityEngine;
 using NETWORK_ENGINE;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting.AssemblyQualifiedNameParser;
 
 public class PlayerCharacter : NetworkComponent
 {
@@ -17,6 +16,13 @@ public class PlayerCharacter : NetworkComponent
 
     //Prefab Components
     public Rigidbody myRig;
+    public GameObject playerModel;
+    public GameObject playerGun;
+
+    //Projectile Variables
+    public GameObject bulletLoc;
+    public GameObject elementLoc;
+    public float bulletSpeed = 3f;
 
     //Movement Variables
     public bool canJump;
@@ -27,6 +33,8 @@ public class PlayerCharacter : NetworkComponent
     private Vector2 moveIn;
     private Vector2 lookIn;
     public Transform playerCam;
+    public bool canShoot;
+    public float ROF = 3;
 
     // Game Variables
     public Elements playerElement;
@@ -70,6 +78,18 @@ public class PlayerCharacter : NetworkComponent
         {
             myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canJump = false;
+        }
+
+        if (flag == "FIRE" && IsServer)
+        {
+            GameObject currentBullet = MyCore.NetCreateObject(23, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+            Rigidbody bulletRig = currentBullet.GetComponent<Rigidbody>();
+
+            if (bulletRig != null)
+            {
+                bulletRig.velocity = bulletLoc.transform.forward * bulletSpeed;
+                Debug.Log("bullet vel " + bulletRig.velocity);
+            }
         }
 
         if (flag == "COINADD")
@@ -152,6 +172,13 @@ public class PlayerCharacter : NetworkComponent
         {
             SendUpdate("SETUP", PName);
         }
+
+        if (IsLocalPlayer)
+        {
+            //gameObject.GetComponentInChildren<Renderer>().enabled = false;
+            playerModel.SetActive(false);
+            Debug.Log("invisible");
+        }
     }
 
     public override IEnumerator SlowUpdate()
@@ -181,6 +208,7 @@ public class PlayerCharacter : NetworkComponent
         myRig = GetComponent<Rigidbody>();
         LockCursor();
         canJump = true;
+        bulletSpeed = 3f;
     }
 
     void Update()
@@ -238,6 +266,27 @@ public class PlayerCharacter : NetworkComponent
         {
             canJump = false;
             SendCommand("JUMP", "");
+        }
+    }
+
+    public void Fire(InputAction.CallbackContext fr)
+    {
+        canShoot = false;
+        SendCommand("FIRE", " ");
+        //StartCoroutine(Reload());
+    }
+
+    public IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(ROF);
+        if (IsServer)
+        {
+            canShoot = true;
+            SendUpdate("CSH", canShoot.ToString());
+        }
+        else
+        {
+            //Reload Animation
         }
     }
 

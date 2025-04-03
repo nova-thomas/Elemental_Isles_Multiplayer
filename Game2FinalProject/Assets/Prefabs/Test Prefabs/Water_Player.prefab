@@ -76,37 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &3239990113793313481
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 72632645845052813}
-  m_Layer: 0
-  m_Name: BulletSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &72632645845052813
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3239990113793313481}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.00056, z: 0.00641}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5281566793000455186}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3808071523576496559
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +178,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &5350167199946748564
+--- !u!1 &4347733919697601786
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,25 +186,56 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8888629235428583312}
+  - component: {fileID: 7280996048117320114}
   m_Layer: 0
-  m_Name: AbilitySpawn
+  m_Name: BulletLoc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8888629235428583312
+--- !u!4 &7280996048117320114
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5350167199946748564}
+  m_GameObject: {fileID: 4347733919697601786}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00134, z: 0.00704}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.0000000745058, y: -0.000000059604638, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0013175663, z: 0.0070365034}
+  m_LocalScale: {x: 0.013034079, y: 0.013034076, z: 0.01303408}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5281566793000455186}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6760433923748885569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7450033432249320296}
+  m_Layer: 0
+  m_Name: ElementLoc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7450033432249320296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760433923748885569}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000745058, y: -0.000000059604638, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00053552206, z: 0.0067758197}
+  m_LocalScale: {x: 0.013034079, y: 0.013034076, z: 0.01303408}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5281566793000455186}
@@ -417,10 +417,10 @@ PrefabInstance:
       addedObject: {fileID: 667633520942293180}
     - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 72632645845052813}
+      addedObject: {fileID: 7280996048117320114}
     - targetCorrespondingSourceObject: {fileID: 2721029015609133153, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8888629235428583312}
+      addedObject: {fileID: 7450033432249320296}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
       insertIndex: -1
@@ -441,6 +441,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6175654768208229019}
   m_SourcePrefab: {fileID: 100100000, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
+--- !u!1 &791457958492338160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1841058918131551357, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
+  m_PrefabInstance: {fileID: 7820760765696263283}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2580433962467555778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3510723591172244047, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
+  m_PrefabInstance: {fileID: 7820760765696263283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5281566793000455186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2721029015609133153, guid: e2ed9edc6fc3aaf4da26acebb5f24b5e, type: 3}
@@ -564,11 +574,18 @@ MonoBehaviour:
   PlayerName: {fileID: 9096773935668997637}
   PName: <Default>
   myRig: {fileID: 0}
+  playerModel: {fileID: 791457958492338160}
+  playerGun: {fileID: 2580433962467555778}
+  bulletLoc: {fileID: 4347733919697601786}
+  elementLoc: {fileID: 6760433923748885569}
+  bulletSpeed: 20
   canJump: 0
   jumpForce: 5
   speed: 8
   lookSpeed: 12
   playerCam: {fileID: 667633520942293180}
+  canShoot: 0
+  ROF: 3
   playerElement: 0
   score: 0
   crystals: 0
@@ -632,7 +649,19 @@ MonoBehaviour:
     m_ActionId: 355bc65d-cc4e-4f79-a896-1fcaf9a72cb2
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -2964308012608698242}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5356ec2d-77e6-4704-98a8-b9332bd469a5
     m_ActionName: 'Player/Fire[/Mouse/leftButton]'
   - m_PersistentCalls:

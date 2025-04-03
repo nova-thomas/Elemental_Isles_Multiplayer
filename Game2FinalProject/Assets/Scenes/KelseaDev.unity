@@ -1514,6 +1514,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: SpawnPrefab.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: 'SpawnPrefab.Array.data[23]'
+      value: 
+      objectReference: {fileID: 2828953622798452954, guid: fc48edd57683673458c8b7f9297c4917, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
