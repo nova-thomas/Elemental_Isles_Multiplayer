@@ -22,10 +22,10 @@ public class PlayerCharacter : NetworkComponent
     //Projectile Variables
     public GameObject bulletLoc;
     public GameObject elementLoc;
-    public float bulletSpeed = 3f;
-    public float flameSpeed = 1f;
-    public float waterBlastSpeed = 2f;
-    public float mudShotSpeed = 2f;
+    public float bulletSpeed = 20f;
+    public float flameSpeed = 3f;
+    public float waterBlastSpeed = 10f;
+    public float mudShotSpeed = 7f;
 
     //Movement Variables
     public bool canJump;

@@ -578,18 +578,23 @@ MonoBehaviour:
   bulletLoc: {fileID: 1800063791921526969}
   elementLoc: {fileID: 7994249778803596763}
   bulletSpeed: 20
+  flameSpeed: 1
+  waterBlastSpeed: 2
+  mudShotSpeed: 2
   canJump: 0
   jumpForce: 5
   speed: 8
   lookSpeed: 12
   playerCam: {fileID: 7542259090493816477}
   canShoot: 0
+  canShootAbility: 0
   ROF: 3
   playerElement: 0
   score: 0
   crystals: 0
   nearestPillar: {fileID: 0}
   canTribute: 0
+  antennaCollected: 0
 --- !u!114 &3360857478583755931
 MonoBehaviour:
   m_ObjectHideFlags: 0
