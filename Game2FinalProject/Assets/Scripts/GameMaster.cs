@@ -161,7 +161,6 @@ public class GameMaster : NetworkComponent
                     pc.ApplyCustomization();
                 }
             }
-            //SpawnCoin();
             currentTimer = TimerDuration;
             StartCoroutine(StartTimer());
         }
@@ -227,28 +226,22 @@ public class GameMaster : NetworkComponent
         }
     }
 
-    void SpawnCoin()
-    {
-        if (IsServer)
-        {
-            GameObject coinSpawn = GameObject.Find("CoinSpawn");
-            if (coinSpawn != null)
-            {
-                Vector3 spawnPosition = coinSpawn.transform.position;
-                MyCore.NetCreateObject(38, -1, spawnPosition, Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogError("CoinSpawn object not found in the scene!");
-            }
-        }
-    }
 
     public void CollectGameVariables()
     {
-        // Collect player scores and (antennaCount = sum of all the players anntennaCollected)
+        // Reset the total antenna count
+        AntennaCount = 0;
 
+        // Clear the existing player scores
+        PlayerScores.Clear();
 
+        // Loop through the list of players already gathered
+        foreach (NPM npm in players)
+        {
+            // Store the score and sum up antenna counts
+            PlayerScores.Add(npm.score);
+            AntennaCount += npm.antennaCount;
+        }
     }
 
     public void Win()

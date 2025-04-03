@@ -13,6 +13,10 @@ public class NPM : NetworkComponent
     public Text ElementText;
     public GameObject HUDPanel; // Reference to the HUD panel
 
+    public int score;
+    public int antennaCount;
+    public int crystals;
+
     private string[] elementNames =
     {
         "The water ability can push obstacles and enemies!",
@@ -112,12 +116,25 @@ public class NPM : NetworkComponent
     {
         while (IsConnected)
         {
-            if (IsServer && IsDirty)
+            if (IsServer)
             {
-                SendUpdate("READY", IsReady.ToString());
-                SendUpdate("ELEMENT", ElementSelected.ToString());
-                SendUpdate("PNAME", PName);
-                IsDirty = false;
+                // Find the PlayerCharacter associated with this NPM
+                PlayerCharacter pc = FindPlayerCharacter();
+                if (pc != null)
+                {
+                    // Transfer score and antennaCount from PlayerCharacter to NPM
+                    score = pc.score;
+                    antennaCount = pc.antennaCollected;
+                    crystals = pc.crystals;
+                }
+
+                if (IsDirty)
+                {
+                    SendUpdate("READY", IsReady.ToString());
+                    SendUpdate("ELEMENT", ElementSelected.ToString());
+                    SendUpdate("PNAME", PName);
+                    IsDirty = false;
+                }
             }
             yield return new WaitForSeconds(.1f);
         }
@@ -127,21 +144,16 @@ public class NPM : NetworkComponent
     {
     }
 
-    void SpawnPlayers()
+    private PlayerCharacter FindPlayerCharacter()
     {
-        if (IsServer)
+        foreach (PlayerCharacter pc in FindObjectsOfType<PlayerCharacter>())
         {
-            foreach (NPM npm in FindObjectsOfType<NPM>())
+            if (pc.Owner == this.Owner)  // Ensure the player character belongs to this NPM
             {
-                Transform spawnPoint = GameObject.Find("P" + (npm.Owner + 1) + "Start").transform;
-                GameObject newPlayer = MyCore.NetCreateObject(npm.ElementSelected, npm.Owner, spawnPoint.position, Quaternion.identity);
-                PlayerCharacter pc = newPlayer.GetComponent<PlayerCharacter>();
-                if (pc != null)
-                {
-                    pc.PName = npm.PName;
-                    pc.ApplyCustomization();
-                }
+                return pc;
             }
         }
+        return null; // Return null if no matching character is found
     }
+ 
 }
