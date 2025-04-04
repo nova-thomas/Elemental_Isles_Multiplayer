@@ -19,7 +19,7 @@ public class CollectibleItem : NetworkComponent
 
     public override void HandleMessage(string flag, string value)
     {
-        
+
     }
 
     public override void NetworkedStart()
@@ -56,21 +56,8 @@ public class CollectibleItem : NetworkComponent
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void DestroyObj()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            PlayerCharacter playerObj = other.gameObject.GetComponent<PlayerCharacter>();
-            if (this.tag == "Crystal" && playerObj.playerElement == CrystalElement)
-            {
-                MyCore.NetDestroyObject(this.NetId);
-            }
-            else
-            {
-                MyCore.NetDestroyObject(this.NetId);
-            }
-
-        }
+        MyCore.NetDestroyObject(this.NetId);
     }
 }

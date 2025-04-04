@@ -42,7 +42,7 @@ public class Pillar : NetworkComponent
         {
             if(IsDirty)
             {
-                SendUpdate("ACTIVATE", "");
+                SendUpdate("ACTIVATE", doorOpened.ToString());
                 IsDirty = false;
             }
             yield return new WaitForSeconds(0.1f);
@@ -60,15 +60,12 @@ public class Pillar : NetworkComponent
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !doorOpened)
         {
             PlayerCharacter player = other.GetComponent<PlayerCharacter>();
             if (player.playerElement == this.GateElement)
             {
-                if (IsLocalPlayer)
-                {
-                    this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-                }
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
     }
@@ -80,10 +77,7 @@ public class Pillar : NetworkComponent
             PlayerCharacter player = other.GetComponent<PlayerCharacter>();
             if (player.playerElement == this.GateElement)
             {
-                if (IsLocalPlayer)
-                {
-                    this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                }
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using NETWORK_ENGINE;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerCharacter : NetworkComponent
 {
@@ -63,6 +64,14 @@ public class PlayerCharacter : NetworkComponent
         {
             PName = value;
             ApplyCustomization();
+        }
+
+        if(flag == "ELEMENT")
+        {
+            if (Enum.TryParse(value, out Elements pe))
+            {
+                playerElement = pe;
+            }
         }
 
         if (flag == "MOVE")
@@ -130,54 +139,33 @@ public class PlayerCharacter : NetworkComponent
             crystals--;
         }
 
-        if (flag == "COINADD")
+        if (flag == "COIN")
         {
-            
-
             if (IsServer)
             {
                 score += 100;
-                SendUpdate("COINADD", "");
-            }
-            if (IsLocalPlayer)
-            {
-                // Update UI
+                SendUpdate("SCORE", score.ToString());
             }
         }
 
-        if (flag == "CRYSTALADD")
+        if (flag == "CRYSTAL")
         {
-            
             if (IsServer)
             {
                 crystals++;
                 score += 500;
-
-
-                SendUpdate("CRYSTALADD", "");
-            }
-            if (IsLocalPlayer)
-            {
-                // Update UI
-
+                SendUpdate("SCORE", score.ToString());
+                SendUpdate("CRYSTALCOUNT", crystals.ToString());
             }
         }
 
-        if (flag == "ANTENNAADD")
+        if (flag == "ANTENNA")
         {
-            
             if (IsServer)
             {
                 antennaCollected++;
-
                 score += 5000;
-
-                SendUpdate("ANTENNAADD", "");
-            }
-            if (IsLocalPlayer)
-            {
-                // Update UI
-
+                SendUpdate("SCORE", score.ToString());
             }
         }
 
@@ -186,20 +174,24 @@ public class PlayerCharacter : NetworkComponent
             if (IsServer)
             {
                 crystals--;
-
                 SendUpdate("TRIBUTE", "");
             }
             if (IsClient)
             {
-                if (IsLocalPlayer)
-                {
-                    // Update UI
-
-                }
                 nearestPillar.ActivatePedistal();
-
             }
             
+        }
+
+        if (flag == "SCORE")
+        {
+            score = int.Parse(value);
+            Debug.Log("Score updated to: " + score);
+        }
+        if (flag == "CRYSTALCOUNT")
+        {
+            crystals = int.Parse(value);
+            Debug.Log("Crystals updated to: " + crystals);
         }
     }
 
@@ -207,9 +199,12 @@ public class PlayerCharacter : NetworkComponent
     {
         gameObject.tag = "Player";
         antennaCollected = 0;
+        score = 0;
+        crystals = 0;
         if (IsServer)
         {
             SendUpdate("SETUP", PName);
+            SendUpdate("ELEMENT", playerElement.ToString());
         }
 
         if (IsLocalPlayer)
@@ -227,6 +222,9 @@ public class PlayerCharacter : NetworkComponent
             if (IsServer && IsDirty)
             {
                 SendUpdate("SETUP", PName);
+                SendUpdate("SCORE", score.ToString());
+                SendUpdate("CRYSTALCOUNT", crystals.ToString());
+                IsDirty = false;
             }
             yield return new WaitForSeconds(.1f);
         }
@@ -337,7 +335,7 @@ public class PlayerCharacter : NetworkComponent
 
     public void Interact(InputAction.CallbackContext ia)
     {
-        if (canTribute && nearestPillar != null)
+        if (canTribute && (nearestPillar != null) && (nearestPillar.GateElement == this.playerElement))
         {
             SendCommand("TRIBUTE", "");
         }
@@ -370,7 +368,9 @@ public class PlayerCharacter : NetworkComponent
     {
         if (other.gameObject.tag == "Coin")
         {
-            SendCommand("COINADD", "");
+            SendCommand("COIN", "");
+            CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
+            item.DestroyObj();
         }
 
         if (other.gameObject.tag == "Crystal")
@@ -378,14 +378,18 @@ public class PlayerCharacter : NetworkComponent
             CollectibleItem crystal = other.gameObject.GetComponent<CollectibleItem>();
             if (crystal.CrystalElement == playerElement)
             {
-                SendCommand("CRYSTALADD", "");
+                SendCommand("CRYSTAL", "");
+                CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
+                item.DestroyObj();
             }
 
         }
 
         if (other.gameObject.tag == "AntennaPiece")
         {
-            SendCommand("ANTENNAADD", "");
+            SendCommand("ANTENNA", "");
+            CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
+            item.DestroyObj();
         }
 
         if (other.gameObject.tag == "Pillar")

@@ -23,7 +23,7 @@ public class CollectableSpawner : NetworkComponent
         {
             SpawnCollectable();
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
         }
         
     }
@@ -44,10 +44,7 @@ public class CollectableSpawner : NetworkComponent
     {
         if (!IsServer) return; // Only the server should spawn objects
 
-        // Choose a random collectable ID (5-8 antenna, 9 coins, 10-13 collectables)
-        int[] validIDs = { 5, 6, 7, 9, 10, 11, 12, 13 };
-        int randomID = validIDs[Random.Range(0, validIDs.Length)];
-        Debug.Log(randomID);
+        // Collectable ID (5-8 antenna, 9 coins, 10-13 collectables)
 
         // Randomize spawn position within defined area
         Vector3 randomOffset = new Vector3(
@@ -58,6 +55,6 @@ public class CollectableSpawner : NetworkComponent
         Vector3 spawnPosition = this.transform.position + randomOffset;
 
         // Spawn the collectable object
-        MyCore.NetCreateObject(randomID, this.Owner, spawnPosition, Quaternion.identity);
+        MyCore.NetCreateObject(9, this.Owner, spawnPosition, Quaternion.identity);
     }
 }
