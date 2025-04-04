@@ -17,7 +17,10 @@ public class GameMaster : NetworkComponent
 
     public GameObject ScorePanel;
     public Text Player1Text, Player2Text, Player3Text, Player4Text;
-    public Sprite[] ElementImages;
+
+    // Element Sprites and Image Objects
+    public Sprite[] ElementImages; // 0 = Water, 1 = Fire, 2 = Earth, 3 = Air
+    public Image P1ElementImage, P2ElementImage, P3ElementImage, P4ElementImage;
 
     // Game Variables
     private List<int> PlayerScores = new List<int>();
@@ -30,9 +33,9 @@ public class GameMaster : NetworkComponent
             GameStarted = true;
             AntennaCount = 0;
 
-            foreach (int player in PlayerScores)
+            for (int i = 0; i < PlayerScores.Count; i++)
             {
-                PlayerScores[player] = 0;
+                PlayerScores[i] = 0;
             }
 
             foreach (NPM npm in FindObjectsOfType<NPM>())
@@ -41,15 +44,15 @@ public class GameMaster : NetworkComponent
                 {
                     npm.transform.GetChild(0).gameObject.SetActive(false);
                     npm.transform.GetChild(1).gameObject.SetActive(true);
-
                 }
             }
+
+            UpdateElementImages();
 
             if (IsServer)
             {
                 currentTimer = TimerDuration;
                 StartCoroutine(StartTimer());
-               
             }
 
             SendUpdate("SHOWTIMER", "1");
@@ -80,16 +83,16 @@ public class GameMaster : NetworkComponent
                 ScorePanel.SetActive(true);
             }
 
-            string[] scores = value.Split('|'); 
+            string[] scores = value.Split('|');
             if (Player1Text != null) Player1Text.text = scores.Length > 0 ? scores[0] : "";
             if (Player2Text != null) Player2Text.text = scores.Length > 1 ? scores[1] : "";
             if (Player3Text != null) Player3Text.text = scores.Length > 2 ? scores[2] : "";
             if (Player4Text != null) Player4Text.text = scores.Length > 3 ? scores[3] : "";
         }
 
-        if(flag == "WIN")
+        if (flag == "WIN")
         {
-
+            // Handle win condition
         }
     }
 
@@ -138,25 +141,21 @@ public class GameMaster : NetworkComponent
                 if (pc != null)
                 {
                     pc.PName = npm.PName;
-                    
+
                     switch (npm.ElementSelected)
                     {
                         case 0:
                             pc.playerElement = PlayerCharacter.Elements.Water;
                             break;
-
                         case 1:
                             pc.playerElement = PlayerCharacter.Elements.Fire;
                             break;
-
                         case 2:
                             pc.playerElement = PlayerCharacter.Elements.Earth;
                             break;
-
                         case 3:
                             pc.playerElement = PlayerCharacter.Elements.Air;
                             break;
-
                     }
 
                     pc.ApplyCustomization();
@@ -199,7 +198,7 @@ public class GameMaster : NetworkComponent
         List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
         sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
 
-        string[] playerScores = new string[4]; 
+        string[] playerScores = new string[4];
 
         for (int i = 0; i < sortedPlayers.Count && i < 4; i++)
         {
@@ -207,7 +206,7 @@ public class GameMaster : NetworkComponent
             playerScores[i] = $"{sortedPlayers[i].PName} - {dummyScore} Points";
         }
 
-        string scoreData = string.Join("|", playerScores); 
+        string scoreData = string.Join("|", playerScores);
         SendUpdate("SHOWSCORE", scoreData);
     }
 
@@ -215,7 +214,6 @@ public class GameMaster : NetworkComponent
     {
         if (IsServer)
         {
-            // Get variables from players
             CollectGameVariables();
 
             if (AntennaCount >= 4)
@@ -227,19 +225,13 @@ public class GameMaster : NetworkComponent
         }
     }
 
-
     public void CollectGameVariables()
     {
-        // Reset the total antenna count
         AntennaCount = 0;
-
-        // Clear the existing player scores
         PlayerScores.Clear();
 
-        // Loop through the list of players already gathered
         foreach (NPM npm in players)
         {
-            // Store the score and sum up antenna counts
             PlayerScores.Add(npm.score);
             AntennaCount += npm.antennaCount;
         }
@@ -250,4 +242,23 @@ public class GameMaster : NetworkComponent
         SendUpdate("WIN", "");
     }
 
+    private void UpdateElementImages()
+    {
+        // Get all player objects
+        List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
+        sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
+
+        // Assign the correct element sprite based on ElementSelected
+        if (sortedPlayers.Count > 0 && P1ElementImage != null)
+            P1ElementImage.sprite = ElementImages[sortedPlayers[0].ElementSelected];
+
+        if (sortedPlayers.Count > 1 && P2ElementImage != null)
+            P2ElementImage.sprite = ElementImages[sortedPlayers[1].ElementSelected];
+
+        if (sortedPlayers.Count > 2 && P3ElementImage != null)
+            P3ElementImage.sprite = ElementImages[sortedPlayers[2].ElementSelected];
+
+        if (sortedPlayers.Count > 3 && P4ElementImage != null)
+            P4ElementImage.sprite = ElementImages[sortedPlayers[3].ElementSelected];
+    }
 }
