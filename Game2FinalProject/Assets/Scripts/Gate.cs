@@ -13,6 +13,7 @@ public class Gate : NetworkComponent
             if (value == "true")
             {
                 doorOpened = true;
+                SendUpdate("OPEN", doorOpened.ToString());
             }
             if (doorOpened)
             {

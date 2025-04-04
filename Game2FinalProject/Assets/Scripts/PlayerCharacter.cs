@@ -146,17 +146,7 @@ public class PlayerCharacter : NetworkComponent
 
         if (flag == "TRIBUTE")
         {
-            if (IsServer)
-            {
-                crystals--;
-                SendUpdate("CRYSTALCOUNT", crystals.ToString());
-                SendUpdate("TRIBUTE", "");
-            }
-            if (IsClient)
-            {
-                nearestPillar.ActivatePedistal();
-            }
-            
+            nearestPillar.ActivatePedistal();
         }
 
         if (flag == "SCORE")
@@ -174,6 +164,13 @@ public class PlayerCharacter : NetworkComponent
         {
             antennaCollected = int.Parse(value);
             Debug.Log("antennaCollected updated to: " + antennaCollected);
+        }
+
+        if (flag == "SETNEAREST" && IsServer)
+        {
+            int id = int.Parse(value);
+            GameObject pillarObj = MyCore.NetObjs[id].gameObject;
+            nearestPillar = pillarObj.GetComponent<Pillar>();
         }
     }
 
@@ -318,8 +315,10 @@ public class PlayerCharacter : NetworkComponent
 
     public void Interact(InputAction.CallbackContext ia)
     {
-        if (canTribute && (nearestPillar != null) && (nearestPillar.GateElement == this.playerElement))
+        if (canTribute)
         {
+            crystals--;
+            SendCommand("CRYSTALCOUNT", crystals.ToString());
             SendCommand("TRIBUTE", "");
         }
     }
@@ -387,8 +386,8 @@ public class PlayerCharacter : NetworkComponent
         if (other.gameObject.tag == "Pillar")
         {
             Pillar pillar = other.gameObject.GetComponent<Pillar>();
-            nearestPillar = pillar;
-            if (crystals > 0 && pillar.GateElement == playerElement)
+            SendUpdate("SETNEAREST", pillar.MyId.ToString());
+            if (crystals > 0 && (pillar.GateElement == playerElement) && (pillar.doorOpened == false))
             { 
                 canTribute = true;
             }

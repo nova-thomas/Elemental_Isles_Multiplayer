@@ -13,19 +13,20 @@ public class Pillar : NetworkComponent
 
     public override void HandleMessage(string flag, string value)
     {
-        if (flag == "ACTIVATE")
+        if (flag == "ACTIVATE" && value == "true")
         {
-            if (value == "true")
+            doorOpened = true;
+
+            // Update visuals
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+            if (gate != null)
             {
-                doorOpened = true;
+                gate.OpenDoor();  // Calls SendCommand("OPEN", "true")
             }
-            if (doorOpened)
-            {
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-                gate.OpenDoor();
-                SendUpdate("ACTIVATE", "");
-            }
+
+            SendUpdate("ACTIVATE", doorOpened.ToString());
         }
     }
 
