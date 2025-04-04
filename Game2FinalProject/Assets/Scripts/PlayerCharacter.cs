@@ -137,43 +137,16 @@ public class PlayerCharacter : NetworkComponent
                 }
             }
             crystals--;
+            SendUpdate("CRYSTALCOUNT", crystals.ToString());
         }
 
-        if (flag == "COIN")
-        {
-            if (IsServer)
-            {
-                score += 100;
-                SendUpdate("SCORE", score.ToString());
-            }
-        }
-
-        if (flag == "CRYSTAL")
-        {
-            if (IsServer)
-            {
-                crystals++;
-                score += 500;
-                SendUpdate("SCORE", score.ToString());
-                SendUpdate("CRYSTALCOUNT", crystals.ToString());
-            }
-        }
-
-        if (flag == "ANTENNA")
-        {
-            if (IsServer)
-            {
-                antennaCollected++;
-                score += 5000;
-                SendUpdate("SCORE", score.ToString());
-            }
-        }
 
         if (flag == "TRIBUTE")
         {
             if (IsServer)
             {
                 crystals--;
+                SendUpdate("CRYSTALCOUNT", crystals.ToString());
                 SendUpdate("TRIBUTE", "");
             }
             if (IsClient)
@@ -192,6 +165,12 @@ public class PlayerCharacter : NetworkComponent
         {
             crystals = int.Parse(value);
             Debug.Log("Crystals updated to: " + crystals);
+        }
+
+        if (flag == "ANTENNA")
+        {
+            antennaCollected = int.Parse(value);
+            Debug.Log("antennaCollected updated to: " + antennaCollected);
         }
     }
 
@@ -223,6 +202,7 @@ public class PlayerCharacter : NetworkComponent
             {
                 SendUpdate("SETUP", PName);
                 SendUpdate("SCORE", score.ToString());
+                SendUpdate("ANTENNA", antennaCollected.ToString());
                 SendUpdate("CRYSTALCOUNT", crystals.ToString());
                 IsDirty = false;
             }
@@ -368,7 +348,8 @@ public class PlayerCharacter : NetworkComponent
     {
         if (other.gameObject.tag == "Coin")
         {
-            SendCommand("COIN", "");
+            score += 100;
+            SendCommand("SCORE", score.ToString());
             CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
             item.DestroyObj();
         }
@@ -378,7 +359,12 @@ public class PlayerCharacter : NetworkComponent
             CollectibleItem crystal = other.gameObject.GetComponent<CollectibleItem>();
             if (crystal.CrystalElement == playerElement)
             {
-                SendCommand("CRYSTAL", "");
+                crystals++;
+                score += 500;
+
+                SendCommand("CRYSTALCOUNT", crystals.ToString());
+                SendCommand("SCORE", score.ToString());
+
                 CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                 item.DestroyObj();
             }
@@ -387,7 +373,10 @@ public class PlayerCharacter : NetworkComponent
 
         if (other.gameObject.tag == "AntennaPiece")
         {
-            SendCommand("ANTENNA", "");
+            antennaCollected++;
+            score += 5000;
+            SendUpdate("SCORE", score.ToString());
+            SendUpdate("ANTENNA", antennaCollected.ToString());
             CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
             item.DestroyObj();
         }
