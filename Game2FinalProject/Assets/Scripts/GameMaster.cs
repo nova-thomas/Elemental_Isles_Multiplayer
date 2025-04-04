@@ -18,7 +18,6 @@ public class GameMaster : NetworkComponent
     public GameObject ScorePanel;
     public Text Player1Text, Player2Text, Player3Text, Player4Text;
 
-    // Element Sprites and Image Objects
     public Sprite[] ElementImages; // 0 = Water, 1 = Fire, 2 = Earth, 3 = Air
     public Image P1ElementImage, P2ElementImage, P3ElementImage, P4ElementImage;
 
@@ -88,6 +87,23 @@ public class GameMaster : NetworkComponent
             if (Player2Text != null) Player2Text.text = scores.Length > 1 ? scores[1] : "";
             if (Player3Text != null) Player3Text.text = scores.Length > 2 ? scores[2] : "";
             if (Player4Text != null) Player4Text.text = scores.Length > 3 ? scores[3] : "";
+        }
+
+        if (flag == "ELEMENTS")
+        {
+            string[] elements = value.Split('|');
+
+            if (elements.Length > 0 && P1ElementImage != null)
+                P1ElementImage.sprite = ElementImages[int.Parse(elements[0])];
+
+            if (elements.Length > 1 && P2ElementImage != null)
+                P2ElementImage.sprite = ElementImages[int.Parse(elements[1])];
+
+            if (elements.Length > 2 && P3ElementImage != null)
+                P3ElementImage.sprite = ElementImages[int.Parse(elements[2])];
+
+            if (elements.Length > 3 && P4ElementImage != null)
+                P4ElementImage.sprite = ElementImages[int.Parse(elements[3])];
         }
 
         if (flag == "WIN")
@@ -244,21 +260,26 @@ public class GameMaster : NetworkComponent
 
     private void UpdateElementImages()
     {
-        // Get all player objects
         List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
         sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
 
-        // Assign the correct element sprite based on ElementSelected
         if (sortedPlayers.Count > 0 && P1ElementImage != null)
             P1ElementImage.sprite = ElementImages[sortedPlayers[0].ElementSelected];
-
         if (sortedPlayers.Count > 1 && P2ElementImage != null)
             P2ElementImage.sprite = ElementImages[sortedPlayers[1].ElementSelected];
-
         if (sortedPlayers.Count > 2 && P3ElementImage != null)
             P3ElementImage.sprite = ElementImages[sortedPlayers[2].ElementSelected];
-
         if (sortedPlayers.Count > 3 && P4ElementImage != null)
             P4ElementImage.sprite = ElementImages[sortedPlayers[3].ElementSelected];
+
+        List<string> elementData = new List<string>();
+        foreach (var p in sortedPlayers)
+        {
+            elementData.Add(p.ElementSelected.ToString());
+        }
+
+        string elementMessage = string.Join("|", elementData);
+        SendUpdate("ELEMENTS", elementMessage);
     }
+
 }

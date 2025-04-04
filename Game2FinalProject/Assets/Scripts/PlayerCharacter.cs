@@ -48,6 +48,9 @@ public class PlayerCharacter : NetworkComponent
     public Pillar nearestPillar;
     public bool canTribute;
     public int antennaCollected;
+    public int health = 20;
+    public int ammo = 12;
+    public int maxAmmo = 12;
 
 
     /*              **Functions**              */

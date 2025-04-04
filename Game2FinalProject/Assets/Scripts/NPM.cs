@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using NETWORK_ENGINE;
+using TMPro;  // Added for TextMeshPro support
 
 public class NPM : NetworkComponent
 {
@@ -16,6 +17,14 @@ public class NPM : NetworkComponent
     public int score;
     public int antennaCount;
     public int crystals;
+    public int health;
+    public int ammo;
+    public int maxAmmo;
+
+    // UI Elements
+    public Slider HealthBar;   
+    public TMP_Text AmmoText; 
+    public TMP_Text CrystalText;  
 
     private string[] elementNames =
     {
@@ -72,7 +81,39 @@ public class NPM : NetworkComponent
             {
                 HUDPanel.SetActive(true);
             }
+        }
 
+        if (flag == "HEALTH")
+        {
+            health = int.Parse(value);
+            if (HealthBar != null)
+            {
+                HealthBar.value = health;
+            }
+        }
+
+        if (flag == "AMMO")
+        {
+            string[] ammoValues = value.Split('/');
+            if (ammoValues.Length == 2)
+            {
+                ammo = int.Parse(ammoValues[0]);
+                maxAmmo = int.Parse(ammoValues[1]);
+
+                if (AmmoText != null)
+                {
+                    AmmoText.text = $"{ammo} / {maxAmmo}";
+                }
+            }
+        }
+
+        if (flag == "CRYSTALS")
+        {
+            crystals = int.Parse(value);
+            if (CrystalText != null)
+            {
+                CrystalText.text = crystals.ToString();
+            }
         }
     }
 
@@ -118,14 +159,19 @@ public class NPM : NetworkComponent
         {
             if (IsServer)
             {
-                // Find the PlayerCharacter associated with this NPM
                 PlayerCharacter pc = FindPlayerCharacter();
                 if (pc != null)
                 {
-                    // Transfer score and antennaCount from PlayerCharacter to NPM
                     score = pc.score;
                     antennaCount = pc.antennaCollected;
                     crystals = pc.crystals;
+                    health = pc.health;
+                    ammo = pc.ammo;
+                    maxAmmo = pc.maxAmmo;
+
+                    SendUpdate("HEALTH", health.ToString());
+                    SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
+                    SendUpdate("CRYSTALS", crystals.ToString());
                 }
 
                 if (IsDirty)
@@ -140,10 +186,6 @@ public class NPM : NetworkComponent
         }
     }
 
-    void Start()
-    {
-    }
-
     private PlayerCharacter FindPlayerCharacter()
     {
         foreach (PlayerCharacter pc in FindObjectsOfType<PlayerCharacter>())
@@ -155,5 +197,4 @@ public class NPM : NetworkComponent
         }
         return null; // Return null if no matching character is found
     }
- 
 }
