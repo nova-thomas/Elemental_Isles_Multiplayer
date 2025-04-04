@@ -16,7 +16,8 @@ public class GameMaster : NetworkComponent
     public Text TimerText;
 
     public GameObject ScorePanel;
-    public Text Player1Text, Player2Text, Player3Text, Player4Text; 
+    public Text Player1Text, Player2Text, Player3Text, Player4Text;
+    public Sprite[] ElementImages;
 
     // Game Variables
     private List<int> PlayerScores = new List<int>();

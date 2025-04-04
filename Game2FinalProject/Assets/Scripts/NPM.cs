@@ -11,7 +11,7 @@ public class NPM : NetworkComponent
     public int ElementSelected;
     public Text PlayerNumberText;
     public Text ElementText;
-    public GameObject HUDPanel; // Reference to the HUD panel
+    public GameObject HUDPanel;
 
     public int score;
     public int antennaCount;
