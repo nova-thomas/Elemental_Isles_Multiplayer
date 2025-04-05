@@ -5,6 +5,8 @@ using NETWORK_ENGINE;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
+using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class PlayerCharacter : NetworkComponent
 {
@@ -145,37 +147,83 @@ public class PlayerCharacter : NetworkComponent
                 }
             }
             crystals--;
-            SendUpdate("CRYSTALCOUNT", crystals.ToString());
+            SendUpdate("CRYSTALSUB", crystals.ToString());
         }
 
 
         if (flag == "TRIBUTE")
         {
+            Debug.Log("Tributing Player Side");
             nearestPillar.ActivatePedistal();
+        }
+
+        if(flag == "COIN")
+        {
+            if (IsServer)
+            {
+                score += 100;
+                SendUpdate("SCORE", score.ToString());
+            }
         }
 
         if (flag == "SCORE")
         {
-            score = int.Parse(value);
-            Debug.Log("Score updated to: " + score);
+            if (IsServer)
+            {
+                score = int.Parse(value);
+                SendUpdate("SCORE", score.ToString());
+            }
+            if (IsClient)
+            {
+                score = int.Parse(value);
+            }
         }
-        if (flag == "CRYSTALCOUNT")
+
+        if (flag == "CRYSTAL")
         {
-            crystals = int.Parse(value);
-            Debug.Log("Crystals updated to: " + crystals);
+            if (IsServer)
+            {
+                crystals = int.Parse(value);
+                SendUpdate("CRYSTAL", crystals.ToString());
+            }
+            if (IsClient)
+            {
+                crystals = int.Parse(value);
+            }
+        }
+        if (flag == "CRYSTALADD")
+        {
+            if (IsServer)
+            {
+                crystals++;
+                score += 500;
+                SendUpdate("CRYSTAL", crystals.ToString());
+                SendUpdate("SCORE", score.ToString());
+            }
+        }
+
+        if (flag == "CRYSTALSUB")
+        {
+            if (IsServer)
+            {
+                crystals--;
+                SendUpdate("CRYSTAL", crystals.ToString());
+            }
         }
 
         if (flag == "ANTENNA")
         {
-            antennaCollected = int.Parse(value);
-            Debug.Log("antennaCollected updated to: " + antennaCollected);
-        }
-
-        if (flag == "SETNEAREST" && IsServer)
-        {
-            int id = int.Parse(value);
-            GameObject pillarObj = MyCore.NetObjs[id].gameObject;
-            nearestPillar = pillarObj.GetComponent<Pillar>();
+            if(IsServer)
+            {
+                antennaCollected++;
+                score += 5000;
+                SendUpdate("SCORE", score.ToString());
+                SendUpdate("ANTENNA", antennaCollected.ToString());
+            }
+            if (IsClient)
+            {
+                antennaCollected = int.Parse(value);
+            }
         }
     }
 
@@ -231,7 +279,8 @@ public class PlayerCharacter : NetworkComponent
                 SendUpdate("SETUP", PName);
                 SendUpdate("SCORE", score.ToString());
                 SendUpdate("ANTENNA", antennaCollected.ToString());
-                SendUpdate("CRYSTALCOUNT", crystals.ToString());
+                SendUpdate("CRYSTAL", crystals.ToString());
+
                 IsDirty = false;
             }
             yield return new WaitForSeconds(.1f);
@@ -364,10 +413,11 @@ public class PlayerCharacter : NetworkComponent
 
     public void Interact(InputAction.CallbackContext ia)
     {
-        if (canTribute)
+        Debug.Log("Interacting");
+        if (canTribute && crystals >= 1)
         {
-            crystals--;
-            SendCommand("CRYSTALCOUNT", crystals.ToString());
+            Debug.Log("Can Tribute");
+            SendCommand("CRYSTALSUB", crystals.ToString());
             SendCommand("TRIBUTE", "");
         }
     }
@@ -399,8 +449,7 @@ public class PlayerCharacter : NetworkComponent
     {
         if (other.gameObject.tag == "Coin")
         {
-            score += 100;
-            SendCommand("SCORE", score.ToString());
+            SendCommand("COIN", score.ToString());
             CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
             item.DestroyObj();
         }
@@ -410,11 +459,7 @@ public class PlayerCharacter : NetworkComponent
             CollectibleItem crystal = other.gameObject.GetComponent<CollectibleItem>();
             if (crystal.CrystalElement == playerElement)
             {
-                crystals++;
-                score += 500;
-
-                SendCommand("CRYSTALCOUNT", crystals.ToString());
-                SendCommand("SCORE", score.ToString());
+                SendCommand("CRYSTALADD", crystals.ToString());
 
                 CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                 item.DestroyObj();
@@ -424,10 +469,7 @@ public class PlayerCharacter : NetworkComponent
 
         if (other.gameObject.tag == "AntennaPiece")
         {
-            antennaCollected++;
-            score += 5000;
-            SendUpdate("SCORE", score.ToString());
-            SendUpdate("ANTENNA", antennaCollected.ToString());
+            SendCommand("ANTENNA", "");
             CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
             item.DestroyObj();
         }
@@ -435,13 +477,14 @@ public class PlayerCharacter : NetworkComponent
         if (other.gameObject.tag == "Pillar")
         {
             Pillar pillar = other.gameObject.GetComponent<Pillar>();
-            SendUpdate("SETNEAREST", pillar.MyId.ToString());
+            nearestPillar = pillar;
             if (crystals > 0 && (pillar.GateElement == playerElement) && (pillar.doorOpened == false))
-            { 
+            {
                 canTribute = true;
             }
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {

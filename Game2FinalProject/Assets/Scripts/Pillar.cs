@@ -1,7 +1,6 @@
 using NETWORK_ENGINE;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class Pillar : NetworkComponent
@@ -13,21 +12,39 @@ public class Pillar : NetworkComponent
 
     public override void HandleMessage(string flag, string value)
     {
-        if (flag == "ACTIVATE" && value == "true")
+        if (flag == "ACTIVATE")
         {
-            doorOpened = true;
-
-            // Update visuals
-            this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-
-            if (gate != null)
+            if (value == "true")
             {
-                gate.OpenDoor();  // Calls SendCommand("OPEN", "true")
-            }
+                Debug.Log("Activate Handle Message");
+                if (IsServer)
+                {
+                    doorOpened = true;
+                    SendUpdate("ACTIVATE", doorOpened.ToString());
+                }
+                if (IsClient)
+                {
+                    doorOpened = true;
+                }
+                
 
-            SendUpdate("ACTIVATE", doorOpened.ToString());
+                // Update visuals
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+                if (gate != null)
+                {
+                    gate.OpenDoor();  // Calls SendCommand("OPEN", "true")
+                }
+
+                
+            }
+            else
+            {
+                doorOpened = false;
+            }
         }
+            
     }
 
     public override void NetworkedStart()
@@ -53,8 +70,10 @@ public class Pillar : NetworkComponent
 
     public void ActivatePedistal()
     {
+        Debug.Log("Activating Pedistal");
         if (!doorOpened)
         {
+            Debug.Log("Door isn't open");
             SendCommand("ACTIVATE", "true");
         }
     }

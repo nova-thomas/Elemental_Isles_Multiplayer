@@ -10,14 +10,25 @@ public class Gate : NetworkComponent
     {
         if (flag == "OPEN")
         {
+            Debug.Log("Door Opening");
             if (value == "true")
             {
-                doorOpened = true;
-                SendUpdate("OPEN", doorOpened.ToString());
-            }
-            if (doorOpened)
-            {
+                if (IsServer)
+                {
+                    doorOpened = true;
+                    SendUpdate("OPEN", doorOpened.ToString());
+                }
+
+                if (IsClient)
+                {
+                    doorOpened = bool.Parse(value);
+                }
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                Debug.Log("Door Opened");
+            }
+            else
+            {
+                doorOpened = bool.Parse(value);
             }
             
         }
@@ -35,7 +46,7 @@ public class Gate : NetworkComponent
         {
             if (IsDirty)
             {
-                SendUpdate("OPEN", "");
+                SendUpdate("OPEN", doorOpened.ToString());
                 IsDirty = false;
             }
             yield return new WaitForSeconds(0.1f);
@@ -44,6 +55,7 @@ public class Gate : NetworkComponent
 
     public void OpenDoor()
     {
+        Debug.Log("Open Door Command");
         SendCommand("OPEN", "true");
     }
 }
