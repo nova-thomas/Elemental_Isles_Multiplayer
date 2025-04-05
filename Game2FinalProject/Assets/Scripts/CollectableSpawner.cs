@@ -55,7 +55,7 @@ public class CollectableSpawner : NetworkComponent
         Vector3 spawnPosition = this.transform.position + randomOffset;
 
         // Spawn the collectable object
+        MyCore.NetCreateObject(12, this.Owner, spawnPosition, Quaternion.identity);
         MyCore.NetCreateObject(11, this.Owner, spawnPosition, Quaternion.identity);
-        MyCore.NetCreateObject(13, this.Owner, spawnPosition, Quaternion.identity);
     }
 }

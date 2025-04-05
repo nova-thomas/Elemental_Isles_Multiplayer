@@ -147,7 +147,6 @@ public class PlayerCharacter : NetworkComponent
                     if (abilityRig != null)
                     {
                         abilityRig.velocity = elementLoc.transform.forward * abilitySpeed;
-                        Debug.Log("Ability fired with speed: " + abilitySpeed);
                     }
                 }
                 canShootAbility = true;
@@ -458,7 +457,11 @@ public class PlayerCharacter : NetworkComponent
     {
         if (other.gameObject.tag == "Coin")
         {
-            SendCommand("COIN", score.ToString());
+            if (IsClient)
+            {
+                SendCommand("COIN", score.ToString());
+            }
+            
             CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
             item.DestroyObj();
         }
@@ -468,7 +471,11 @@ public class PlayerCharacter : NetworkComponent
             CollectibleItem crystal = other.gameObject.GetComponent<CollectibleItem>();
             if (crystal.CrystalElement == playerElement)
             {
-                SendCommand("CRYSTALADD", crystals.ToString());
+                if (IsClient)
+                {
+                    SendCommand("CRYSTALADD", crystals.ToString());
+                }
+                
 
                 CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                 item.DestroyObj();
@@ -478,7 +485,11 @@ public class PlayerCharacter : NetworkComponent
 
         if (other.gameObject.tag == "AntennaPiece")
         {
-            SendCommand("ANTENNA", "");
+            if (IsClient)
+            {
+                SendCommand("ANTENNA", "");
+            }
+            
             CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
             item.DestroyObj();
         }

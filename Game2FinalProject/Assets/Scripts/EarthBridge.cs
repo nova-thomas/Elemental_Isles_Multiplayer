@@ -7,6 +7,10 @@ using UnityEngine;
 public class EarthBridge : NetworkComponent
 {
     public bool built;
+    public Transform child;
+    public MeshCollider meshCollider;
+    public Renderer renderer;
+
 
     public override void HandleMessage(string flag, string value)
     {
@@ -22,9 +26,7 @@ public class EarthBridge : NetworkComponent
                 built = bool.Parse(value);
             }
 
-            Transform child = transform.GetChild(0);
-            MeshCollider meshCollider = child.GetComponent<MeshCollider>();
-            Renderer renderer = child.GetComponent<Renderer>();
+            
 
 
             if (built)
@@ -49,11 +51,21 @@ public class EarthBridge : NetworkComponent
     public override void NetworkedStart()
     {
         built = false;
+
+        child = transform.GetChild(0);
+        meshCollider = child.GetComponent<MeshCollider>();
+        renderer = child.GetComponent<Renderer>();
+
+        if (meshCollider != null) meshCollider.enabled = false;
+        if (renderer != null)
+        {
+            SetMaterialToTransparent(renderer.material);
+        }
     }
 
     public override IEnumerator SlowUpdate()
     {
-        if (IsConnected)
+        while (IsConnected)
         {
             if (IsDirty)
             {
@@ -78,7 +90,7 @@ public class EarthBridge : NetworkComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "MudShot")
+        if (other.tag == "MudShot" && IsClient)
         {
             SendCommand("BUILT", "true");
         }

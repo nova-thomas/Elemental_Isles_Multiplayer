@@ -8,28 +8,27 @@ public class FireBramble : NetworkComponent
 {
     public bool burning;
 
+    private bool _isBurning = false;
+
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "BURNING")
         {
+            Debug.Log("Received Flame Message");
             if (IsServer)
             {
                 burning = bool.Parse(value);
+                Debug.Log("Sending Flame Update");
                 SendUpdate("BURNING", burning.ToString());
 
-                if (burning)
+                if (burning && !_isBurning)
                 {
-                    // Start coroutine
+                    _isBurning = true;
                     StartCoroutine(BurnAndShrink());
                 }
-            }
-            if (IsClient)
-            {
-                burning = bool.Parse(value);
-            }
 
 
-            
+            }            
         }
     }
 
@@ -40,7 +39,7 @@ public class FireBramble : NetworkComponent
 
     public override IEnumerator SlowUpdate()
     {
-        if (IsConnected)
+        while (IsConnected)
         {
             if (IsDirty)
             {
@@ -65,14 +64,16 @@ public class FireBramble : NetworkComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Flame")
+        if (other.tag == "Flame" && IsClient)
         {
+            Debug.Log("Flame hit");
             SendCommand("BURNING", "true");
         }
     }
 
     private IEnumerator BurnAndShrink()
     {
+        Debug.Log("Burning and shrinking");
         Vector3 targetScale = Vector3.one * 0.05f;
         float shrinkSpeed = 0.5f; // You can tweak this for faster/slower burning
 
