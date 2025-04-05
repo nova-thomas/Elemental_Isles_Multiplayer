@@ -57,5 +57,6 @@ public class CollectableSpawner : NetworkComponent
         // Spawn the collectable object
         MyCore.NetCreateObject(12, this.Owner, spawnPosition, Quaternion.identity);
         MyCore.NetCreateObject(11, this.Owner, spawnPosition, Quaternion.identity);
+        MyCore.NetCreateObject(13, this.Owner, spawnPosition, Quaternion.identity);
     }
 }

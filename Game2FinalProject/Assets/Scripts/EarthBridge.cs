@@ -11,6 +11,9 @@ public class EarthBridge : NetworkComponent
     public MeshCollider meshCollider;
     public Renderer renderer;
 
+    public Material baseMaterial;
+    public Material TransparentMaterial;
+
 
     public override void HandleMessage(string flag, string value)
     {
@@ -34,7 +37,7 @@ public class EarthBridge : NetworkComponent
                 if (meshCollider != null) meshCollider.enabled = true;
                 if (renderer != null)
                 {
-                    SetMaterialToOpaque(renderer.material);
+                    renderer.material = baseMaterial;
                 }
             }
             else
@@ -42,7 +45,7 @@ public class EarthBridge : NetworkComponent
                 if (meshCollider != null) meshCollider.enabled = false;
                 if (renderer != null)
                 {
-                    SetMaterialToTransparent(renderer.material);
+                    renderer.material = TransparentMaterial;
                 }
             }
         }
@@ -59,7 +62,7 @@ public class EarthBridge : NetworkComponent
         if (meshCollider != null) meshCollider.enabled = false;
         if (renderer != null)
         {
-            SetMaterialToTransparent(renderer.material);
+            renderer.material = TransparentMaterial;
         }
     }
 
@@ -94,35 +97,5 @@ public class EarthBridge : NetworkComponent
         {
             SendCommand("BUILT", "true");
         }
-    }
-
-    void SetMaterialToTransparent(Material mat)
-    {
-        Color color = mat.color;
-        color.a = 0.2f;
-        mat.color = color;
-
-        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        mat.SetInt("_ZWrite", 0);
-        mat.DisableKeyword("_ALPHATEST_ON");
-        mat.EnableKeyword("_ALPHABLEND_ON");
-        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-    }
-
-    void SetMaterialToOpaque(Material mat)
-    {
-        Color color = mat.color;
-        color.a = 1f;
-        mat.color = color;
-
-        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-        mat.SetInt("_ZWrite", 1);
-        mat.EnableKeyword("_ALPHATEST_ON");
-        mat.DisableKeyword("_ALPHABLEND_ON");
-        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        mat.renderQueue = -1;
     }
 }

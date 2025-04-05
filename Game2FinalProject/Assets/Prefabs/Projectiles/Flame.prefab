@@ -147,7 +147,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  lifetime: 3
+  lifetime: 2
 --- !u!1001 &2289411016211786060
 PrefabInstance:
   m_ObjectHideFlags: 0
