@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3470470786667774429}
   - component: {fileID: 891735175233640248}
   - component: {fileID: 540896035476134037}
+  - component: {fileID: 7999472193014139873}
   m_Layer: 0
   m_Name: Flame
   m_TagString: Flame
@@ -131,6 +132,22 @@ MonoBehaviour:
   MyRig: {fileID: 0}
   UseOffsetVelocity: 1
   ClientRecv: 0
+--- !u!114 &7999472193014139873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967144502207575227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b5b26f4b2abf04c9e7f71e431a0a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
+  lifetime: 3
 --- !u!1001 &2289411016211786060
 PrefabInstance:
   m_ObjectHideFlags: 0
