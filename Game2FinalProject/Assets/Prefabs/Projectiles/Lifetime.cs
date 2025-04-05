@@ -1,6 +1,7 @@
 using NETWORK_ENGINE;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Lifetime : NetworkComponent
@@ -70,6 +71,14 @@ public class Lifetime : NetworkComponent
             }
 
 
+            MyCore.NetDestroyObject(this.NetId);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
             MyCore.NetDestroyObject(this.NetId);
         }
     }
