@@ -5,8 +5,6 @@ using NETWORK_ENGINE;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEngine.InputSystem.XR.Haptics;
 
 public class PlayerCharacter : NetworkComponent
 {
@@ -116,38 +114,45 @@ public class PlayerCharacter : NetworkComponent
             SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
         }
 
-        if (flag == "FIREABILITY" && IsServer && (crystals >= 1))
+        if (flag == "FIREABILITY")
         {
-            GameObject currentAbility = null;
-            float abilitySpeed = 0f;
-
-            switch (playerElement)
+            if(IsServer)
             {
-                case Elements.Fire:
-                    currentAbility = MyCore.NetCreateObject(24, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
-                    abilitySpeed = flameSpeed;
-                    break;
-                case Elements.Earth:
-                    currentAbility = MyCore.NetCreateObject(25, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
-                    abilitySpeed = mudShotSpeed;
-                    break;
-                case Elements.Water:
-                    currentAbility = MyCore.NetCreateObject(26, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
-                    abilitySpeed = waterBlastSpeed;
-                    break;
-            }
+                GameObject currentAbility = null;
+                float abilitySpeed = 0f;
 
-            if (currentAbility != null)
-            {
-                Rigidbody abilityRig = currentAbility.GetComponent<Rigidbody>();
-                if (abilityRig != null)
+                switch (playerElement)
                 {
-                    abilityRig.velocity = elementLoc.transform.forward * abilitySpeed;
-                    Debug.Log("Ability fired with speed: " + abilitySpeed);
+                    case Elements.Fire:
+                        currentAbility = MyCore.NetCreateObject(24, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
+                        abilitySpeed = flameSpeed;
+                        break;
+                    case Elements.Earth:
+                        currentAbility = MyCore.NetCreateObject(25, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
+                        abilitySpeed = mudShotSpeed;
+                        break;
+                    case Elements.Water:
+                        currentAbility = MyCore.NetCreateObject(26, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
+                        abilitySpeed = waterBlastSpeed;
+                        break;
+                    case Elements.Air:
+                        myRig.AddForce(Vector3.up * jumpForce * 3, ForceMode.Impulse);
+                        MyCore.NetCreateObject(27, this.Owner, this.transform.position, this.transform.rotation);
+                        break;
                 }
+
+                if (currentAbility != null)
+                {
+                    Rigidbody abilityRig = currentAbility.GetComponent<Rigidbody>();
+                    if (abilityRig != null)
+                    {
+                        abilityRig.velocity = elementLoc.transform.forward * abilitySpeed;
+                        Debug.Log("Ability fired with speed: " + abilitySpeed);
+                    }
+                }
+                canShootAbility = true;
+                SendUpdate("CRYSTALSUB", "");
             }
-            crystals--;
-            SendUpdate("CRYSTALSUB", crystals.ToString());
         }
 
 
@@ -408,7 +413,11 @@ public class PlayerCharacter : NetworkComponent
     public void AbilityFire(InputAction.CallbackContext afr)
     {
         canShootAbility = false;
-        SendCommand("FIREABILITY", " ");
+        if (crystals >= 1)
+        {
+            SendCommand("FIREABILITY", " ");
+        }
+        
     }
 
     public void Interact(InputAction.CallbackContext ia)
@@ -417,7 +426,7 @@ public class PlayerCharacter : NetworkComponent
         if (canTribute && crystals >= 1)
         {
             Debug.Log("Can Tribute");
-            SendCommand("CRYSTALSUB", crystals.ToString());
+            SendCommand("CRYSTALSUB", "");
             SendCommand("TRIBUTE", "");
         }
     }

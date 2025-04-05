@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterBlast : NetworkComponent
+public class WaterBolder : NetworkComponent
 {
     public override void HandleMessage(string flag, string value)
     {

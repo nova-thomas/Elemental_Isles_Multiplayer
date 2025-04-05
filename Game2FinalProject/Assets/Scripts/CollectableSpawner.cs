@@ -23,7 +23,7 @@ public class CollectableSpawner : NetworkComponent
         {
             SpawnCollectable();
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(3f);
         }
         
     }
@@ -55,6 +55,6 @@ public class CollectableSpawner : NetworkComponent
         Vector3 spawnPosition = this.transform.position + randomOffset;
 
         // Spawn the collectable object
-        MyCore.NetCreateObject(10, this.Owner, spawnPosition, Quaternion.identity);
+        MyCore.NetCreateObject(Random.Range(10, 14), this.Owner, spawnPosition, Quaternion.identity);
     }
 }

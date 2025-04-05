@@ -15,6 +15,9 @@ TagManager:
   - Pillar
   - Ground
   - GameMaster
+  - Flame
+  - WaterBlast
+  - MudShot
   layers:
   - Default
   - TransparentFX
