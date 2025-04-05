@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 194664144399309593}
   - component: {fileID: -2692697860404601198}
   - component: {fileID: 2821710147421775823}
-  - component: {fileID: 3938929524997585529}
-  - component: {fileID: 3713445329199322147}
   - component: {fileID: 7480305857024186491}
   - component: {fileID: 844702160669582503}
+  - component: {fileID: 4980452329182196807}
+  - component: {fileID: 5516102735759328222}
   m_Layer: 0
   m_Name: WaterBoulder
   m_TagString: WaterType
@@ -54,6 +54,8 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
+  knockbackForce: 10
+  lastHitPos: {fileID: 0}
 --- !u!114 &2821710147421775823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,52 +76,6 @@ MonoBehaviour:
   UseLobby: 0
   UpdateFrequency: 0.1
   MyCore: {fileID: 0}
---- !u!136 &3938929524997585529
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6211475470283757063}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.97
-  m_Height: 7.63
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.55, z: 0}
---- !u!136 &3713445329199322147
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6211475470283757063}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5.22
-  m_Height: 7.63
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.55, z: 0}
 --- !u!54 &7480305857024186491
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -172,6 +128,50 @@ MonoBehaviour:
   MyRig: {fileID: 0}
   UseOffsetVelocity: 1
   ClientRecv: 0
+--- !u!135 &4980452329182196807
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6211475470283757063}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 3, z: 0}
+--- !u!136 &5516102735759328222
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6211475470283757063}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Height: 8
+  m_Direction: 1
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!1001 &5571165567065455235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0cf060d6b0912a48b1000058791acab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.35
+      value: 0.43000007
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0cf060d6b0912a48b1000058791acab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -260,7 +260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0cf060d6b0912a48b1000058791acab, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.23
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0cf060d6b0912a48b1000058791acab, type: 3}
       propertyPath: m_LocalScale.z
@@ -272,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0cf060d6b0912a48b1000058791acab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0cf060d6b0912a48b1000058791acab, type: 3}
       propertyPath: m_LocalPosition.z
