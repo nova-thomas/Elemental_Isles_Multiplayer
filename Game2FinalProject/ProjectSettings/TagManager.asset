@@ -14,6 +14,7 @@ TagManager:
   - Crystal
   - Pillar
   - Ground
+  - GameMaster
   layers:
   - Default
   - TransparentFX

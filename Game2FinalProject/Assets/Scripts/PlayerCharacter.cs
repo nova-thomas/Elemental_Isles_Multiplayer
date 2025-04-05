@@ -51,6 +51,7 @@ public class PlayerCharacter : NetworkComponent
     public int health = 20;
     public int ammo = 12;
     public int maxAmmo = 12;
+    public GameObject ScoreboardPanel; //tab 
 
 
     /*              **Functions**              */
@@ -192,6 +193,27 @@ public class PlayerCharacter : NetworkComponent
             playerModel.SetActive(false);
             Debug.Log("invisible");
         }
+
+        if (IsLocalPlayer)
+        {
+            GameObject gameMaster = GameObject.FindGameObjectWithTag("GameMaster");
+            if (gameMaster != null)
+            {
+                Debug.Log("Found GameMaster");
+
+                if (gameMaster.transform.childCount > 0)
+                {
+                    Transform firstChild = gameMaster.transform.GetChild(0);
+
+                    if (firstChild.childCount > 0)
+                    {
+                        Transform scoreboardTransform = firstChild.GetChild(0);
+                        ScoreboardPanel = scoreboardTransform.gameObject;
+                        ScoreboardPanel.SetActive(false);
+                    }
+                }
+            }
+        }
     }
 
     public override IEnumerator SlowUpdate()
@@ -227,6 +249,7 @@ public class PlayerCharacter : NetworkComponent
         canJump = true;
         bulletSpeed = 3f;
     }
+
 
     void Update()
     {
@@ -304,6 +327,19 @@ public class PlayerCharacter : NetworkComponent
         else
         {
             //Reload Animation
+        }
+    }
+    public void LookAtScoreboard(InputAction.CallbackContext ctx)
+    {
+        if (!IsLocalPlayer || ScoreboardPanel == null) return;
+
+        if (ctx.started)
+        {
+            ScoreboardPanel.SetActive(true);
+        }
+        else if (ctx.canceled)
+        {
+            ScoreboardPanel.SetActive(false);
         }
     }
 

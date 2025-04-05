@@ -596,6 +596,19 @@ MonoBehaviour:
   nearestPillar: {fileID: 0}
   canTribute: 0
   antennaCollected: 0
+  health: 20
+  ammo: 12
+  maxAmmo: 12
+  ScoreboardPanel: {fileID: 0}
+  lookAtScoreboardAction:
+    m_Name: Look At Scoreboard
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 21b5166f-c262-4383-bfc2-0486071741e5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &6175654768208229019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -702,7 +715,19 @@ MonoBehaviour:
     m_ActionId: aa33906c-065a-4528-b218-ecb315e5b40c
     m_ActionName: 'Player/Ability[/Mouse/rightButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -2964308012608698242}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: LookAtScoreboard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1a9e5b1c-f225-4505-a362-6b80d5b82441
     m_ActionName: 'Player/Look at Scoreboard[/Keyboard/tab]'
   - m_PersistentCalls:

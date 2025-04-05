@@ -32,11 +32,11 @@ public class GameMaster : NetworkComponent
             GameStarted = true;
             AntennaCount = 0;
 
+
             for (int i = 0; i < PlayerScores.Count; i++)
             {
                 PlayerScores[i] = 0;
             }
-
             foreach (NPM npm in FindObjectsOfType<NPM>())
             {
                 if (npm.transform.childCount > 0)
@@ -47,6 +47,7 @@ public class GameMaster : NetworkComponent
             }
 
             UpdateElementImages();
+            InitializeScoreboard();
 
             if (IsServer)
             {
@@ -209,6 +210,24 @@ public class GameMaster : NetworkComponent
         SendUpdate("TIMER", formattedTime);
     }
 
+    private void InitializeScoreboard()
+    {
+        List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
+        sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
+
+        string[] playerScores = new string[4];
+
+        for (int i = 0; i < sortedPlayers.Count && i < 4; i++)
+        {
+            playerScores[i] = $"{sortedPlayers[i].PName} - 0 Points";
+        }
+
+        if (Player1Text != null) Player1Text.text = playerScores.Length > 0 ? playerScores[0] : "";
+        if (Player2Text != null) Player2Text.text = playerScores.Length > 1 ? playerScores[1] : "";
+        if (Player3Text != null) Player3Text.text = playerScores.Length > 2 ? playerScores[2] : "";
+        if (Player4Text != null) Player4Text.text = playerScores.Length > 3 ? playerScores[3] : "";
+    }
+
     private void UpdateScoreScreen()
     {
         List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
@@ -263,6 +282,7 @@ public class GameMaster : NetworkComponent
         List<NPM> sortedPlayers = new List<NPM>(FindObjectsOfType<NPM>());
         sortedPlayers.Sort((a, b) => a.Owner.CompareTo(b.Owner));
 
+
         if (sortedPlayers.Count > 0 && P1ElementImage != null)
             P1ElementImage.sprite = ElementImages[sortedPlayers[0].ElementSelected];
         if (sortedPlayers.Count > 1 && P2ElementImage != null)
@@ -280,6 +300,11 @@ public class GameMaster : NetworkComponent
 
         string elementMessage = string.Join("|", elementData);
         SendUpdate("ELEMENTS", elementMessage);
+    }
+
+    public float GetCurrentTimer()
+    {
+        return currentTimer;
     }
 
 }

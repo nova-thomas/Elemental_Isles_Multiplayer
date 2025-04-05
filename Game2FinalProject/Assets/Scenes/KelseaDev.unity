@@ -648,6 +648,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameMasterObject
       objectReference: {fileID: 0}
+    - target: {fileID: 4549135489234627880, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
+      propertyPath: m_TagString
+      value: GameMaster
+      objectReference: {fileID: 0}
     - target: {fileID: 4953571892951264195, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 5988620852229458256}
   - component: {fileID: 6805712697728243571}
   m_Layer: 0
-  m_Name: Score Screen
+  m_Name: Scoreboard Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 1552687316904698924}
   m_Layer: 0
   m_Name: GameMasterObject
-  m_TagString: Untagged
+  m_TagString: GameMaster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
