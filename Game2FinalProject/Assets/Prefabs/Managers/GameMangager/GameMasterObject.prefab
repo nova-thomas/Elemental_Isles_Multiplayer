@@ -724,6 +724,7 @@ MonoBehaviour:
   Player2Text: {fileID: 5994751532687886139}
   Player3Text: {fileID: 57696725073981721}
   Player4Text: {fileID: 5441088558073955583}
+  PauseMenu: {fileID: 0}
   ElementImages:
   - {fileID: 21300000, guid: 3ee03e2935621bd40984e1dc365d73ca, type: 3}
   - {fileID: 21300000, guid: 119d242829c3a1645a7eabe8badc089d, type: 3}

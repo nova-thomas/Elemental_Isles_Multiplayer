@@ -51,8 +51,9 @@ public class PlayerCharacter : NetworkComponent
     public int health = 20;
     public int ammo = 12;
     public int maxAmmo = 12;
-    public GameObject ScoreboardPanel; //tab 
 
+    public GameObject ScoreboardPanel; //tab 
+    public bool isScoreboardLocked = false; //isnt working 
 
     /*              **Functions**              */
     //Network Functions
@@ -108,6 +109,9 @@ public class PlayerCharacter : NetworkComponent
                 bulletRig.velocity = bulletLoc.transform.forward * bulletSpeed;
                 Debug.Log("bullet vel " + bulletRig.velocity);
             }
+
+            ammo--;
+            SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
         }
 
         if (flag == "FIREABILITY" && IsServer && (crystals >= 1))
@@ -207,6 +211,7 @@ public class PlayerCharacter : NetworkComponent
 
                     if (firstChild.childCount > 0)
                     {
+                        // Scoreboard Panel
                         Transform scoreboardTransform = firstChild.GetChild(0);
                         ScoreboardPanel = scoreboardTransform.gameObject;
                         ScoreboardPanel.SetActive(false);
@@ -214,6 +219,7 @@ public class PlayerCharacter : NetworkComponent
                 }
             }
         }
+
     }
 
     public override IEnumerator SlowUpdate()
@@ -311,9 +317,14 @@ public class PlayerCharacter : NetworkComponent
 
     public void Fire(InputAction.CallbackContext fr)
     {
-        canShoot = false;
-        SendCommand("FIRE", " ");
-        //StartCoroutine(Reload());
+        if (ammo > 0) 
+        {
+            canShoot = false;
+            SendCommand("FIRE", " ");
+            ammo--; 
+            SendUpdate("AMMO", $"{ammo}/{maxAmmo}");  // Update the ammo UI on the server
+            
+        }
     }
 
     public IEnumerator Reload()
@@ -332,6 +343,8 @@ public class PlayerCharacter : NetworkComponent
     public void LookAtScoreboard(InputAction.CallbackContext ctx)
     {
         if (!IsLocalPlayer || ScoreboardPanel == null) return;
+
+        if (isScoreboardLocked) return;  // Prevent toggling if locked
 
         if (ctx.started)
         {

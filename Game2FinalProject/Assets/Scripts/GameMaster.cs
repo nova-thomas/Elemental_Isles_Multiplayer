@@ -237,11 +237,20 @@ public class GameMaster : NetworkComponent
 
         for (int i = 0; i < sortedPlayers.Count && i < 4; i++)
         {
-            int dummyScore = Random.Range(10, 100);
-            playerScores[i] = $"{sortedPlayers[i].PName} - {dummyScore} Points";
+            int realScore = sortedPlayers[i].score;
+            playerScores[i] = $"{sortedPlayers[i].PName} - {realScore} Points";
         }
 
         string scoreData = string.Join("|", playerScores);
+
+        foreach (NPM npm in FindObjectsOfType<NPM>())
+        {
+            var inputHandler = npm.GetComponent<PlayerCharacter>();
+            if (inputHandler != null)
+            {
+                inputHandler.isScoreboardLocked = true;
+            }
+        }
         SendUpdate("SHOWSCORE", scoreData);
     }
 
@@ -306,5 +315,4 @@ public class GameMaster : NetworkComponent
     {
         return currentTimer;
     }
-
 }
