@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using NETWORK_ENGINE;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : NetworkComponent
 {
-    public GameObject lizardPrefab;
+    /*public GameObject lizardPrefab;
     public GameObject plaguePrefab;
     public GameObject golemPrefab;
-    public GameObject dragonPrefab;
+    public GameObject dragonPrefab;*/
+
+    public int lizard;
+    public int plague;
+    public int golem;
 
     public int maxMembers;
 
@@ -16,8 +21,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Lizard,
         Plague,
-        Golem,
-        Dragon
+        Golem
     }
 
     [SerializeField]
@@ -32,12 +36,15 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnEnemy();
+        if (IsServer)
+        {
+            SpawnEnemy();
+        }
     }
 
     void Update()
     {
-        if (AllEnemiesDead() && !respawning)
+        if (AllEnemiesDead() && !respawning && IsServer)
         {
             respawning = true;
             StartCoroutine(RespawnAfterDelay());
@@ -54,15 +61,17 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject prefab = GetPrefabForEnemyType();
-        if (prefab == null) return;
+        //GameObject prefab = GetPrefabForEnemyType();
+        int prefab = GetPrefabForEnemyType();
+        if (prefab == 9) return;
 
         if (enemyToSpawn == EnemyType.Lizard || enemyToSpawn == EnemyType.Plague)
         {
             for (int i = 0; i < maxMembers; i++)
             {
                 Vector3 spawnPosition = GetValidSpawnPosition(transform.position, 4f);
-                GameObject member = Instantiate(prefab, spawnPosition, transform.rotation);
+                //GameObject member = Instantiate(prefab, spawnPosition, transform.rotation);
+                GameObject member = MyCore.NetCreateObject(prefab, Owner, spawnPosition);
                 spawnedEnemies.Add(member);
                 InitializeAgent(member);
             }
@@ -70,7 +79,8 @@ public class EnemySpawner : MonoBehaviour
         else
         {
             Vector3 spawnPosition = GetValidSpawnPosition(transform.position, 0f);
-            GameObject enemy = Instantiate(prefab, spawnPosition, transform.rotation);
+            //GameObject enemy = Instantiate(prefab, spawnPosition, transform.rotation);
+            GameObject enemy = MyCore.NetCreateObject(prefab, Owner, spawnPosition);
             spawnedEnemies.Add(enemy);
             InitializeAgent(enemy);
         }
@@ -88,15 +98,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private GameObject GetPrefabForEnemyType()
+    private int GetPrefabForEnemyType()
     {
         switch (enemyToSpawn)
         {
-            case EnemyType.Lizard: return lizardPrefab;
-            case EnemyType.Plague: return plaguePrefab;
-            case EnemyType.Golem: return golemPrefab;
-            case EnemyType.Dragon: return dragonPrefab;
-            default: return null;
+            case EnemyType.Lizard: return lizard;
+            case EnemyType.Plague: return plague;
+            case EnemyType.Golem: return golem;
+            default: return 9;
         }
     }
 
@@ -129,5 +138,21 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return origin;
+    }
+
+    public override IEnumerator SlowUpdate()
+    {
+        yield return new WaitForSeconds(.1f);
+        //throw new System.NotImplementedException();
+    }
+
+    public override void HandleMessage(string flag, string value)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public override void NetworkedStart()
+    {
+        //throw new System.NotImplementedException();
     }
 }
