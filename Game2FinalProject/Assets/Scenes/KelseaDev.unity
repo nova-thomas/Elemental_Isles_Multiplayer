@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1749,6 +1749,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: SpawnPrefab.Array.size
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: 'SpawnPrefab.Array.data[31]'
+      value: 
+      objectReference: {fileID: 4391670951777742849, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: 'SpawnPrefab.Array.data[32]'
+      value: 
+      objectReference: {fileID: 6589176346355079448, guid: a460fa702bc0cd24ea1881f0474cf004, type: 3}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: 'SpawnPrefab.Array.data[33]'
+      value: 
+      objectReference: {fileID: 1780633060952264025, guid: 84275864fb40de94e9f87febcfff612f, type: 3}
+    - target: {fileID: 6977526220351345289, guid: 7f32407a83d82c94698d7446bb0242e9, type: 3}
+      propertyPath: 'SpawnPrefab.Array.data[34]'
+      value: 
+      objectReference: {fileID: 7586636956690484638, guid: ebd8e0a2eeb837c469f38efc96820449, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
