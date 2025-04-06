@@ -11,6 +11,26 @@ public class Enemy : NetworkComponent
     public enum ElementType { Water, Fire, Earth, Air };
 
     /*              **Variables**              */
+    [Header("Enemy Settings")]
+    public ElementType enemyElementType;
+    //Loot
+    public int coin;
+    public int coinAmount;
+    public int crystal;
+    public float monsterDropHeight;
+
+    [Header("Movement & Attack")]
+    //Patrolling
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    public float walkPointRange;
+
+    // Attacking
+    public float sightRange, attackRange;
+    public float timeBetweenAttacks;
+    public bool alreadyAttacked;
+
+    [Header("Other Variables")]
     //Basic Variables
     public float speed;
     public float health;
@@ -31,25 +51,9 @@ public class Enemy : NetworkComponent
 
     //public HealthbarControl healthbar;
 
-    //Loot
-    public int coin;
-    public int coinAmount;
-    public int crystal;
-    public float monsterDropHeight;
-
     public Animator myAnimator;
 
-    //Patrolling
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-
-    // Attacking
-    public float timeBetweenAttacks;
-    public bool alreadyAttacked;
-
     // States
-    public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     public bool playedAmbient;
     public float timeBetweenAmbient;
@@ -119,6 +123,7 @@ public class Enemy : NetworkComponent
     //Default Functions
     void Start()
     {
+        //myRig = GetComponent<Rigidbody>();
         //myAnimator = GetComponent<Animator>();
     }
 
@@ -210,6 +215,11 @@ public class Enemy : NetworkComponent
     public void AmbientPlayed()
     {
         playedAmbient = false;
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 1f, whatIsGround);
     }
 
     //Interaction

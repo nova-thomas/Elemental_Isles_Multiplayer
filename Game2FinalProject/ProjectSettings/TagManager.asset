@@ -18,6 +18,7 @@ TagManager:
   - Flame
   - WaterBlast
   - MudShot
+  - Bullet
   layers:
   - Default
   - TransparentFX
