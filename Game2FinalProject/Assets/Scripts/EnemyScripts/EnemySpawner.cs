@@ -11,7 +11,7 @@ public class EnemySpawner : NetworkComponent
     public GameObject golemPrefab;
     public GameObject dragonPrefab;*/
 
-    public int lizard;
+    public int airLizard, earthLizard, fireLizard, waterLizard;
     public int plague;
     public int golem;
 
@@ -19,7 +19,10 @@ public class EnemySpawner : NetworkComponent
 
     public enum EnemyType
     {
-        Lizard,
+        airLizard,
+        earthLizard,
+        fireLizard,
+        waterLizard,
         Plague,
         Golem
     }
@@ -65,7 +68,7 @@ public class EnemySpawner : NetworkComponent
         int prefab = GetPrefabForEnemyType();
         if (prefab == 9) return;
 
-        if (enemyToSpawn == EnemyType.Lizard || enemyToSpawn == EnemyType.Plague)
+        if (enemyToSpawn != EnemyType.Golem)
         {
             for (int i = 0; i < maxMembers; i++)
             {
@@ -102,7 +105,10 @@ public class EnemySpawner : NetworkComponent
     {
         switch (enemyToSpawn)
         {
-            case EnemyType.Lizard: return lizard;
+            case EnemyType.airLizard: return airLizard;
+            case EnemyType.earthLizard: return earthLizard;
+            case EnemyType.fireLizard: return fireLizard;
+            case EnemyType.waterLizard: return waterLizard;
             case EnemyType.Plague: return plague;
             case EnemyType.Golem: return golem;
             default: return 9;

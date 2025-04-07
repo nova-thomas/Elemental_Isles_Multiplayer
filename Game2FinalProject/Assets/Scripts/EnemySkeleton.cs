@@ -5,18 +5,113 @@ using NETWORK_ENGINE;
 using UnityEngine.AI;
 public class EnemySkeleton : NetworkComponent
 {
+    /*
+        public NavMeshAgent MyAgent;
+        public List<Vector3> Goals;
+        public Vector3 CurrentGoal;
+        public Animator MyAnime;
+        public float timer = 0f;
+        public bool move = false;*/
 
-    public NavMeshAgent MyAgent;
-    public List<Vector3> Goals;
-    public Vector3 CurrentGoal;
-    public Animator MyAnime;
-    public float timer = 0f;
-    public bool move = false;
+    public enum ElementType { Water, Fire, Earth, Air };
+
+    /*              **Variables**              */
+    [Header("Enemy Settings")]
+    public ElementType enemyElementType;
+    //Loot
+    public int coin;
+    public int coinAmount;
+    public int crystal;
+    public float monsterDropHeight;
+
+    [Header("Movement & Attack")]
+    //Patrolling
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    public float walkPointRange;
+
+    // Attacking
+    public float sightRange, attackRange;
+    public float timeBetweenAttacks;
+    public bool alreadyAttacked;
+
+    [Header("Other Variables")]
+    //Basic Variables
+    public float speed;
+    public float health;
+    public float maxHealth;
+    public double damage;
+    public bool slowed;
+
+    //Prefab Components
+    public NavMeshAgent agent;
+    public Rigidbody myRig;
+
+    //Player(s)
+    public GameObject[] players;
+    public GameObject nearestPlayer;
+    //private Player playerScript;
+
+    public LayerMask whatIsGround, whatIsPlayer;
+
+    //public HealthbarControl healthbar;
+
+    public Animator myAnimator;
+
+    // States
+    public bool playerInSightRange, playerInAttackRange;
+    public bool playedAmbient;
+    public float timeBetweenAmbient;
+
+
+    /*              **Functions**              */
+    //Start Functions
+    /*public void Awake()
+    {
+        //findNearestPlayer();
+        //playerScript = player.GetComponent<Player>();
+        agent = GetComponent<NavMeshAgent>();
+        myRig = GetComponent<Rigidbody>();
+        maxHealth = health;
+
+        if (agent != null)
+        {
+            agent.enabled = false; // Disable agent temporarily
+            Invoke(nameof(EnableAgent), 0.2f); // Enable after a short delay
+        }
+
+        if (myRig != null)
+        {
+            myRig.isKinematic = true; // Temporarily disable physics
+            Invoke(nameof(EnablePhysics), 0.2f); // Enable after stabilization
+        }
+
+        //StartBehavior();
+    }*/
+
+    private void EnablePhysics()
+    {
+        if (myRig != null)
+        {
+            myRig.isKinematic = false;
+        }
+    }
+
+    private void EnableAgent()
+    {
+        if (agent != null)
+        {
+            agent.enabled = true;
+            agent.ResetPath(); // Clear any residual paths
+        }
+    }
+
+    //Net Component Functions
     public override void HandleMessage(string flag, string value)
     {
         if (IsClient && flag == "MOVE")
         {
-            move = bool.Parse(value);
+            //move = bool.Parse(value);
         }
     }
 
@@ -24,7 +119,8 @@ public class EnemySkeleton : NetworkComponent
     {
         if (IsServer)
         {
-            Rando();
+            Debug.Log("Network running");
+            //Rando();
         }
     }
 
@@ -33,6 +129,7 @@ public class EnemySkeleton : NetworkComponent
         yield return new WaitForSeconds(.1f);
     }
 
+    /*
     public void Rando()
     {
         if (IsServer)
@@ -54,7 +151,7 @@ public class EnemySkeleton : NetworkComponent
                 timer = 10;
             }
         }
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +162,7 @@ public class EnemySkeleton : NetworkComponent
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        /*timer -= Time.deltaTime;
         if (timer < 0)
         {
             timer = 0;
@@ -85,6 +182,6 @@ public class EnemySkeleton : NetworkComponent
             {
                 MyAnime.SetFloat("speedh", 0f);
             }
-        }
+        }*/
     }
 }

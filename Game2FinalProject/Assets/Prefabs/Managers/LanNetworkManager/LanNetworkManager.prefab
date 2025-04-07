@@ -1065,6 +1065,11 @@ MonoBehaviour:
   - {fileID: 8008354433447410602, guid: 5a8268e2b885680438b8355ea78fbce8, type: 3}
   - {fileID: 7103739492088858660, guid: ed21df635c8822e45be5e1e4e7ea55db, type: 3}
   - {fileID: 2821710147421775823, guid: 3eb558219597c6f449ced0b99656ab55, type: 3}
+  - {fileID: 4391670951777742849, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
+  - {fileID: 6589176346355079448, guid: a460fa702bc0cd24ea1881f0474cf004, type: 3}
+  - {fileID: 1780633060952264025, guid: 84275864fb40de94e9f87febcfff612f, type: 3}
+  - {fileID: 7586636956690484638, guid: ebd8e0a2eeb837c469f38efc96820449, type: 3}
+  - {fileID: 843663738068256768, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
   NetworkPlayerManager: {fileID: 8924587938452622135, guid: bbc6e7936f077814e9f553b70ddb5d2b, type: 3}
   DefaultReturnScene: 0
 --- !u!1 &6818453281021731764

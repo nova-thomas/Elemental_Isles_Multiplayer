@@ -19,14 +19,15 @@ TagManager:
   - WaterBlast
   - MudShot
   - Bullet
+  - Regular Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 

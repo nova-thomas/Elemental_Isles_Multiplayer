@@ -1,3 +1,4 @@
+using NETWORK_ENGINE;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,11 @@ public class Lizard : Enemy
         //throw new System.NotImplementedException();
     }
 
-    public override IEnumerator SlowUpdate()
+    /*public override IEnumerator SlowUpdate()
     {
         while (IsConnected)
         {
+            Debug.Log("Net working");
             if (IsServer && IsDirty)
             {
                 
@@ -29,14 +31,8 @@ public class Lizard : Enemy
             }
             yield return new WaitForSeconds(.1f);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    }*/
+    
     // Update is called once per frame
     void Update()
     {
@@ -47,6 +43,7 @@ public class Lizard : Enemy
                 return;
             }
 
+            findNearestPlayer();
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 

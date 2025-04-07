@@ -60,30 +60,6 @@ public class Enemy : NetworkComponent
 
 
     /*              **Functions**              */
-    //Start Functions
-    public void Awake()
-    {
-        findNearestPlayer();
-        //playerScript = player.GetComponent<Player>();
-        agent = GetComponent<NavMeshAgent>();
-        myRig = GetComponent<Rigidbody>();
-        maxHealth = health;
-
-        if (agent != null)
-        {
-            agent.enabled = false; // Disable agent temporarily
-            Invoke(nameof(EnableAgent), 0.2f); // Enable after a short delay
-        }
-
-        if (myRig != null)
-        {
-            myRig.isKinematic = true; // Temporarily disable physics
-            Invoke(nameof(EnablePhysics), 0.2f); // Enable after stabilization
-        }
-
-        StartBehavior();
-    }
-
     private void EnablePhysics()
     {
         if (myRig != null)
@@ -104,6 +80,10 @@ public class Enemy : NetworkComponent
     //Net Component Functions
     public override void HandleMessage(string flag, string value)
     {
+        if (flag == "default")
+        {
+            
+        }
         //throw new System.NotImplementedException();
     }
 
@@ -111,25 +91,47 @@ public class Enemy : NetworkComponent
     {
         if (IsServer)
         {
-            players = GameObject.FindGameObjectsWithTag("PlayerCharacter");
+            maxHealth = health;
+
+            if (agent != null)
+            {
+                agent.enabled = false; // Disable agent temporarily
+                Invoke(nameof(EnableAgent), 0.2f); // Enable after a short delay
+            }
+
+            if (myRig != null)
+            {
+                myRig.isKinematic = true; // Temporarily disable physics
+                Invoke(nameof(EnablePhysics), 0.2f); // Enable after stabilization
+            }
+
+            StartBehavior();
         }
     }
 
     public override IEnumerator SlowUpdate()
     {
-        yield return new WaitForSeconds(.1f);
+        while (IsServer)
+        {
+            if (IsServer && players.Length < 2)
+            {
+                players = GameObject.FindGameObjectsWithTag("Player");
+            }
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     //Default Functions
     void Start()
     {
-        //myRig = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        myRig = GetComponent<Rigidbody>();
         //myAnimator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        
+
     }
 
     public void findNearestPlayer()

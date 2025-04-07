@@ -94,10 +94,10 @@ MonoBehaviour:
   nearestPlayer: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   myAnimator: {fileID: 0}
   playerInSightRange: 0
   playerInAttackRange: 0

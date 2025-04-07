@@ -117,6 +117,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
+      propertyPath: MyId
+      value: 
+      objectReference: {fileID: 4391670951777742849}
+    - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
       propertyPath: crystal
       value: 10
       objectReference: {fileID: 0}
@@ -184,6 +188,17 @@ PrefabInstance:
       addedObject: {fileID: 571141403197184237}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
+--- !u!114 &4391670951777742849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2973713625702261234, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
+  m_PrefabInstance: {fileID: 7658765066775965199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34ca87a457962d459c49c36b9753ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8316892001335709475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1811273289331188012, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}

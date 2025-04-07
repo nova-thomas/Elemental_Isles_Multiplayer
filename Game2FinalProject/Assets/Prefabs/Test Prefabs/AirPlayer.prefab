@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4282644819632490878}
   - component: {fileID: -1372589474944806182}
   - component: {fileID: 9023459455766678706}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AirPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,6 +199,34 @@ MonoBehaviour:
   IsDirty: 0
   PlayerName: {fileID: 7214911631766546471}
   PName: <Default>
+  myRig: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerGun: {fileID: 0}
+  bulletLoc: {fileID: 0}
+  elementLoc: {fileID: 0}
+  bulletSpeed: 20
+  flameSpeed: 3
+  waterBlastSpeed: 80
+  mudShotSpeed: 60
+  canJump: 0
+  jumpForce: 5
+  speed: 8
+  lookSpeed: 12
+  playerCam: {fileID: 0}
+  canShoot: 0
+  canShootAbility: 0
+  ROF: 3
+  playerElement: 0
+  score: 0
+  crystals: 0
+  nearestPillar: {fileID: 0}
+  canTribute: 0
+  antennaCollected: 0
+  health: 20
+  ammo: 12
+  maxAmmo: 12
+  ScoreboardPanel: {fileID: 0}
+  isScoreboardLocked: 0
 --- !u!1001 &5306254542670695030
 PrefabInstance:
   m_ObjectHideFlags: 0
