@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8350691307878783557}
   - component: {fileID: 3279493007022744145}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Player Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,6 +599,7 @@ MonoBehaviour:
   ammo: 12
   maxAmmo: 12
   ScoreboardPanel: {fileID: 0}
+  isScoreboardLocked: 0
 --- !u!114 &3360857478583755931
 MonoBehaviour:
   m_ObjectHideFlags: 0

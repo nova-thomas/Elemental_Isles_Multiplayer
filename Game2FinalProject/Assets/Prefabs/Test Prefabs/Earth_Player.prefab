@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2694726365852638217}
   - component: {fileID: 1674709641219981897}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Player Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,15 +600,7 @@ MonoBehaviour:
   ammo: 12
   maxAmmo: 12
   ScoreboardPanel: {fileID: 0}
-  lookAtScoreboardAction:
-    m_Name: Look At Scoreboard
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e57026b3-cc04-4ca8-96c3-9fb38005438a
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+  isScoreboardLocked: 0
 --- !u!114 &5354860364141768458
 MonoBehaviour:
   m_ObjectHideFlags: 0

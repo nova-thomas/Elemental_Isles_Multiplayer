@@ -30,7 +30,7 @@ public class NPM : NetworkComponent
     {
         "The water ability can push obstacles and enemies!",
         "The fire ability can burn and melt obstacles!",
-        "The earth ability can build bridges!",
+        "The earth ability can build bridges and slow down enemies!",
         "The air ability can launch you upwards!"
     };
 
