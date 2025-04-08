@@ -15,24 +15,9 @@ public class Lizard : Enemy
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {
-        //throw new System.NotImplementedException();
+        //Animations
     }
 
-    /*public override IEnumerator SlowUpdate()
-    {
-        while (IsConnected)
-        {
-            Debug.Log("Net working");
-            if (IsServer && IsDirty)
-            {
-                
-
-                IsDirty = false;
-            }
-            yield return new WaitForSeconds(.1f);
-        }
-    }*/
-    
     // Update is called once per frame
     void Update()
     {
@@ -44,12 +29,15 @@ public class Lizard : Enemy
             }
 
             findNearestPlayer();
-            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+            if (nearestPlayer != null)
+            {
+                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if (!playerInSightRange && !playerInAttackRange) Patrolling();
-            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-            if (playerInSightRange && playerInAttackRange) AttackPlayer();
+                if (!playerInSightRange && !playerInAttackRange) Patrolling();
+                if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+                if (playerInSightRange && playerInAttackRange) AttackPlayer();
+            }
 
             //Ambient Sounds
 
@@ -61,12 +49,11 @@ public class Lizard : Enemy
         agent.SetDestination(transform.position);
 
         Vector3 lookAtVar = new Vector3(nearestPlayer.transform.position.x, gameObject.transform.position.y, nearestPlayer.transform.position.z);
-
         transform.LookAt(lookAtVar);
 
         if (!alreadyAttacked)
         {
-            //SpitAttack();
+            SpitAttack();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -74,20 +61,13 @@ public class Lizard : Enemy
 
     public void SpitAttack()
     {
-        //GameObject fireBall = Instantiate(fireBallPrefab, firePosition.position, firePosition.rotation);
-        GameObject fireBall = MyCore.NetCreateObject(spitType, Owner, firePosition.transform.position);
+        GameObject fireBall = MyCore.NetCreateObject(spitType, Owner, firePosition.transform.position, firePosition.transform.rotation);
+        fireBall.tag = "EnemyBullet";
         Rigidbody fireBallRB = fireBall.GetComponent<Rigidbody>();
 
         if (fireBallRB != null)
         {
-            fireBallRB.velocity = -firePosition.right * fireBallSpeed;
+            fireBallRB.velocity = firePosition.forward * fireBallSpeed;
         }
-
-        // Set the damage value on the FireProjectile component
-        /*FireProjectile fireProjectile = fireBall.GetComponent<FireProjectile>();
-        if (fireProjectile != null)
-        {
-            fireProjectile.damage = damage;
-        }*/
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NetworkRigidBody))]
+//[RequireComponent(typeof(NetworkRigidBody))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : NetworkComponent
 {
@@ -137,13 +137,13 @@ public class Enemy : NetworkComponent
     public void findNearestPlayer()
     {
         float dist = 0, currentDist = 0;
-        foreach (var player in players)
+        for (int i = 0; i < players.Length; i++)
         {
-            currentDist = transform.position.magnitude - player.transform.position.magnitude;
-            if (currentDist < dist)
+            currentDist = Mathf.Abs(transform.position.magnitude - players[i].transform.position.magnitude);
+            if (currentDist < dist || dist == 0)
             {
                 dist = currentDist;
-                nearestPlayer = player;
+                nearestPlayer = players[i];
             }
         }
     }
@@ -206,7 +206,9 @@ public class Enemy : NetworkComponent
 
     public void ChasePlayer()
     {
-        agent.SetDestination(nearestPlayer.transform.position);
+        Vector3 lookAtVar = new Vector3(nearestPlayer.transform.position.x, gameObject.transform.position.y, nearestPlayer.transform.position.z);
+        agent.SetDestination(lookAtVar);
+        transform.LookAt(lookAtVar);
     }
 
     public void ResetAttack()

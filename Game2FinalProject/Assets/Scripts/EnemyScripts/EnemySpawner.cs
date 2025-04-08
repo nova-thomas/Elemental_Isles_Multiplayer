@@ -159,6 +159,9 @@ public class EnemySpawner : NetworkComponent
 
     public override void NetworkedStart()
     {
-        //throw new System.NotImplementedException();
+        /*if (IsServer)
+        {
+            SpawnEnemy();
+        }*/
     }
 }
