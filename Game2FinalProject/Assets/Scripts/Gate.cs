@@ -10,7 +10,7 @@ public class Gate : NetworkComponent
     {
         if (flag == "OPEN")
         {
-            if (value == "true")
+            if (value == "true" && !doorOpened)
             {
                 Debug.Log("Door Opening");
                 if (IsServer)
@@ -56,6 +56,9 @@ public class Gate : NetworkComponent
     public void OpenDoor()
     {
         Debug.Log("Open Door Command");
-        SendCommand("OPEN", "true");
+        if (IsClient && !doorOpened)
+        {
+            SendCommand("OPEN", "true");
+        }
     }
 }

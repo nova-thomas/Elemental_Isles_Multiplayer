@@ -25,19 +25,15 @@ public class Pillar : NetworkComponent
                 if (IsClient)
                 {
                     doorOpened = true;
+                    if (gate != null)
+                    {
+                        gate.OpenDoor();  // Calls SendCommand("OPEN", "true")
+                    }
                 }
                 
 
-                // Update visuals
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-
-                if (gate != null)
-                {
-                    gate.OpenDoor();  // Calls SendCommand("OPEN", "true")
-                }
-
-                
             }
             else
             {
