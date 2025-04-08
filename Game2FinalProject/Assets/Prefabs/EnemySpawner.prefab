@@ -52,10 +52,16 @@ MonoBehaviour:
   earthLizard: 32
   fireLizard: 33
   waterLizard: 34
-  plague: 0
-  golem: 0
-  maxMembers: 5
-  enemyToSpawn: 0
+  airBeholder: 36
+  earthBeholder: 37
+  fireBeholder: 38
+  waterBeholder: 39
+  airGolem: 9
+  earthGolem: 9
+  fireGolem: 9
+  waterGolem: 9
+  maxMembers: 3
+  enemyToSpawn: 4
   respawnDelay: 5
 --- !u!114 &843663738068256768
 MonoBehaviour:

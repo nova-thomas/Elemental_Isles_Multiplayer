@@ -12,8 +12,8 @@ public class EnemySpawner : NetworkComponent
     public GameObject dragonPrefab;*/
 
     public int airLizard, earthLizard, fireLizard, waterLizard;
-    public int plague;
-    public int golem;
+    public int airBeholder, earthBeholder, fireBeholder, waterBeholder;
+    public int airGolem, earthGolem, fireGolem, waterGolem;
 
     public int maxMembers;
 
@@ -23,8 +23,14 @@ public class EnemySpawner : NetworkComponent
         earthLizard,
         fireLizard,
         waterLizard,
-        Plague,
-        Golem
+        airBeholder,
+        earthBeholder,
+        fireBeholder,
+        waterBeholder,
+        airGolem,
+        earthGolem,
+        fireGolem,
+        waterGolem
     }
 
     [SerializeField]
@@ -68,7 +74,7 @@ public class EnemySpawner : NetworkComponent
         int prefab = GetPrefabForEnemyType();
         if (prefab == 9) return;
 
-        if (enemyToSpawn != EnemyType.Golem)
+        if (enemyToSpawn != EnemyType.airGolem || enemyToSpawn != EnemyType.earthGolem || enemyToSpawn != EnemyType.fireGolem || enemyToSpawn != EnemyType.waterGolem)
         {
             for (int i = 0; i < maxMembers; i++)
             {
@@ -109,8 +115,14 @@ public class EnemySpawner : NetworkComponent
             case EnemyType.earthLizard: return earthLizard;
             case EnemyType.fireLizard: return fireLizard;
             case EnemyType.waterLizard: return waterLizard;
-            case EnemyType.Plague: return plague;
-            case EnemyType.Golem: return golem;
+            case EnemyType.airBeholder: return airBeholder;
+            case EnemyType.earthBeholder: return earthBeholder;
+            case EnemyType.fireBeholder: return fireBeholder;
+            case EnemyType.waterBeholder: return waterBeholder;
+            case EnemyType.airGolem: return airGolem;
+            case EnemyType.earthGolem: return earthGolem;
+            case EnemyType.fireGolem: return fireGolem;
+            case EnemyType.waterGolem: return waterGolem;
             default: return 9;
         }
     }
