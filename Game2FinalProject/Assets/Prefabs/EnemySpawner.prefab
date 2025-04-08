@@ -56,12 +56,12 @@ MonoBehaviour:
   earthBeholder: 37
   fireBeholder: 38
   waterBeholder: 39
-  airGolem: 9
-  earthGolem: 9
-  fireGolem: 9
-  waterGolem: 9
+  airGolem: 40
+  earthGolem: 41
+  fireGolem: 42
+  waterGolem: 43
   maxMembers: 3
-  enemyToSpawn: 4
+  enemyToSpawn: 10
   respawnDelay: 5
 --- !u!114 &843663738068256768
 MonoBehaviour:
