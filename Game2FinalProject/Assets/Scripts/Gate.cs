@@ -10,9 +10,9 @@ public class Gate : NetworkComponent
     {
         if (flag == "OPEN")
         {
-            Debug.Log("Door Opening");
             if (value == "true")
             {
+                Debug.Log("Door Opening");
                 if (IsServer)
                 {
                     doorOpened = true;

@@ -112,7 +112,6 @@ public class PlayerCharacter : NetworkComponent
 
             ammo--;
             SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
-            SendCommand("AMMO", $"{ammo}/{maxAmmo}");
         }
 
         if (flag == "FIREABILITY")
@@ -151,7 +150,6 @@ public class PlayerCharacter : NetworkComponent
                     }
                 }
                 canShootAbility = true;
-                SendUpdate("CRYSTALSUB", "");
             }
         }
 
@@ -162,21 +160,12 @@ public class PlayerCharacter : NetworkComponent
             nearestPillar.ActivatePedistal();
         }
 
-        if(flag == "COIN")
-        {
-            if (IsServer)
-            {
-                score += 100;
-                SendUpdate("SCORE", score.ToString());
-            }
-        }
-
-        if (flag == "SCORE")
+        if (flag == "GETSCORE")
         {
             if (IsServer)
             {
                 score = int.Parse(value);
-                SendUpdate("SCORE", score.ToString());
+                SendUpdate("GETSCORE", score.ToString());
             }
             if (IsClient)
             {
@@ -184,26 +173,43 @@ public class PlayerCharacter : NetworkComponent
             }
         }
 
-        if (flag == "CRYSTAL")
+        if (flag == "GETANTENNA")
+        {
+            if (IsServer)
+            {
+                antennaCollected = int.Parse(value);
+                SendUpdate("GETANTENNA", antennaCollected.ToString());
+            }
+            if (IsClient)
+            {
+                antennaCollected = int.Parse(value);
+            }
+        }
+
+        if (flag == "GETCRYSTALS")
         {
             if (IsServer)
             {
                 crystals = int.Parse(value);
-                SendUpdate("CRYSTAL", crystals.ToString());
+                SendUpdate("GETCRYSTALS", crystals.ToString());
             }
             if (IsClient)
             {
                 crystals = int.Parse(value);
             }
         }
+
+
         if (flag == "CRYSTALADD")
         {
             if (IsServer)
             {
                 crystals++;
-                score += 500;
-                SendUpdate("CRYSTAL", crystals.ToString());
-                SendUpdate("SCORE", score.ToString());
+                SendUpdate("CRYSTALADD", crystals.ToString());
+            }
+            if (IsClient)
+            {
+                crystals = int.Parse(value);
             }
         }
 
@@ -212,22 +218,65 @@ public class PlayerCharacter : NetworkComponent
             if (IsServer)
             {
                 crystals--;
-                SendUpdate("CRYSTAL", crystals.ToString());
+                SendUpdate("CRYSTALSUB", crystals.ToString());
+            }
+            if (IsClient)
+            {
+                crystals = int.Parse(value);
             }
         }
 
-        if (flag == "ANTENNA")
+        if (flag == "ANTENNAADD")
         {
             if(IsServer)
             {
                 antennaCollected++;
-                score += 5000;
-                SendUpdate("SCORE", score.ToString());
-                SendUpdate("ANTENNA", antennaCollected.ToString());
+                SendUpdate("ANTENNAADD", antennaCollected.ToString());
             }
             if (IsClient)
             {
                 antennaCollected = int.Parse(value);
+            }
+        }
+
+        if (flag == "COLLECTABLE")
+        {
+            if (value == "Coin")
+            {
+                if (IsServer)
+                {
+                    score += 100;
+                    SendUpdate("COLLECTABLE", score.ToString());
+                }
+                if (IsClient)
+                {
+                    score = int.Parse(value);
+                }
+            }
+            if (value == "Crystal")
+            {
+                if (IsServer)
+                {
+                    score += 500;
+                    SendUpdate("COLLECTABLE", score.ToString());
+                }
+                if (IsClient)
+                {
+                    score = int.Parse(value);
+                }
+            }
+            if (value == "Antenna")
+            {
+                if (IsServer)
+                {
+                    score += 5000;
+                    SendUpdate("COLLECTABLE", score.ToString());
+                }
+                
+            }
+            if (IsClient && int.TryParse(value, out int scoreVal))
+            {
+                score = scoreVal;
             }
         }
     }
@@ -282,10 +331,10 @@ public class PlayerCharacter : NetworkComponent
             if (IsServer && IsDirty)
             {
                 SendUpdate("SETUP", PName);
-                SendUpdate("SCORE", score.ToString());
-                SendUpdate("ANTENNA", antennaCollected.ToString());
-                SendUpdate("CRYSTAL", crystals.ToString());
-
+                SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
+                SendUpdate("GETSCORE", score.ToString());
+                SendUpdate("GETCRYSTALS", crystals.ToString());
+                SendUpdate("GETANTENNA", antennaCollected.ToString());
                 IsDirty = false;
             }
             yield return new WaitForSeconds(.1f);
@@ -376,7 +425,7 @@ public class PlayerCharacter : NetworkComponent
             canShoot = false;
             SendCommand("FIRE", " ");
             ammo--; 
-            SendUpdate("AMMO", $"{ammo}/{maxAmmo}");  // Update the ammo UI on the server
+            SendCommand("AMMO", $"{ammo}/{maxAmmo}");  // Update the ammo UI on the server
             
         }
     }
@@ -415,7 +464,8 @@ public class PlayerCharacter : NetworkComponent
         canShootAbility = false;
         if (crystals >= 1)
         {
-            SendCommand("FIREABILITY", " ");
+            SendCommand("FIREABILITY", "");
+            SendCommand("CRYSTALSUB", "");
         }
         
     }
@@ -460,26 +510,36 @@ public class PlayerCharacter : NetworkComponent
         {
             if (IsClient)
             {
-                SendCommand("COIN", score.ToString());
+                SendCommand("COLLECTABLE", "Coin");
             }
-            
-            CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
-            item.DestroyObj();
+
+            if (IsServer)
+            {
+                CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
+                item.DestroyObj();
+            }
         }
 
         if (other.gameObject.tag == "Crystal")
         {
+            Debug.Log("Collided with Crystal");
             CollectibleItem crystal = other.gameObject.GetComponent<CollectibleItem>();
             if (crystal.CrystalElement == playerElement)
             {
                 if (IsClient)
                 {
-                    SendCommand("CRYSTALADD", crystals.ToString());
+                    Debug.Log("Client sending crystaladd command");
+                    SendCommand("COLLECTABLE", "Crystal");
+                    SendCommand("CRYSTALADD", "Crystal");
                 }
                 
 
-                CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
-                item.DestroyObj();
+                if (IsServer)
+                {
+                    CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
+                    item.DestroyObj();
+                }
+                
             }
 
         }
@@ -488,11 +548,15 @@ public class PlayerCharacter : NetworkComponent
         {
             if (IsClient)
             {
-                SendCommand("ANTENNA", "");
+                SendCommand("COLLECTABLE", "Antenna");
+                SendCommand("ANTENNAADD", "");
             }
-            
-            CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
-            item.DestroyObj();
+
+            if (IsServer)
+            {
+                CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
+                item.DestroyObj();
+            }
         }
 
         if (other.gameObject.tag == "Pillar")

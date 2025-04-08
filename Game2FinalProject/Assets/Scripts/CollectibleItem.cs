@@ -58,6 +58,15 @@ public class CollectibleItem : NetworkComponent
 
     public void DestroyObj()
     {
+        if (IsServer)
+        {
+            StartCoroutine(DestroyAfterDelay(0.3f));
+        }
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         MyCore.NetDestroyObject(this.NetId);
     }
 }
