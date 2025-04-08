@@ -13,7 +13,7 @@ public class CollectableSpawner : NetworkComponent
 
     public override void NetworkedStart()
     {
-        
+        MyCore.NetCreateObject(12, this.Owner, this.transform.position, Quaternion.identity);
     }
 
     public override IEnumerator SlowUpdate()
@@ -21,7 +21,7 @@ public class CollectableSpawner : NetworkComponent
         // Spawn collectable once every 3 seconds
         while (IsConnected)
         {
-            SpawnCollectable();
+            //SpawnCollectable();
 
             yield return new WaitForSeconds(3f);
         }
@@ -45,18 +45,7 @@ public class CollectableSpawner : NetworkComponent
         if (!IsServer) return; // Only the server should spawn objects
 
         // Collectable ID (5-8 antenna, 9 coins, 10-13 collectables)
-
-        // Randomize spawn position within defined area
-        Vector3 randomOffset = new Vector3(
-            Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
-            0f, // Keep Y consistent unless floating collectables are needed
-            Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
-        );
-        Vector3 spawnPosition = this.transform.position + randomOffset;
-
         // Spawn the collectable object
-        MyCore.NetCreateObject(12, this.Owner, spawnPosition, Quaternion.identity);
-        MyCore.NetCreateObject(11, this.Owner, spawnPosition, Quaternion.identity);
-        MyCore.NetCreateObject(13, this.Owner, spawnPosition, Quaternion.identity);
+        MyCore.NetCreateObject(12, this.Owner, this.transform.position, Quaternion.identity);
     }
 }
