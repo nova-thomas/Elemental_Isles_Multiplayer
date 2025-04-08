@@ -149,7 +149,6 @@ public class PlayerCharacter : NetworkComponent
                         abilityRig.velocity = elementLoc.transform.forward * abilitySpeed;
                     }
                 }
-                canShootAbility = true;
             }
         }
 
@@ -461,13 +460,19 @@ public class PlayerCharacter : NetworkComponent
 
     public void AbilityFire(InputAction.CallbackContext afr)
     {
-        canShootAbility = false;
-        if (crystals >= 1)
+        if (crystals >= 1 && canShootAbility)
         {
+            canShootAbility = false;
             SendCommand("FIREABILITY", "");
             SendCommand("CRYSTALSUB", "");
+            StartCoroutine(AbilityCooldown());
         }
-        
+    }
+
+    public IEnumerator AbilityCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        canShootAbility = true;
     }
 
     public void Interact(InputAction.CallbackContext ia)
