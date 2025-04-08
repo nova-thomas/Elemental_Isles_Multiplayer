@@ -112,6 +112,7 @@ public class PlayerCharacter : NetworkComponent
 
             ammo--;
             SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
+            SendCommand("AMMO", $"{ammo}/{maxAmmo}");
         }
 
         if (flag == "FIREABILITY")
