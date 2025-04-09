@@ -5,38 +5,30 @@ using UnityEngine;
 
 public class Gate : NetworkComponent
 {
-    public bool doorOpened;
+    public bool gateDoorOpened;
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "OPEN")
         {
-            if (value == "true" && !doorOpened)
+            if (IsServer && flag == "true")
             {
-                Debug.Log("Door Opening");
-                if (IsServer)
-                {
-                    doorOpened = true;
-                    SendUpdate("OPEN", doorOpened.ToString());
-                }
+                gateDoorOpened = true;
+                SendUpdate("OPEN", gateDoorOpened.ToString());
+            }
+            if (IsClient)
+            {
 
-                if (IsClient)
-                {
-                    doorOpened = bool.Parse(value);
-                }
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                Debug.Log("Door Opened");
             }
-            else
+            if (gateDoorOpened)
             {
-                doorOpened = bool.Parse(value);
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
             }
-            
         }
     }
 
     public override void NetworkedStart()
     {
-        doorOpened = false;
+        gateDoorOpened = false;
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
@@ -46,19 +38,10 @@ public class Gate : NetworkComponent
         {
             if (IsDirty)
             {
-                SendUpdate("OPEN", doorOpened.ToString());
+                SendUpdate("OPEN", gateDoorOpened.ToString());
                 IsDirty = false;
             }
             yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    public void OpenDoor()
-    {
-        Debug.Log("Open Door Command");
-        if (IsClient && !doorOpened)
-        {
-            SendCommand("OPEN", "true");
         }
     }
 }

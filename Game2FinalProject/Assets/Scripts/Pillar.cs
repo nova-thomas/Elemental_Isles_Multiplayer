@@ -21,14 +21,14 @@ public class Pillar : NetworkComponent
                 {
                     doorOpened = true;
                     SendUpdate("ACTIVATE", doorOpened.ToString());
+                    if (gate != null)
+                    {
+                        gate.HandleMessage("OPEN", "true");
+                    }
                 }
                 if (IsClient)
                 {
                     doorOpened = true;
-                    if (gate != null)
-                    {
-                        gate.OpenDoor();  // Calls SendCommand("OPEN", "true")
-                    }
                 }
                 
 
@@ -48,31 +48,59 @@ public class Pillar : NetworkComponent
         doorOpened = false;
         this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+
+        string gateName = GateElement.ToString() + "Gate";
+        Gate foundGate = FindFirstObjectWithNamePrefix(gateName);
+        if (foundGate != null)
+        {
+            gate = foundGate;
+        }
+        else
+        {
+            Debug.LogWarning("Could not find gate with name: " + gateName);
+        }
+    }
+
+    Gate FindFirstObjectWithNamePrefix(string prefix)
+    {
+        Gate[] allObjects = Gate.FindObjectsOfType<Gate>();
+        foreach (Gate obj in allObjects)
+        {
+            if (obj.name.StartsWith(prefix))
+            {
+                return obj;
+            }
+        }
+        return null;
     }
 
     public override IEnumerator SlowUpdate()
     {
         while (IsConnected)
         {
-            if(IsDirty)
+            if (gate == null)
+            {
+                string gateName = GateElement.ToString() + "Gate";
+                Gate foundGate = FindFirstObjectWithNamePrefix(gateName);
+                if (foundGate != null)
+                {
+                    gate = foundGate;
+                }
+                else
+                {
+                    Debug.LogWarning("Could not find gate with name: " + gateName);
+                }
+            }
+            if (IsDirty)
             {
                 SendUpdate("ACTIVATE", doorOpened.ToString());
+
                 IsDirty = false;
             }
             yield return new WaitForSeconds(0.1f);
         }
     }
 
-
-    public void ActivatePedistal()
-    {
-        Debug.Log("Activating Pedistal");
-        if (!doorOpened)
-        {
-            Debug.Log("Door isn't open");
-            SendCommand("ACTIVATE", "true");
-        }
-    }
 
     public void OnTriggerEnter(Collider other)
     {

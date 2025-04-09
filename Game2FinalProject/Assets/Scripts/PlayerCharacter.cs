@@ -154,10 +154,12 @@ public class PlayerCharacter : NetworkComponent
         }
 
 
-        if (flag == "TRIBUTE")
+        if (flag == "TRIBUTE" && IsServer)
         {
-            Debug.Log("Tributing Player Side");
-            nearestPillar.ActivatePedistal();
+            if (nearestPillar != null)
+            {
+                nearestPillar.HandleMessage("ACTIVATE", "true");
+            }
         }
 
         if (flag == "GETSCORE")
@@ -483,7 +485,7 @@ public class PlayerCharacter : NetworkComponent
         {
             interacting = true;
             canTribute = false;
-            Debug.Log("Can Tribute");
+            Debug.Log("Sending TRIBUTE");
             SendCommand("CRYSTALSUB", "");
             SendCommand("TRIBUTE", "");
             StartCoroutine(InteractionCooldown());
@@ -590,8 +592,12 @@ public class PlayerCharacter : NetworkComponent
     {
         if (other.tag == "Pillar")
         {
-            canTribute = false;
-            nearestPillar = null;
+            if (nearestPillar != null && other.gameObject == nearestPillar.gameObject)
+            {
+                canTribute = false;
+                nearestPillar = null;
+                interacting = false;
+            }
         }
     }
 

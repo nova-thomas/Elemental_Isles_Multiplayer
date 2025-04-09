@@ -300,7 +300,6 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   doorOpened: 0
-  showE: 0
   gate: {fileID: 0}
   GateElement: 0
 --- !u!135 &-2420035559087175548
@@ -322,5 +321,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 5
   m_Center: {x: 0, y: 3, z: 0}
