@@ -8,6 +8,7 @@ public class NetworkTransform : NetworkComponent
     //sync vars
     public Vector3 lastPosition;
     public Vector3 lastRotation;
+    public Vector3 lastScale;
 
     //non-sync
     public float Threshold;
@@ -24,6 +25,10 @@ public class NetworkTransform : NetworkComponent
         if (flag == "ROT" && IsClient)
         {
             lastRotation = NetworkCore.Vector3FromString(value);
+        }
+        if (flag == "SCALE" && IsClient)
+        {
+            lastScale = NetworkCore.Vector3FromString(value);
         }
     }
 
@@ -52,10 +57,18 @@ public class NetworkTransform : NetworkComponent
                     SendUpdate("ROT", lastRotation.ToString());
                 }
 
+                float CheckScale = (this.transform.localScale - lastScale).magnitude;
+                if (CheckScale > Threshold)
+                {
+                    SendUpdate("SCALE", this.transform.localScale.ToString());
+                    lastScale = this.transform.localScale;
+                }
+
                 if (IsDirty)
                 {
                     SendUpdate("POS", lastPosition.ToString());
                     SendUpdate("ROT", lastRotation.ToString());
+                    SendUpdate("SCALE", lastScale.ToString());
                     IsDirty = false;
                 }
             }
