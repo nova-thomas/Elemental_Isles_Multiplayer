@@ -86,6 +86,7 @@ MonoBehaviour:
   speed: 8
   health: 10
   maxHealth: 10
+  deathTime: 4
   damage: 3
   slowed: 0
   agent: {fileID: 0}

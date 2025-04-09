@@ -35,6 +35,7 @@ public class Enemy : NetworkComponent
     public float speed;
     public float health;
     public float maxHealth;
+    public float deathTime;
     public double damage;
     public bool slowed;
 
@@ -180,6 +181,7 @@ public class Enemy : NetworkComponent
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+            SendUpdate("WALK", " ");
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -206,6 +208,8 @@ public class Enemy : NetworkComponent
 
     public void ChasePlayer()
     {
+        SendUpdate("WALK", " ");
+
         Vector3 lookAtVar = new Vector3(nearestPlayer.transform.position.x, gameObject.transform.position.y, nearestPlayer.transform.position.z);
         agent.SetDestination(lookAtVar);
         transform.LookAt(lookAtVar);
@@ -270,9 +274,17 @@ public class Enemy : NetworkComponent
                     SpawnItem(crystal);
                 }
 
-                MyCore.NetDestroyObject(NetId);
+                //MyCore.NetDestroyObject(NetId);
+                StartCoroutine(Death());
             }
         }
+    }
+
+    public IEnumerator Death()
+    {
+        SendUpdate("DEATH", " ");
+        yield return new WaitForSeconds(deathTime);
+        MyCore.NetDestroyObject(NetId);
     }
 
     public IEnumerator Slow()

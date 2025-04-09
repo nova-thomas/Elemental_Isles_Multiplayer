@@ -13,7 +13,28 @@ public class Golum : Enemy
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {
-        //Animations
+        if (IsClient)
+        {
+            if (flag == "WALK")
+            {
+                myAnimator.CrossFade("Walk", .2f);
+            }
+
+            if (flag == "SWIPE")
+            {
+                myAnimator.CrossFade("Swipe", .2f);
+            }
+
+            if (flag == "SLAM")
+            {
+                myAnimator.CrossFade("Slam", .2f);
+            }
+
+            if (flag == "DEATH")
+            {
+                myAnimator.CrossFade("Death", .2f);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -89,6 +110,7 @@ public class Golum : Enemy
         //audioSource.PlayOneShot(a_SwingAttack);
 
         // Animation
+        SendUpdate("SWIPE", " ");
         //myAnimator.CrossFade("Swipe", .2f);
         //myAnimator.SetBool("SWIPE", true);
 
@@ -102,6 +124,7 @@ public class Golum : Enemy
         //audioSource.PlayOneShot(a_SlamAttack);
 
         // Animation
+        SendUpdate("SLAM", " ");
         //myAnimator.CrossFade("Slam", .2f);
         //myAnimator.SetBool("SLAM", true);
 
