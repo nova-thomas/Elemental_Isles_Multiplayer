@@ -14,23 +14,18 @@ public class Pillar : NetworkComponent
     {
         if (flag == "ACTIVATE")
         {
-            if (value == "true")
+            if (IsClient)
             {
-                Debug.Log("Activate Handle Message");
-                if (IsServer)
+                doorOpened = bool.Parse(value);
+            }
+            
+            if (doorOpened == true)
+            {
+                if(IsServer)
                 {
-                    doorOpened = true;
-                    SendUpdate("ACTIVATE", doorOpened.ToString());
-                    if (gate != null)
-                    {
-                        gate.HandleMessage("OPEN", "true");
-                    }
+                    gate.gateDoorOpened = true;
+                    gate.SendUpdate("OPEN", gate.gateDoorOpened.ToString());
                 }
-                if (IsClient)
-                {
-                    doorOpened = true;
-                }
-                
 
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 this.gameObject.transform.GetChild(1).gameObject.SetActive(true);

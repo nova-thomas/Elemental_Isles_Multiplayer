@@ -10,14 +10,9 @@ public class Gate : NetworkComponent
     {
         if (flag == "OPEN")
         {
-            if (IsServer && flag == "true")
-            {
-                gateDoorOpened = true;
-                SendUpdate("OPEN", gateDoorOpened.ToString());
-            }
             if (IsClient)
             {
-
+                gateDoorOpened = bool.Parse(value);
             }
             if (gateDoorOpened)
             {

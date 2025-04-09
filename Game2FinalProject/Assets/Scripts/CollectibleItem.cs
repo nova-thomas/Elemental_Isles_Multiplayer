@@ -60,13 +60,7 @@ public class CollectibleItem : NetworkComponent
     {
         if (IsServer)
         {
-            StartCoroutine(DestroyAfterDelay(0.3f));
+            MyCore.NetDestroyObject(this.NetId);
         }
-    }
-
-    private IEnumerator DestroyAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        MyCore.NetDestroyObject(this.NetId);
     }
 }
