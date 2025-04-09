@@ -13,7 +13,7 @@ public class CollectableSpawner : NetworkComponent
 
     public override void NetworkedStart()
     {
-        MyCore.NetCreateObject(12, this.Owner, this.transform.position, Quaternion.identity);
+        //MyCore.NetCreateObject(12, this.Owner, this.transform.position, Quaternion.identity);
     }
 
     public override IEnumerator SlowUpdate()
@@ -21,7 +21,7 @@ public class CollectableSpawner : NetworkComponent
         // Spawn collectable once every 3 seconds
         while (IsConnected)
         {
-            //SpawnCollectable();
+            SpawnCollectable();
 
             yield return new WaitForSeconds(3f);
         }

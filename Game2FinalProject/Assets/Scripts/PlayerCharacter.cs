@@ -47,6 +47,7 @@ public class PlayerCharacter : NetworkComponent
     public int crystals;
     public Pillar nearestPillar;
     public bool canTribute;
+    public bool interacting;
     public int antennaCollected;
     public int health = 20;
     public int ammo = 12;
@@ -478,12 +479,21 @@ public class PlayerCharacter : NetworkComponent
     public void Interact(InputAction.CallbackContext ia)
     {
         Debug.Log("Interacting");
-        if (canTribute && crystals >= 1)
+        if (canTribute && crystals >= 1 && !interacting)
         {
+            interacting = true;
+            canTribute = false;
             Debug.Log("Can Tribute");
             SendCommand("CRYSTALSUB", "");
             SendCommand("TRIBUTE", "");
+            StartCoroutine(InteractionCooldown());
         }
+    }
+
+    public IEnumerator InteractionCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        interacting = true;
     }
 
     //Camera Control
