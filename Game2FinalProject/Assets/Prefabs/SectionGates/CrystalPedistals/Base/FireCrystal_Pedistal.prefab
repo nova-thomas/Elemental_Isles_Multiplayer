@@ -601,9 +601,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 248748430394949829}
+  - component: {fileID: -1090312813507902852}
   m_Layer: 0
   m_Name: FireCrystal_Pedistal
-  m_TagString: Crystal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -631,6 +632,21 @@ Transform:
   - {fileID: 4537685874351666854}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1090312813507902852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8695880786863548304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3e4fdb18ea7d24f8bc7be97e6b4af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
+  floatAmplitude: 0.25
+  floatFrequency: 1
 --- !u!1 &9020708762534831866
 GameObject:
   m_ObjectHideFlags: 0

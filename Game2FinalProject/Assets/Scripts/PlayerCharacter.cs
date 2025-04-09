@@ -159,13 +159,11 @@ public class PlayerCharacter : NetworkComponent
 
         if (flag == "TRIBUTE" && IsServer)
         {
-            if (nearestPillar != null)
-            {
-                nearestPillar.doorOpened = true;
-                nearestPillar.SendUpdate("ACTIVATE", nearestPillar.doorOpened.ToString());
-                crystals--;
-                SendUpdate("GETCRYSTALS", crystals.ToString());
-            }
+            Debug.Log("Recieved Server Tribute");
+            nearestPillar.doorOpened = true;
+            nearestPillar.SendUpdate("ACTIVATE", nearestPillar.doorOpened.ToString());
+            crystals--;
+            SendUpdate("GETCRYSTALS", crystals.ToString());
         }
 
         if (flag == "GETANTENNA")
@@ -390,7 +388,7 @@ public class PlayerCharacter : NetworkComponent
     public void Interact(InputAction.CallbackContext ia)
     {
         Debug.Log("Interacting");
-        if (canTribute && crystals >= 1 && !interacting)
+        if (canTribute && crystals >= 1 && !interacting && IsLocalPlayer)
         {
             interacting = true;
             canTribute = false;

@@ -21,18 +21,8 @@ public class Pillar : NetworkComponent
             
             if (doorOpened == true)
             {
-                if(IsServer)
-                {
-                    gate.gateDoorOpened = true;
-                    gate.SendUpdate("OPEN", gate.gateDoorOpened.ToString());
-                }
-
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else
-            {
-                doorOpened = false;
             }
         }
             
@@ -86,6 +76,13 @@ public class Pillar : NetworkComponent
                     Debug.LogWarning("Could not find gate with name: " + gateName);
                 }
             }
+
+            if (IsServer && doorOpened && !gate.gateDoorOpened)
+            {
+                gate.gateDoorOpened = true;
+                gate.SendUpdate("OPEN", gate.gateDoorOpened.ToString());
+            }
+
             if (IsDirty)
             {
                 SendUpdate("ACTIVATE", doorOpened.ToString());

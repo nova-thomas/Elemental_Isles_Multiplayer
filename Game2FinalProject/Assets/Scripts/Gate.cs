@@ -14,10 +14,6 @@ public class Gate : NetworkComponent
             {
                 gateDoorOpened = bool.Parse(value);
             }
-            if (gateDoorOpened)
-            {
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-            }
         }
     }
 
@@ -31,6 +27,11 @@ public class Gate : NetworkComponent
     {
         while (IsConnected)
         {
+            if (gateDoorOpened && this.gameObject.transform.GetChild(0).gameObject.activeSelf)
+            {
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
+
             if (IsDirty)
             {
                 SendUpdate("OPEN", gateDoorOpened.ToString());
