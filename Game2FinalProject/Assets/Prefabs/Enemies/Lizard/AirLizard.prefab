@@ -129,14 +129,6 @@ PrefabInstance:
       value: 23
       objectReference: {fileID: 0}
     - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
-      propertyPath: sightRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
-      propertyPath: attackRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
       propertyPath: firePosition
       value: 
       objectReference: {fileID: 314497562886558820}

@@ -585,6 +585,12 @@ public class PlayerCharacter : NetworkComponent
                 canTribute = true;
             }
         }
+
+        if (other.gameObject.tag == "Hitbox" && IsServer)
+        {
+            // Hurt the player
+            Debug.Log("Hit");
+        }
     }
 
 

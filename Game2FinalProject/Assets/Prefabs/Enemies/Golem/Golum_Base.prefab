@@ -79,7 +79,7 @@ MonoBehaviour:
   monsterDropHeight: 1
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 3
-  sightRange: 5
+  sightRange: 7
   attackRange: 2
   timeBetweenAttacks: 8
   alreadyAttacked: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   playerInAttackRange: 0
   playedAmbient: 0
   timeBetweenAmbient: 0
-  hitboxPrefab: {fileID: 0}
+  hitboxPrefab: {fileID: 306649847756534115, guid: 4d9f47a5190a89741bce11f11f14ae74, type: 3}
   hitboxTransform: {fileID: 0}
   attackSpeed: 0
 --- !u!195 &1448352803276553519

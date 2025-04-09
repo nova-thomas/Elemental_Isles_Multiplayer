@@ -79,8 +79,8 @@ MonoBehaviour:
   monsterDropHeight: 0.7
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 3
-  sightRange: 5
-  attackRange: 2
+  sightRange: 8
+  attackRange: 4
   timeBetweenAttacks: 8
   alreadyAttacked: 0
   speed: 8

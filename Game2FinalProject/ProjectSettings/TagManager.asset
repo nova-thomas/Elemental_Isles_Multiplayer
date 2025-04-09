@@ -21,6 +21,7 @@ TagManager:
   - Bullet
   - Regular Bullet
   - EnemyBullet
+  - Hitbox
   layers:
   - Default
   - TransparentFX
