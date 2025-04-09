@@ -20,15 +20,12 @@ public class FireBramble : NetworkComponent
                 burning = bool.Parse(value);
                 Debug.Log("Sending Flame Update");
                 SendUpdate("BURNING", burning.ToString());
-
-                if (burning && !_isBurning)
-                {
-                    _isBurning = true;
-                    StartCoroutine(BurnAndShrink());
-                }
-
-
-            }            
+            }
+            if (burning && !_isBurning)
+            {
+                _isBurning = true;
+                StartCoroutine(BurnAndShrink());
+            }
         }
     }
 
