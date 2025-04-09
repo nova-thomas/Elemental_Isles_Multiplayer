@@ -18,14 +18,7 @@ public class WaterBolder : NetworkComponent
 
     public override void HandleMessage(string flag, string value)
     {
-        if (flag == "HIT")
-        {
-            if(IsServer)
-            {
-                Vector3 knockbackDirection = Vector3FromString(value);
-                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
-            }
-        }
+
     }
 
     public override void NetworkedStart()
@@ -58,12 +51,15 @@ public class WaterBolder : NetworkComponent
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WaterBlast" && IsClient)
+        if (other.tag == "WaterBlast" && IsServer)
         {
             lastHitPos = other.transform;
             Vector3 knockbackDirection = (transform.position - lastHitPos.position).normalized;
 
-            SendCommand("HIT", knockbackDirection.ToString());
+            if (IsServer)
+            {
+                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+            }
         }
     }
 }

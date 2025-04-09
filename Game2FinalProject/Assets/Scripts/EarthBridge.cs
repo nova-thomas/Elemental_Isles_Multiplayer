@@ -27,25 +27,21 @@ public class EarthBridge : NetworkComponent
             if (IsClient)
             {
                 built = bool.Parse(value);
-            }
-
-            
-
-
-            if (built)
-            {
-                if (meshCollider != null) meshCollider.enabled = true;
-                if (renderer != null)
+                if (built)
                 {
-                    renderer.material = baseMaterial;
+                    if (meshCollider != null) meshCollider.enabled = true;
+                    if (renderer != null)
+                    {
+                        renderer.material = baseMaterial;
+                    }
                 }
-            }
-            else
-            {
-                if (meshCollider != null) meshCollider.enabled = false;
-                if (renderer != null)
+                else
                 {
-                    renderer.material = TransparentMaterial;
+                    if (meshCollider != null) meshCollider.enabled = false;
+                    if (renderer != null)
+                    {
+                        renderer.material = TransparentMaterial;
+                    }
                 }
             }
         }
@@ -93,9 +89,26 @@ public class EarthBridge : NetworkComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "MudShot" && IsClient)
+        if (other.tag == "MudShot")
         {
-            SendCommand("BUILT", "true");
+            built = true;
+            if (built)
+            {
+                if (meshCollider != null) meshCollider.enabled = true;
+                if (renderer != null)
+                {
+                    renderer.material = baseMaterial;
+                }
+            }
+            else
+            {
+                if (meshCollider != null) meshCollider.enabled = false;
+                if (renderer != null)
+                {
+                    renderer.material = TransparentMaterial;
+                }
+            }
+            SendUpdate("BUILT", built.ToString());
         }
     }
 }

@@ -12,21 +12,7 @@ public class FireBramble : NetworkComponent
 
     public override void HandleMessage(string flag, string value)
     {
-        if (flag == "BURNING")
-        {
-            Debug.Log("Received Flame Message");
-            if (IsServer)
-            {
-                burning = bool.Parse(value);
-                Debug.Log("Sending Flame Update");
-                SendUpdate("BURNING", burning.ToString());
-            }
-            if (burning && !_isBurning)
-            {
-                _isBurning = true;
-                StartCoroutine(BurnAndShrink());
-            }
-        }
+
     }
 
     public override void NetworkedStart()
@@ -40,7 +26,6 @@ public class FireBramble : NetworkComponent
         {
             if (IsDirty)
             {
-                SendUpdate("BURNING", burning.ToString());
                 IsDirty = false;
             }
             yield return new WaitForSeconds(0.1f);
@@ -61,10 +46,14 @@ public class FireBramble : NetworkComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Flame" && IsClient)
+        if (other.tag == "Flame" && IsServer)
         {
-            Debug.Log("Flame hit");
-            SendCommand("BURNING", "true");
+            burning = true;
+            if (burning && !_isBurning)
+            {
+                _isBurning = true;
+                StartCoroutine(BurnAndShrink());
+            }
         }
     }
 
