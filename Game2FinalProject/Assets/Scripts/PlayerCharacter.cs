@@ -137,7 +137,7 @@ public class PlayerCharacter : NetworkComponent
                         abilitySpeed = waterBlastSpeed;
                         break;
                     case Elements.Air:
-                        myRig.AddForce(Vector3.up * jumpForce * 3, ForceMode.Impulse);
+                        myRig.AddForce(Vector3.up * jumpForce * 2, ForceMode.Impulse);
                         MyCore.NetCreateObject(27, this.Owner, this.transform.position, this.transform.rotation);
                         break;
                 }
@@ -179,6 +179,13 @@ public class PlayerCharacter : NetworkComponent
             if (IsClient)
             {
                 crystals = int.Parse(value);
+                if (crystals >= 0)
+                {
+                    canShootAbility = true;
+                } else
+                {
+                    canShootAbility = false;
+                }
             }
         }
 
@@ -371,7 +378,7 @@ public class PlayerCharacter : NetworkComponent
 
     public void AbilityFire(InputAction.CallbackContext afr)
     {
-        if (crystals >= 1 && canShootAbility)
+        if (canShootAbility && crystals > 0)
         {
             canShootAbility = false;
             SendCommand("FIREABILITY", "");
@@ -381,8 +388,11 @@ public class PlayerCharacter : NetworkComponent
 
     public IEnumerator AbilityCooldown()
     {
-        yield return new WaitForSeconds(1f);
-        canShootAbility = true;
+        yield return new WaitForSeconds(5f);
+        if (crystals > 0)
+        {
+            canShootAbility = true;
+        }
     }
 
     public void Interact(InputAction.CallbackContext ia)

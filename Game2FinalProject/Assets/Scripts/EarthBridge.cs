@@ -19,11 +19,6 @@ public class EarthBridge : NetworkComponent
     {
         if (flag == "BUILT")
         {
-            if (IsServer)
-            {
-                built = bool.Parse(value);
-                SendUpdate("BUILT", built.ToString());
-            }
             if (IsClient)
             {
                 built = bool.Parse(value);
@@ -89,7 +84,7 @@ public class EarthBridge : NetworkComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "MudShot")
+        if (other.tag == "MudShot" && IsServer)
         {
             built = true;
             if (built)

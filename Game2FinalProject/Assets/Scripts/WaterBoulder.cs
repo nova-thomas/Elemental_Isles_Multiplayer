@@ -7,7 +7,7 @@ using static UnityEngine.ParticleSystem;
 public class WaterBolder : NetworkComponent
 {
     private Rigidbody rb; // Reference to the Rigidbody component
-    public float knockbackForce = 10f; // Adjust this value to control knockback strength
+    public float knockbackForce = 30f; // Adjust this value to control knockback strength
     public Transform lastHitPos;
 
     public Vector3 Vector3FromString(string s)
@@ -60,6 +60,18 @@ public class WaterBolder : NetworkComponent
             {
                 rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
             }
+        }
+        if (other.tag == "Player")
+        {
+            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 }
