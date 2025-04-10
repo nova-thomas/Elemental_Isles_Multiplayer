@@ -15,7 +15,13 @@ public class Lizard : Enemy
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {
-        //Animations
+        if (IsClient)
+        {
+            if (flag == "WALK")
+            {
+                myAnimator.CrossFade("run", .2f);
+            }
+        }
     }
 
     // Update is called once per frame

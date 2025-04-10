@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6666955, g: 0.50589734, b: 0.3812432, a: 1}
+  m_IndirectSpecularColor: {r: 0.67225534, g: 0.50600314, b: 0.38084406, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3902,7 +3902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8043930658224969688, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8146410141022648651, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3946,11 +3946,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8883844058166687996, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
       propertyPath: maxMembers
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8883844058166687996, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
       propertyPath: enemyToSpawn
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

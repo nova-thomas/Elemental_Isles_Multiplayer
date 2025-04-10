@@ -101,13 +101,50 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 214bebabaa4f6d649a7248f178f03f28, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1586806312970830817}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 214bebabaa4f6d649a7248f178f03f28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5219936632515236044}
   m_SourcePrefab: {fileID: 100100000, guid: 214bebabaa4f6d649a7248f178f03f28, type: 3}
 --- !u!4 &1216524392863878018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 214bebabaa4f6d649a7248f178f03f28, type: 3}
   m_PrefabInstance: {fileID: 1687529347193416809}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1993448468241158456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 214bebabaa4f6d649a7248f178f03f28, type: 3}
+  m_PrefabInstance: {fileID: 1687529347193416809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5219936632515236044
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993448468241158456}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 7af4d73ab07918f4fbf078cab489e4b8, type: 3}
+  m_Controller: {fileID: 9100000, guid: bf6e1ecaee2ae5a46b759c1ee8c5865e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Bip01 L UpperArm'\n\tTransform 'Bip01 L Finger01'\n\tTransform
+    'Bip01 R UpperArm'\n\tTransform 'Bip01 R Finger11'\n\tTransform 'Bip01 Head'\n\tTransform
+    'Bip01 L Calf'\n\tTransform 'Bip01 R Finger1'\n\tTransform 'Bip01 L Clavicle'\n\tTransform
+    'Bip01 L Finger1'\n\tTransform 'Bip01 R Clavicle'\n\tand more ...\n\tFrom animation
+    clip 'hit'\n\tFrom animation clip 'attack1'\n\tFrom animation clip 'attack2'\n\tFrom
+    animation clip 'hit'"
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5624199217299280727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,6 +185,10 @@ PrefabInstance:
       propertyPath: coinAmount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
+      propertyPath: myAnimator
+      value: 
+      objectReference: {fileID: 5219936632515236044}
     - target: {fileID: -6078905910873220654, guid: 3d4669b0dba29544781688ac4a9c84f4, type: 3}
       propertyPath: firePosition
       value: 
@@ -255,6 +296,7 @@ MonoBehaviour:
   IsDirty: 0
   lastPosition: {x: 0, y: 0, z: 0}
   lastRotation: {x: 0, y: 0, z: 0}
+  lastScale: {x: 0, y: 0, z: 0}
   Threshold: 0
   EThreshold: 0
   speed: 5

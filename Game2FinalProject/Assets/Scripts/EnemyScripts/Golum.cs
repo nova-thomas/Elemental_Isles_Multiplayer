@@ -95,7 +95,6 @@ public class Golum : Enemy
 
     private IEnumerator AttackTime(float attackSpeed)
     {
-        Debug.Log("attack");
         yield return new WaitForSeconds(attackSpeed);
         //Debug.Log("attack");
         GameObject hitbox = Instantiate(hitboxPrefab, hitboxTransform);
