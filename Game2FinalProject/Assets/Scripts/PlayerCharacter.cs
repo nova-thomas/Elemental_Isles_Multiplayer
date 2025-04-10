@@ -110,10 +110,19 @@ public class PlayerCharacter : NetworkComponent
             transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
         }
 
-        if (flag == "JUMP" && IsServer)
+        if (flag == "JUMP")
         {
-            myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            canJump = false;
+            if (IsServer)
+            {
+                myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                canJump = false;
+                SendUpdate("JUMP", " ");
+            }
+
+            if (IsClient)
+            {
+                myAnimator.Play("Jump");
+            }
         }
 
         if (flag == "FIRE" && IsServer)
@@ -458,6 +467,11 @@ public class PlayerCharacter : NetworkComponent
         if (collision.gameObject.tag == "Ground")
         {
             canJump = true;
+
+            if (IsClient)
+            {
+                myAnimator.SetBool("isJumping", false);
+            }
         }
     }
 
