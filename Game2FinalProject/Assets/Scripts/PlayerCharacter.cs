@@ -118,12 +118,13 @@ public class PlayerCharacter : NetworkComponent
 
         if (flag == "FIRE" && IsServer)
         {
-            GameObject currentBullet = MyCore.NetCreateObject(23, this.Owner, bulletLoc.transform.position, bulletLoc.transform.rotation);
+            GameObject currentBullet = MyCore.NetCreateObject(23, this.Owner, bulletLoc.transform.position, transform.rotation);
             Rigidbody bulletRig = currentBullet.GetComponent<Rigidbody>();
 
             if (bulletRig != null)
             {
-                bulletRig.velocity = bulletLoc.transform.forward * bulletSpeed;
+                //bulletRig.velocity = bulletLoc.transform.forward * bulletSpeed;
+                bulletRig.velocity = transform.forward * bulletSpeed;
                 Debug.Log("bullet vel " + bulletRig.velocity);
             }
 
@@ -232,9 +233,9 @@ public class PlayerCharacter : NetworkComponent
             PlayerName.gameObject.SetActive(false);
         }
 
-        if (IsClient)
+        if (!IsLocalPlayer)
         {
-            FullModel.transform.rotation = Quaternion.Euler(FullModel.transform.rotation.eulerAngles.x, FullModel.transform.rotation.eulerAngles.y + 45, FullModel.transform.rotation.eulerAngles.z);
+            FullModel.transform.rotation = Quaternion.Euler(FullModel.transform.rotation.eulerAngles.x, FullModel.transform.rotation.eulerAngles.y + 40f, FullModel.transform.rotation.eulerAngles.z);
         }
 
         if (IsLocalPlayer)
@@ -528,7 +529,6 @@ public class PlayerCharacter : NetworkComponent
             Respawn();
         }
     }
-
 
     private void OnTriggerExit(Collider other)
     {
