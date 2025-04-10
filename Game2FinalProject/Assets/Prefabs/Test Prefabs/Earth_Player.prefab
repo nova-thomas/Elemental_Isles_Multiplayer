@@ -616,6 +616,7 @@ MonoBehaviour:
   crystals: 0
   nearestPillar: {fileID: 0}
   canTribute: 0
+  interacting: 0
   antennaCollected: 0
   health: 20
   ammo: 12

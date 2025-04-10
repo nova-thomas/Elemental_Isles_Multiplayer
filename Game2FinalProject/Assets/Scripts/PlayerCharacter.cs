@@ -17,8 +17,10 @@ public class PlayerCharacter : NetworkComponent
 
     //Prefab Components
     public Rigidbody myRig;
+    public GameObject FullModel;
     public GameObject playerModel;
     public GameObject playerGun;
+    public Animator myAnimator;
 
     //Projectile Variables
     public GameObject bulletLoc;
@@ -86,6 +88,19 @@ public class PlayerCharacter : NetworkComponent
             if (IsServer)
             {
                 moveIn = Vector2FromString(value);
+                SendUpdate("MOVE", value);
+            }
+
+            if (IsClient)
+            {
+                if (Vector2FromString(value) == Vector2.zero)
+                {
+                    myAnimator.SetBool("isWalking", false);
+                }
+                else
+                {
+                    myAnimator.SetBool("isWalking", true);
+                }
             }
         }
 
@@ -157,14 +172,15 @@ public class PlayerCharacter : NetworkComponent
             }
         }
 
-
         if (flag == "TRIBUTE" && IsServer)
         {
-            Debug.Log("Recieved Server Tribute");
-            nearestPillar.doorOpened = true;
-            nearestPillar.SendUpdate("ACTIVATE", nearestPillar.doorOpened.ToString());
-            crystals--;
-            SendUpdate("GETCRYSTALS", crystals.ToString());
+            if (nearestPillar != null)
+            {
+                nearestPillar.doorOpened = true;
+                nearestPillar.SendUpdate("ACTIVATE", nearestPillar.doorOpened.ToString());
+                crystals--;
+                SendUpdate("GETCRYSTALS", crystals.ToString());
+            }
         }
 
         if (flag == "GETANTENNA")
@@ -214,9 +230,13 @@ public class PlayerCharacter : NetworkComponent
 
         if (IsLocalPlayer)
         {
-            //gameObject.GetComponentInChildren<Renderer>().enabled = false;
             playerModel.SetActive(false);
-            Debug.Log("invisible");
+            PlayerName.gameObject.SetActive(false);
+        }
+
+        if (IsClient)
+        {
+            FullModel.transform.rotation = Quaternion.Euler(FullModel.transform.rotation.eulerAngles.x, FullModel.transform.rotation.eulerAngles.y + 45, FullModel.transform.rotation.eulerAngles.z);
         }
 
         if (IsLocalPlayer)
@@ -281,7 +301,6 @@ public class PlayerCharacter : NetworkComponent
         canJump = true;
         bulletSpeed = 3f;
     }
-
 
     void Update()
     {
@@ -404,7 +423,7 @@ public class PlayerCharacter : NetworkComponent
     public void Interact(InputAction.CallbackContext ia)
     {
         Debug.Log("Interacting");
-        if (canTribute && crystals >= 1 && !interacting && IsLocalPlayer)
+        if (canTribute && crystals >= 1 && !interacting)
         {
             interacting = true;
             canTribute = false;
@@ -430,6 +449,7 @@ public class PlayerCharacter : NetworkComponent
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             SendCommand("ROT", lookIn.x.ToString());
             Camera.main.transform.rotation = Quaternion.Euler(xRotation, transform.localRotation.eulerAngles.y, 0f);
+            playerGun.transform.rotation = Quaternion.Euler(xRotation, transform.localRotation.eulerAngles.y, 0f);
             lookIn = Vector2.zero;
         }
     }
@@ -525,10 +545,13 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
+<<<<<<< Updated upstream
     private void Respawn()
     {
         this.transform.position = playerRespawn;
         // Reset health and ammo
 
     }
+=======
+>>>>>>> Stashed changes
 }
