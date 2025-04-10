@@ -99,7 +99,6 @@ public class NPM : NetworkComponent
             {
                 ammo = int.Parse(ammoValues[0]);
                 maxAmmo = int.Parse(ammoValues[1]);
-
                 if (AmmoText != null)
                 {
                     AmmoText.text = $"{ammo} / {maxAmmo}";
@@ -196,5 +195,28 @@ public class NPM : NetworkComponent
             }
         }
         return null; // Return null if no matching character is found
+    }
+
+    void Update() 
+    {
+        if (IsLocalPlayer)
+        {
+            PlayerCharacter pc = FindPlayerCharacter();
+            if (pc != null)
+            {
+                // Sync local UI with PlayerCharacter state
+                if (AmmoText != null && (ammo != pc.ammo || maxAmmo != pc.maxAmmo))
+                {
+                    ammo = pc.ammo;
+                    maxAmmo = pc.maxAmmo;
+                    AmmoText.text = $"{ammo} / {maxAmmo}";
+                }
+                if (CrystalText != null && crystals != pc.crystals)
+                {
+                    crystals = pc.crystals;
+                    CrystalText.text = crystals.ToString();
+                }
+            }
+        }
     }
 }

@@ -136,8 +136,6 @@ public class PlayerCharacter : NetworkComponent
                 bulletRig.velocity = transform.forward * bulletSpeed;
                 Debug.Log("bullet vel " + bulletRig.velocity);
             }
-
-            ammo--;
             SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
         }
 
@@ -370,13 +368,15 @@ public class PlayerCharacter : NetworkComponent
 
     public void Fire(InputAction.CallbackContext fr)
     {
-        if (ammo > 0) 
+        if (ammo > 0)
         {
             canShoot = false;
             SendCommand("FIRE", " ");
-            ammo--; 
-            SendCommand("AMMO", $"{ammo}/{maxAmmo}");  // Update the ammo UI on the server
-            
+            ammo--;
+            if (IsServer)
+            {
+                SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
+            }
         }
     }
 
@@ -498,14 +498,12 @@ public class PlayerCharacter : NetworkComponent
                 {
                     score += 500;
                     crystals++;
-                    SendUpdate("GETCRYSTALS", crystals.ToString());
+                    SendUpdate("GETCRYSTALS", crystals.ToString()); 
                     SendUpdate("COLLECTABLE", score.ToString());
                     CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                     item.DestroyObj();
                 }
-                
             }
-
         }
 
         if (other.gameObject.tag == "AntennaPiece")
