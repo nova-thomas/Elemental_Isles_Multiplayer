@@ -543,7 +543,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 378318156}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.64533645
+  m_Size: 0.78271204
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2567,8 +2567,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658902906}
   m_HandleRect: {fileID: 1658902905}
   m_Direction: 0
-  m_Value: 0.4962591
-  m_Size: 0.99908286
+  m_Value: 0.4962099
+  m_Size: 0.9989003
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3827,8 +3827,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1904947442}
   m_HandleRect: {fileID: 1904947441}
   m_Direction: 2
-  m_Value: 0.9998893
-  m_Size: 0.044810027
+  m_Value: 0.99988943
+  m_Size: 0.054395366
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4141,23 +4141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6565c0de7db0eb4abbb20a2f0b50d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UsingUDP: 0
-  MasterTimer: 0.1
-  LocalConnectionID: -1
-  PublicIP: 71.44.212.40
-  FloridaPolyIP: 10.200.208.180
-  MyCore: {fileID: 0}
-  CreateGame: {fileID: 211073371}
-  LocalGameID: -10
-  GameCounter: 0
-  IsGameServer: 0
-  Content: {fileID: 68152914}
-  MyGameName: Default Game
-  MaxGameTime: 60
-  GameRoomPrefab: {fileID: 1750401725644594784, guid: 8e32f437c5dfb974e843ef1932bcedec, type: 3}
-  LowPort: 9001
-  HighPort: 10000
-  LastPlayers: 0
 --- !u!114 &2124650039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4223,14 +4206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84338f6b4a22252498cfad0e00a4f10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WatchedAxis:
-  - Horizontal
-  - Vertical
-  - Jump
-  - Fire1
-  - MyAxis
-  DirChanged: 0
-  IsMoving: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
