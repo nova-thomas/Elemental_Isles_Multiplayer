@@ -40,6 +40,7 @@ public class PlayerCharacter : NetworkComponent
     public bool canShoot;
     public bool canShootAbility;
     public float ROF = 3;
+    public Vector3 playerRespawn;
 
     // Game Variables
     public Elements playerElement;
@@ -204,6 +205,7 @@ public class PlayerCharacter : NetworkComponent
         antennaCollected = 0;
         score = 0;
         crystals = 0;
+        playerRespawn = this.transform.position;
         if (IsServer)
         {
             SendUpdate("SETUP", PName);
@@ -252,6 +254,10 @@ public class PlayerCharacter : NetworkComponent
                 SendUpdate("COLLECTABLE", score.ToString());
                 SendUpdate("GETCRYSTALS", crystals.ToString());
                 SendUpdate("GETANTENNA", antennaCollected.ToString());
+                if (health <= 0)
+                {
+                    Respawn();
+                }
                 IsDirty = false;
             }
             yield return new WaitForSeconds(.1f);
@@ -497,6 +503,12 @@ public class PlayerCharacter : NetworkComponent
             // Hurt the player
             Debug.Log("Hit");
         }
+
+        if (other.gameObject.tag == "KillFloor" && IsServer)
+        {
+            Debug.Log("KillFloor");
+            Respawn();
+        }
     }
 
 
@@ -513,5 +525,10 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
-    
+    private void Respawn()
+    {
+        this.transform.position = playerRespawn;
+        // Reset health and ammo
+
+    }
 }
