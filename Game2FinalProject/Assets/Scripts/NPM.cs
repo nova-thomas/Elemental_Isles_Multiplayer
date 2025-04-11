@@ -89,6 +89,7 @@ public class NPM : NetworkComponent
             if (HealthBar != null)
             {
                 HealthBar.value = health;
+                HealthBar.maxValue = health;
             }
         }
 
@@ -156,9 +157,10 @@ public class NPM : NetworkComponent
     {
         while (IsConnected)
         {
+            PlayerCharacter pc = FindPlayerCharacter();
             if (IsServer)
             {
-                PlayerCharacter pc = FindPlayerCharacter();
+               
                 if (pc != null)
                 {
                     score = pc.score;
@@ -181,6 +183,8 @@ public class NPM : NetworkComponent
                     IsDirty = false;
                 }
             }
+            
+            
             yield return new WaitForSeconds(.1f);
         }
     }
@@ -194,29 +198,35 @@ public class NPM : NetworkComponent
                 return pc;
             }
         }
-        return null; // Return null if no matching character is found
+        return null; 
     }
 
     void Update() 
     {
+        PlayerCharacter pc = FindPlayerCharacter();
         if (IsLocalPlayer)
         {
-            PlayerCharacter pc = FindPlayerCharacter();
             if (pc != null)
             {
-                // Sync local UI with PlayerCharacter state
-                if (AmmoText != null && (ammo != pc.ammo || maxAmmo != pc.maxAmmo))
+
+                if (AmmoText != null)
                 {
                     ammo = pc.ammo;
-                    maxAmmo = pc.maxAmmo;
                     AmmoText.text = $"{ammo} / {maxAmmo}";
                 }
-                if (CrystalText != null && crystals != pc.crystals)
+                if (CrystalText != null)
                 {
                     crystals = pc.crystals;
                     CrystalText.text = crystals.ToString();
                 }
+                if (HealthBar != null)
+                {
+                    health = pc.health;
+                    HealthBar.value = health;
+
+                }
             }
         }
+
     }
 }

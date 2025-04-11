@@ -56,6 +56,7 @@ public class GameMaster : NetworkComponent
             }
 
             SendUpdate("SHOWTIMER", "1");
+           // MyCore.NotifyGameStart();
         }
 
         if (flag == "SHOWTIMER")
@@ -111,6 +112,8 @@ public class GameMaster : NetworkComponent
         {
             // Handle win condition
         }
+
+       // MyCore.UI_Quit();
     }
 
     public override void NetworkedStart()

@@ -543,7 +543,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 378318156}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.78271204
+  m_Size: 0.78024423
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2124650038}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: UI_CreateRoom
         m_Mode: 1
@@ -2240,7 +2240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.012820512, y: 0.030301996}
   m_AnchorMax: {x: 0.41110587, y: 0.101}
-  m_AnchoredPosition: {x: -70.63156, y: 0.3999939}
+  m_AnchoredPosition: {x: -70.63156, y: 0.4000244}
   m_SizeDelta: {x: -154.27174, y: -7.199997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1474014037
@@ -2287,7 +2287,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2124650038}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: UI_Quit
         m_Mode: 1
@@ -2567,8 +2567,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658902906}
   m_HandleRect: {fileID: 1658902905}
   m_Direction: 0
-  m_Value: 0.4962099
-  m_Size: 0.9989003
+  m_Value: 0.4962591
+  m_Size: 0.99907666
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2866,7 +2866,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2124650038}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: UI_SetGameName
         m_Mode: 0
@@ -3828,7 +3828,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1904947441}
   m_Direction: 2
   m_Value: 0.99988943
-  m_Size: 0.054395366
+  m_Size: 0.05422486
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4119,7 +4119,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124650040}
-  - component: {fileID: 2124650038}
   - component: {fileID: 2124650039}
   - component: {fileID: 2124650041}
   m_Layer: 0
@@ -4129,18 +4128,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2124650038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124650037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6565c0de7db0eb4abbb20a2f0b50d17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2124650039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4172,11 +4159,51 @@ MonoBehaviour:
   DisconnectScreen: {fileID: 1594344330}
   ObjectCounter: 0
   SpawnPrefab:
-  - {fileID: 7210565908147460431, guid: 57a850d14671adb47a704c7ae53bd98b, type: 3}
-  - {fileID: 5269446773481506746, guid: d828df830a7a7a1479a14220c000af14, type: 3}
-  - {fileID: 3092985479870614297, guid: 8e1b4fdcdf94e18468bcdad274a00bf4, type: 3}
-  - {fileID: 3092985479870614297, guid: 8e1b4fdcdf94e18468bcdad274a00bf4, type: 3}
-  NetworkPlayerManager: {fileID: 3366851023377888511, guid: 0ebc44092b3f4bc4285b4e064760ef74, type: 3}
+  - {fileID: 1770990511746538976, guid: 11fc2f14d0510604fb1ffce3acb14f62, type: 3}
+  - {fileID: 1980030565370476337, guid: 8311abfd94e28674b9d54472a0a6ecef, type: 3}
+  - {fileID: 8495658550107598847, guid: 9367b048fb47eca49b2216d417998736, type: 3}
+  - {fileID: 2560129438889377749, guid: 2e52b82ef80858f488ab97802ac67ae8, type: 3}
+  - {fileID: 8498577632964782703, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
+  - {fileID: 6104380133647657655, guid: c601af634d0a3c347ad6fd946bef8315, type: 3}
+  - {fileID: 295812954580130475, guid: 8c269e2a8985c5a43af403d35f082636, type: 3}
+  - {fileID: 7429091183254731249, guid: 214d619be687235428cf4659d7191648, type: 3}
+  - {fileID: 3112757496073432522, guid: 0f95231fd31394347b1fffc786b7b39b, type: 3}
+  - {fileID: -8620404939811075721, guid: 7598c9f9dfca27b4fa27ee5dbe546a38, type: 3}
+  - {fileID: 4470777220779542761, guid: ba872cc6df1628d47b17df74bec0b203, type: 3}
+  - {fileID: 8998911269080070551, guid: 997bb51905a5e934e9036e8a7259bf98, type: 3}
+  - {fileID: 1228876244008542590, guid: bf0eff8e9126da541a7a18d6f0d7e600, type: 3}
+  - {fileID: 3168104714276964180, guid: 3a1e6c5f36a8ffd4ba02618820283e29, type: 3}
+  - {fileID: 239353391468646636, guid: 5db176a9b8bcfee46822256b6d7afa9c, type: 3}
+  - {fileID: 3794073700995640984, guid: 6036c33727144d349a32f4a66e3aae44, type: 3}
+  - {fileID: 5356985477146463987, guid: c516778b366c3ff4a83bbf1957991806, type: 3}
+  - {fileID: 3797426454007307813, guid: 70aef6bf77e24684fa22de76df9a5efc, type: 3}
+  - {fileID: 5424054350869987494, guid: 8d97c25001849ce4eb0683fdb6513495, type: 3}
+  - {fileID: 7653045372367369251, guid: 54980ba03915ca34fafed30378391913, type: 3}
+  - {fileID: 2005827447853178461, guid: 02be568ac7a705f4da7298c2399b84a0, type: 3}
+  - {fileID: 8293597256577444841, guid: fc13c61db221ba04ca9eed54c1b4e884, type: 3}
+  - {fileID: 4204610758271477965, guid: c34be984827288c44ad0f52f207510ca, type: 3}
+  - {fileID: 2828953622798452954, guid: fc48edd57683673458c8b7f9297c4917, type: 3}
+  - {fileID: 3470470786667774429, guid: ac992946304b86f4881f40ba67c4b335, type: 3}
+  - {fileID: 6471018829290437745, guid: 32c0a309b8f98b04c92f3e9cecb7d12b, type: 3}
+  - {fileID: 3997721509926279623, guid: 1378746dbfbcd4f4588fe32bf302924e, type: 3}
+  - {fileID: 1947678229089642968, guid: 68173eecbb82adc41816958aceef6f4a, type: 3}
+  - {fileID: 8008354433447410602, guid: 5a8268e2b885680438b8355ea78fbce8, type: 3}
+  - {fileID: 7103739492088858660, guid: ed21df635c8822e45be5e1e4e7ea55db, type: 3}
+  - {fileID: 2821710147421775823, guid: 3eb558219597c6f449ced0b99656ab55, type: 3}
+  - {fileID: 4391670951777742849, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
+  - {fileID: 6589176346355079448, guid: a460fa702bc0cd24ea1881f0474cf004, type: 3}
+  - {fileID: 1780633060952264025, guid: 84275864fb40de94e9f87febcfff612f, type: 3}
+  - {fileID: 7586636956690484638, guid: ebd8e0a2eeb837c469f38efc96820449, type: 3}
+  - {fileID: 843663738068256768, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
+  - {fileID: 4786271327012185770, guid: bb9bbd8b73ed5ec41aa0623cf839aaea, type: 3}
+  - {fileID: 1067294888549996918, guid: 22e58eb82cb76f74e927eb3013139c65, type: 3}
+  - {fileID: 2265157336945907008, guid: 26fb474fedf90f540ade7b999ce17ad9, type: 3}
+  - {fileID: 7319209662096933697, guid: 3f055cc7fedbf064089f30f621ef88cc, type: 3}
+  - {fileID: 8562523607319613063, guid: b7b3377f6800b4940832f62d5db25676, type: 3}
+  - {fileID: 7242259573982090029, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
+  - {fileID: 7218529776207623004, guid: 8f3ba674afd2e134eaa0667bdbdd7587, type: 3}
+  - {fileID: 5770225937570426636, guid: f1fd595106c45d6499f198db0691c602, type: 3}
+  NetworkPlayerManager: {fileID: 8924587938452622135, guid: bbc6e7936f077814e9f553b70ddb5d2b, type: 3}
   DefaultReturnScene: 0
 --- !u!4 &2124650040
 Transform:
@@ -4203,9 +4230,89 @@ MonoBehaviour:
   m_GameObject: {fileID: 2124650037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84338f6b4a22252498cfad0e00a4f10c, type: 3}
+  m_Script: {fileID: 11500000, guid: d566c9a9f1aea7d459ce44786f73fb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutputConsole: {fileID: 0}
+  MaxConsoleLogSize: 1024
+  UsingUDP: 0
+  IsListening: 0
+  IsServer: 0
+  IsClient: 0
+  IsConnected: 0
+  AppNumber: 0
+  conCounter: 0
+  IP: 
+  PortNumber: 9000
+  MaxConnections: 100
+  MasterTimer: 0.05
+  LocalConnectionID: -10
+  CycleTrigger: 3
+  UseMenuManager: 1
+  DisconnectScreen: {fileID: 0}
+  ObjectCounter: 0
+  SpawnPrefab:
+  - {fileID: 1770990511746538976, guid: 11fc2f14d0510604fb1ffce3acb14f62, type: 3}
+  - {fileID: 1980030565370476337, guid: 8311abfd94e28674b9d54472a0a6ecef, type: 3}
+  - {fileID: 8495658550107598847, guid: 9367b048fb47eca49b2216d417998736, type: 3}
+  - {fileID: 2560129438889377749, guid: 2e52b82ef80858f488ab97802ac67ae8, type: 3}
+  - {fileID: 8498577632964782703, guid: 255f3589a00117741bc1eb2199f51e8e, type: 3}
+  - {fileID: 6104380133647657655, guid: c601af634d0a3c347ad6fd946bef8315, type: 3}
+  - {fileID: 295812954580130475, guid: 8c269e2a8985c5a43af403d35f082636, type: 3}
+  - {fileID: 7429091183254731249, guid: 214d619be687235428cf4659d7191648, type: 3}
+  - {fileID: 3112757496073432522, guid: 0f95231fd31394347b1fffc786b7b39b, type: 3}
+  - {fileID: -8620404939811075721, guid: 7598c9f9dfca27b4fa27ee5dbe546a38, type: 3}
+  - {fileID: 4470777220779542761, guid: ba872cc6df1628d47b17df74bec0b203, type: 3}
+  - {fileID: 8998911269080070551, guid: 997bb51905a5e934e9036e8a7259bf98, type: 3}
+  - {fileID: 1228876244008542590, guid: bf0eff8e9126da541a7a18d6f0d7e600, type: 3}
+  - {fileID: 3168104714276964180, guid: 3a1e6c5f36a8ffd4ba02618820283e29, type: 3}
+  - {fileID: 239353391468646636, guid: 5db176a9b8bcfee46822256b6d7afa9c, type: 3}
+  - {fileID: 3794073700995640984, guid: 6036c33727144d349a32f4a66e3aae44, type: 3}
+  - {fileID: 5356985477146463987, guid: c516778b366c3ff4a83bbf1957991806, type: 3}
+  - {fileID: 3797426454007307813, guid: 70aef6bf77e24684fa22de76df9a5efc, type: 3}
+  - {fileID: 5424054350869987494, guid: 8d97c25001849ce4eb0683fdb6513495, type: 3}
+  - {fileID: 7653045372367369251, guid: 54980ba03915ca34fafed30378391913, type: 3}
+  - {fileID: 2005827447853178461, guid: 02be568ac7a705f4da7298c2399b84a0, type: 3}
+  - {fileID: 8293597256577444841, guid: fc13c61db221ba04ca9eed54c1b4e884, type: 3}
+  - {fileID: 4204610758271477965, guid: c34be984827288c44ad0f52f207510ca, type: 3}
+  - {fileID: 2828953622798452954, guid: fc48edd57683673458c8b7f9297c4917, type: 3}
+  - {fileID: 3470470786667774429, guid: ac992946304b86f4881f40ba67c4b335, type: 3}
+  - {fileID: 6471018829290437745, guid: 32c0a309b8f98b04c92f3e9cecb7d12b, type: 3}
+  - {fileID: 3997721509926279623, guid: 1378746dbfbcd4f4588fe32bf302924e, type: 3}
+  - {fileID: 1947678229089642968, guid: 68173eecbb82adc41816958aceef6f4a, type: 3}
+  - {fileID: 8008354433447410602, guid: 5a8268e2b885680438b8355ea78fbce8, type: 3}
+  - {fileID: 7103739492088858660, guid: ed21df635c8822e45be5e1e4e7ea55db, type: 3}
+  - {fileID: 2821710147421775823, guid: 3eb558219597c6f449ced0b99656ab55, type: 3}
+  - {fileID: 4391670951777742849, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
+  - {fileID: 6589176346355079448, guid: a460fa702bc0cd24ea1881f0474cf004, type: 3}
+  - {fileID: 1780633060952264025, guid: 84275864fb40de94e9f87febcfff612f, type: 3}
+  - {fileID: 7586636956690484638, guid: ebd8e0a2eeb837c469f38efc96820449, type: 3}
+  - {fileID: 843663738068256768, guid: c2db548e81a9567439e9b8fe060156e9, type: 3}
+  - {fileID: 4786271327012185770, guid: bb9bbd8b73ed5ec41aa0623cf839aaea, type: 3}
+  - {fileID: 1067294888549996918, guid: 22e58eb82cb76f74e927eb3013139c65, type: 3}
+  - {fileID: 2265157336945907008, guid: 26fb474fedf90f540ade7b999ce17ad9, type: 3}
+  - {fileID: 7319209662096933697, guid: 3f055cc7fedbf064089f30f621ef88cc, type: 3}
+  - {fileID: 8562523607319613063, guid: b7b3377f6800b4940832f62d5db25676, type: 3}
+  - {fileID: 7242259573982090029, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
+  - {fileID: 7218529776207623004, guid: 8f3ba674afd2e134eaa0667bdbdd7587, type: 3}
+  - {fileID: 5770225937570426636, guid: f1fd595106c45d6499f198db0691c602, type: 3}
+  NetworkPlayerManager: {fileID: 8924587938452622135, guid: bbc6e7936f077814e9f553b70ddb5d2b, type: 3}
+  DefaultReturnScene: 0
+  publicIPAddress: 23.128.11.62
+  privateIPAddress: 10.200.208.181
+  portMininimum: 9001
+  portMaxinimum: 10000
+  isGameServer: 0
+  isClient: 0
+  gameCore: {fileID: 2124650039}
+  localGameID: 
+  gameCounter: 0
+  maxGameTime: 0
+  gameRoomContent: {fileID: 68152913}
+  gameNameInput: {fileID: 1642041172}
+  createGameButton: {fileID: 211073371}
+  StartingScreen: {fileID: 1643587261}
+  LobbyScreen: {fileID: 365971149}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
