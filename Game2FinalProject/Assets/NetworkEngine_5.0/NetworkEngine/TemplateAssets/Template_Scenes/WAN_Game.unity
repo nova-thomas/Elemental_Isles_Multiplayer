@@ -4307,7 +4307,7 @@ MonoBehaviour:
   gameCore: {fileID: 2124650039}
   localGameID: 
   gameCounter: 0
-  maxGameTime: 0
+  maxGameTime: 300
   gameRoomContent: {fileID: 68152913}
   gameNameInput: {fileID: 1642041172}
   createGameButton: {fileID: 211073371}

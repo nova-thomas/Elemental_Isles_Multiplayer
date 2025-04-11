@@ -113,7 +113,7 @@ public class GameMaster : NetworkComponent
             // Handle win condition
         }
 
-       // MyCore.UI_Quit();
+        // MyCore.UI_Quit(); to disconnect game
     }
 
     public override void NetworkedStart()
