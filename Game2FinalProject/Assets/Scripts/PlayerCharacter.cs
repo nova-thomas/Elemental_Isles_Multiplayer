@@ -381,9 +381,10 @@ public class PlayerCharacter : NetworkComponent
 
     public void Fire(InputAction.CallbackContext fr)
     {
-        if (ammo > 0)
+        if (!IsLocalPlayer) return;
+
+        if (fr.phase == InputActionPhase.Started && ammo > 0)
         {
-            canShoot = false;
             SendCommand("FIRE", " ");
             ammo--;
 
@@ -391,6 +392,8 @@ public class PlayerCharacter : NetworkComponent
             {
                 SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
             }
+
+            StartCoroutine(Reload());
         }
     }
 
