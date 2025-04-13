@@ -707,6 +707,7 @@ MonoBehaviour:
   canShoot: 0
   canShootAbility: 0
   ROF: 3
+  playerRespawn: {x: 0, y: 0, z: 0}
   playerElement: 3
   score: 0
   crystals: 0
@@ -896,6 +897,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f8151cb3-e62d-4c84-a621-4f120235f164
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6721193727174612245}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: ReloadCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4bc3292d-9c21-4b92-9791-cd06a2bed09a
+    m_ActionName: 'Player/Reload[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

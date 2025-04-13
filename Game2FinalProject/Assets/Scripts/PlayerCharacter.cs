@@ -41,7 +41,7 @@ public class PlayerCharacter : NetworkComponent
     public Transform playerCam;
     public bool canShoot;
     public bool canShootAbility;
-    public float ROF = 3;
+    public float ReloadTime = 3;
     public Vector3 playerRespawn;
 
     // Game Variables
@@ -91,15 +91,17 @@ public class PlayerCharacter : NetworkComponent
                 SendUpdate("MOVE", value);
             }
 
-            if (IsClient)
+            if (IsClient && !IsLocalPlayer)
             {
                 if (Vector2FromString(value) == Vector2.zero)
                 {
                     myAnimator.SetBool("isWalking", false);
+                    myAnimator.Play("IdleFinal");
                 }
                 else
                 {
                     myAnimator.SetBool("isWalking", true);
+                    myAnimator.Play("Walk");
                 }
             }
         }
@@ -119,9 +121,12 @@ public class PlayerCharacter : NetworkComponent
                 SendUpdate("JUMP", " ");
             }
 
-            if (IsClient)
+            if (IsClient && !IsLocalPlayer)
             {
                 myAnimator.Play("Jump");
+                myAnimator.SetBool("isJumping", true);
+                //myAnimator.Play("Jump");
+
             }
         }
 
@@ -180,6 +185,11 @@ public class PlayerCharacter : NetworkComponent
                 crystals--;
                 SendUpdate("GETCRYSTALS", crystals.ToString());
             }
+        }
+
+        if (flag == "RELOAD")
+        {
+            StartCoroutine(Reload());
         }
 
         if (flag == "TRIBUTE" && IsServer)
@@ -326,7 +336,6 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
-
     //Cursor Functions
     private void LockCursor()
     {
@@ -385,19 +394,46 @@ public class PlayerCharacter : NetworkComponent
         }
     }
 
-    public IEnumerator Reload()
+    public void ReloadCall(InputAction.CallbackContext re)
     {
-        yield return new WaitForSeconds(ROF);
-        if (IsServer)
+        if (re.phase == InputActionPhase.Started)
         {
-            canShoot = true;
-            SendUpdate("CSH", canShoot.ToString());
-        }
-        else
-        {
-            //Reload Animation
+            SendCommand("RELOAD", " ");
         }
     }
+
+    public IEnumerator Reload()
+    {
+        if (IsServer)
+        {
+            SendUpdate("RELOAD", " ");
+        }
+
+        if (IsClient && !IsLocalPlayer)
+        {
+            myAnimator.Play("Reload");
+            myAnimator.SetBool("isReloading", true);
+        }
+
+        if (IsLocalPlayer)
+        {
+            playerGun.transform.position = new Vector3(playerGun.transform.position.x, playerGun.transform.position.y -.1f, playerGun.transform.position.z);
+        }
+
+        yield return new WaitForSeconds(ReloadTime);
+
+        if (IsClient && !IsLocalPlayer)
+        {
+            //myAnimator.Play("Reload");
+            myAnimator.SetBool("isReloading", false);
+        }
+
+        if (IsLocalPlayer)
+        {
+            playerGun.transform.position = new Vector3(playerGun.transform.position.x, playerGun.transform.position.y + .1f, playerGun.transform.position.z);
+        }
+    }
+
     public void LookAtScoreboard(InputAction.CallbackContext ctx)
     {
         if (!IsLocalPlayer || ScoreboardPanel == null) return;
@@ -474,9 +510,10 @@ public class PlayerCharacter : NetworkComponent
         {
             canJump = true;
 
-            if (IsClient)
+            if (IsClient && !IsLocalPlayer)
             {
                 myAnimator.SetBool("isJumping", false);
+                myAnimator.Play("IdleFinal");
             }
         }
     }
