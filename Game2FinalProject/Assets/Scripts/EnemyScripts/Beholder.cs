@@ -14,6 +14,34 @@ public class Beholder : Enemy
     public override void HandleMessage(string flag, string value)
     {
         //Animations
+        if (IsClient)
+        {
+            if (flag == "STOP")
+            {
+
+                myAnimator.SetInteger("FWD", 0);
+            }
+
+            if (flag == "WALK")
+            {
+                //myAnimator.CrossFade("WalkFWD", .2f);
+                myAnimator.SetInteger("FWD", 1);
+            }
+
+            if (flag == "BLAST")
+            {
+                //myAnimator.CrossFade("Attack01", .2f);
+                myAnimator.SetBool("ATTACK", true);
+                StartCoroutine(AttackTime());
+
+            }
+
+            if (flag == "DEATH")
+            {
+                //myAnimator.CrossFade("Die", .2f);
+                myAnimator.SetBool("DEAD", true);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -24,6 +52,11 @@ public class Beholder : Enemy
             if (!IsGrounded())
             {
                 return;
+            }
+
+            if (agent.destination == transform.position)
+            {
+                SendUpdate("STOP", " ");
             }
 
             findNearestPlayer();
@@ -59,6 +92,7 @@ public class Beholder : Enemy
 
     public void BlastAttack()
     {
+        SendUpdate("BLAST", " ");
         GameObject fireBall = MyCore.NetCreateObject(blastType, Owner, BlastPosition.transform.position, BlastPosition.transform.rotation);
         fireBall.tag = "EnemyBullet";
         Rigidbody fireBallRB = fireBall.GetComponent<Rigidbody>();
@@ -67,5 +101,11 @@ public class Beholder : Enemy
         {
             fireBallRB.velocity = BlastPosition.forward * BulletSpeed;
         }
+    }
+
+    public IEnumerator AttackTime()
+    {
+        yield return new WaitForSeconds(.5f);
+        myAnimator.SetBool("ATTACK", false);
     }
 }

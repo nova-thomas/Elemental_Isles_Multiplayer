@@ -20,12 +20,9 @@ public class Lizard : Enemy
         {
             if (flag == "WALK" && !isWalking)
             {
-                Debug.Log("walk");
                 isWalking = true;
                 myAnimator.SetInteger("DIR", 1);
                 myAnimator.Play("run");
-                //myAnimator.CrossFade("run", .2f);
-                //myAnimator.SetInteger("DIR", 1);
             }
 
             if (flag == "STOP")

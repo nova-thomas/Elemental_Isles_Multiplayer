@@ -92,6 +92,10 @@ PrefabInstance:
       value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6762021071730910897, guid: 1212d8c8ef4baa1478e0d1be6c71c8da, type: 3}
+      propertyPath: myAnimator
+      value: 
+      objectReference: {fileID: 4069132199888173469}
+    - target: {fileID: 6762021071730910897, guid: 1212d8c8ef4baa1478e0d1be6c71c8da, type: 3}
       propertyPath: BulletSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -142,6 +146,7 @@ MonoBehaviour:
   IsDirty: 0
   lastPosition: {x: 0, y: 0, z: 0}
   lastRotation: {x: 0, y: 0, z: 0}
+  lastScale: {x: 0, y: 0, z: 0}
   Threshold: 0
   EThreshold: 0
   speed: 5
@@ -209,6 +214,11 @@ PrefabInstance:
       addedObject: {fileID: 8719505837080146065}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c73a559184154c75991d095521bdea87, type: 3}
+--- !u!95 &4069132199888173469 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1695502807779455699, guid: c73a559184154c75991d095521bdea87, type: 3}
+  m_PrefabInstance: {fileID: 3458717231518518094}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4069132199895946877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1695502807786446131, guid: c73a559184154c75991d095521bdea87, type: 3}
