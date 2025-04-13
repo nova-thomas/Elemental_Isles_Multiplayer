@@ -53,7 +53,7 @@ public class PlayerCharacter : NetworkComponent
     public bool interacting;
     public int antennaCollected;
     public int health = 20;
-    public int ammo = 12;
+    public int ammo;
     public int maxAmmo = 12;
 
     public GameObject ScoreboardPanel; //tab 
@@ -136,6 +136,8 @@ public class PlayerCharacter : NetworkComponent
                 bulletRig.velocity = transform.forward * bulletSpeed;
                 Debug.Log("bullet vel " + bulletRig.velocity);
             }
+            Debug.Log("FIRE AMMO:  " + ammo);
+
             SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
         }
 
@@ -275,6 +277,7 @@ public class PlayerCharacter : NetworkComponent
         {
             if (IsServer && IsDirty)
             {
+                Debug.Log("Slow Update AMMO:  " + ammo);
                 SendUpdate("SETUP", PName);
                 SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
                 SendUpdate("COLLECTABLE", score.ToString());
@@ -322,6 +325,7 @@ public class PlayerCharacter : NetworkComponent
             LookAround();
         }
     }
+
 
     //Cursor Functions
     private void LockCursor()
@@ -373,6 +377,7 @@ public class PlayerCharacter : NetworkComponent
             canShoot = false;
             SendCommand("FIRE", " ");
             ammo--;
+
             if (IsServer)
             {
                 SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
@@ -461,6 +466,7 @@ public class PlayerCharacter : NetworkComponent
             lookIn = Vector2.zero;
         }
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {

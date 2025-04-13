@@ -19,12 +19,12 @@ public class NPM : NetworkComponent
     public int crystals;
     public int health;
     public int ammo;
-    public int maxAmmo;
+    public int maxAmmo = 12;
 
     // UI Elements
-    public Slider HealthBar;   
-    public TMP_Text AmmoText; 
-    public TMP_Text CrystalText;  
+    public Slider HealthBar;
+    public TMP_Text AmmoText;
+    public TMP_Text CrystalText;
 
     private string[] elementNames =
     {
@@ -81,6 +81,12 @@ public class NPM : NetworkComponent
             {
                 HUDPanel.SetActive(true);
             }
+
+            // Ensure only the local player's NPM object remains active
+            if (IsLocalPlayer)
+            {
+                ActivateOnlyLocalNPM();
+            }
         }
 
         if (flag == "HEALTH")
@@ -90,20 +96,6 @@ public class NPM : NetworkComponent
             {
                 HealthBar.value = health;
                 HealthBar.maxValue = health;
-            }
-        }
-
-        if (flag == "AMMO")
-        {
-            string[] ammoValues = value.Split('/');
-            if (ammoValues.Length == 2)
-            {
-                ammo = int.Parse(ammoValues[0]);
-                maxAmmo = int.Parse(ammoValues[1]);
-                if (AmmoText != null)
-                {
-                    AmmoText.text = $"{ammo} / {maxAmmo}";
-                }
             }
         }
 
@@ -139,9 +131,21 @@ public class NPM : NetworkComponent
             SendUpdate("PNAME", PName);
         }
 
+        // Deactivate all HUD panels except the local player's
         if (HUDPanel != null)
         {
-            HUDPanel.SetActive(false);
+            HUDPanel.SetActive(IsLocalPlayer);
+        }
+        if (AmmoText != null)
+        {
+            AmmoText.text = $"{ammo} / {maxAmmo}";
+            Debug.Log($"Network Start Current Ammo: {ammo}, Max Ammo: {maxAmmo}");
+            Debug.Log($"Network Start AmmoText: {AmmoText.text}");
+        }
+
+        if (IsLocalPlayer)
+        {
+            ActivateOnlyLocalNPM();
         }
     }
 
@@ -160,7 +164,6 @@ public class NPM : NetworkComponent
             PlayerCharacter pc = FindPlayerCharacter();
             if (IsServer)
             {
-               
                 if (pc != null)
                 {
                     score = pc.score;
@@ -183,8 +186,7 @@ public class NPM : NetworkComponent
                     IsDirty = false;
                 }
             }
-            
-            
+
             yield return new WaitForSeconds(.1f);
         }
     }
@@ -198,35 +200,52 @@ public class NPM : NetworkComponent
                 return pc;
             }
         }
-        return null; 
+        return null;
     }
 
-    void Update() 
+    private void ActivateOnlyLocalNPM()
     {
-        PlayerCharacter pc = FindPlayerCharacter();
-        if (IsLocalPlayer)
+        NPM[] allNPMs = FindObjectsOfType<NPM>();
+        foreach (NPM npm in allNPMs)
         {
-            if (pc != null)
+            // Activate only the local player's NPM object
+            if (npm.IsLocalPlayer)
             {
-
-                if (AmmoText != null)
-                {
-                    ammo = pc.ammo;
-                    AmmoText.text = $"{ammo} / {maxAmmo}";
-                }
-                if (CrystalText != null)
-                {
-                    crystals = pc.crystals;
-                    CrystalText.text = crystals.ToString();
-                }
-                if (HealthBar != null)
-                {
-                    health = pc.health;
-                    HealthBar.value = health;
-
-                }
+                npm.gameObject.SetActive(true);
+            }
+            else
+            {
+                npm.gameObject.SetActive(false);
             }
         }
+    }
 
+    void Update()
+    {
+        if (!IsLocalPlayer) return;
+
+        PlayerCharacter pc = FindPlayerCharacter();
+        if (pc == null) return;
+
+        if (AmmoText != null)
+        {
+            ammo = pc.ammo;
+            AmmoText.text = $"{ammo} / {maxAmmo}";
+
+            Debug.Log($"Updated Ammo to: {ammo}");
+            Debug.Log($"Updated AmmoText to: {AmmoText.text}");
+        }
+
+        if (CrystalText != null)
+        {
+            crystals = pc.crystals;
+            CrystalText.text = crystals.ToString();
+        }
+
+        if (HealthBar != null)
+        {
+            health = pc.health;
+            HealthBar.value = health;
+        }
     }
 }
