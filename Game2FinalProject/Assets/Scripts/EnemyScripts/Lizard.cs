@@ -11,15 +11,27 @@ public class Lizard : Enemy
     public Transform firePosition;
     public float fireBallSpeed;
     public int spitType;
+    public bool isWalking;
 
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {
         if (IsClient)
         {
-            if (flag == "WALK")
+            if (flag == "WALK" && !isWalking)
             {
-                myAnimator.CrossFade("run", .2f);
+                Debug.Log("walk");
+                isWalking = true;
+                myAnimator.SetInteger("DIR", 1);
+                myAnimator.Play("run");
+                //myAnimator.CrossFade("run", .2f);
+                //myAnimator.SetInteger("DIR", 1);
+            }
+
+            if (flag == "STOP")
+            {
+                isWalking = false;
+                myAnimator.SetInteger("DIR", 0);
             }
         }
     }
@@ -32,6 +44,11 @@ public class Lizard : Enemy
             if (!IsGrounded())
             {
                 return;
+            }
+
+            if (agent.destination == transform.position)
+            {
+                SendUpdate("STOP", " ");
             }
 
             findNearestPlayer();
