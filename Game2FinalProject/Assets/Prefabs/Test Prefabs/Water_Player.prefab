@@ -715,7 +715,7 @@ MonoBehaviour:
   ScoreboardPanel: {fileID: 0}
   isScoreboardLocked: 0
   audioSource: {fileID: 845091601819852887}
-  walking: {fileID: 0}
+  walking: {fileID: 8300000, guid: 684e370273eb33042987d9373817c2ec, type: 3}
   shootSound: {fileID: 8300000, guid: 16154c2553878ab49a475bcaac8d0519, type: 3}
   dryFire: {fileID: 8300000, guid: 1752a647b5726954e916c01f70f23b15, type: 3}
   reload: {fileID: 8300000, guid: c64922b9988bde241a7eeb9e735279f7, type: 3}

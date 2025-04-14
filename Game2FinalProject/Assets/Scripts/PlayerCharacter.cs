@@ -367,10 +367,15 @@ public class PlayerCharacter : NetworkComponent
         if (mv.phase == InputActionPhase.Performed)
         {
             SendCommand("MOVE", mv.ReadValue<Vector2>().ToString());
+            audioSource.loop = true;
+            audioSource.clip = walking;
+            audioSource.Play();
         }
         else if (mv.phase == InputActionPhase.Canceled)
         {
             SendCommand("MOVE", Vector2.zero.ToString());
+            audioSource.loop = false;
+            audioSource.Stop();
         }
     }
 
