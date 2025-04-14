@@ -37,10 +37,7 @@ public class Golum : Enemy
 
             if (flag == "HURT")
             {
-                if (!healthbar.gameObject.activeSelf)
-                {
-                    healthbar.gameObject.SetActive(true);
-                }
+                health = int.Parse(value);
                 healthbar.UpdateHealthBar();
             }
         }
@@ -108,8 +105,6 @@ public class Golum : Enemy
         //Debug.Log("attack");
         GameObject hitbox = Instantiate(hitboxPrefab, hitboxTransform);
         Destroy(hitbox, 1);
-        //myAnimator.SetBool("SWIPE", false);
-        //myAnimator.SetBool("SLAM", false);
     }
 
     public void SwingAttack()
@@ -119,8 +114,6 @@ public class Golum : Enemy
 
         // Animation
         SendUpdate("SWIPE", " ");
-        //myAnimator.CrossFade("Swipe", .2f);
-        //myAnimator.SetBool("SWIPE", true);
 
         attackSpeed = 1;
         StartCoroutine(AttackTime(attackSpeed));
@@ -133,8 +126,6 @@ public class Golum : Enemy
 
         // Animation
         SendUpdate("SLAM", " ");
-        //myAnimator.CrossFade("Slam", .2f);
-        //myAnimator.SetBool("SLAM", true);
 
         attackSpeed = 1.5f;
         StartCoroutine(AttackTime(attackSpeed));

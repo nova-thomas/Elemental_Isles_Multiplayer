@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterBeholder
       objectReference: {fileID: 0}
+    - target: {fileID: 4137464226330097950, guid: 1212d8c8ef4baa1478e0d1be6c71c8da, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 8939458014930320745}
     - target: {fileID: 6762021071730910897, guid: 1212d8c8ef4baa1478e0d1be6c71c8da, type: 3}
       propertyPath: crystal
       value: 13
@@ -146,6 +150,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1680554205730058918, guid: 1212d8c8ef4baa1478e0d1be6c71c8da, type: 3}
   m_PrefabInstance: {fileID: 2438932178726984664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8939458014930320745 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6762021071730910897, guid: 1212d8c8ef4baa1478e0d1be6c71c8da, type: 3}
+  m_PrefabInstance: {fileID: 2438932178726984664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563937958852880788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d56970d5f70fa644b738e3c555748a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4977268034048139250
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -45,12 +45,7 @@ public class Beholder : Enemy
 
             if (flag == "HURT")
             {
-                /*if (!healthbar.gameObject.activeSelf)
-                {
-                    healthbar.gameObject.SetActive(true);
-                }*/
                 health = int.Parse(value);
-                Debug.Log("Health: " + health);
                 healthbar.UpdateHealthBar();
             }
         }

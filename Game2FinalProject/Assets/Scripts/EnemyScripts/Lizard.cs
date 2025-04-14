@@ -31,13 +31,9 @@ public class Lizard : Enemy
                 myAnimator.SetInteger("DIR", 0);
             }
 
-            if(flag == "HURT")
+            if (flag == "HURT")
             {
-                //Debug.Log("Hurt");
-                /*if (!healthbar.gameObject.activeSelf)
-                {
-                    healthbar.gameObject.SetActive(true);
-                }*/
+                health = int.Parse(value);
                 healthbar.UpdateHealthBar();
             }
         }
