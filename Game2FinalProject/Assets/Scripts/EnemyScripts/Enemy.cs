@@ -1,6 +1,7 @@
 using NETWORK_ENGINE;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -240,17 +241,18 @@ public class Enemy : NetworkComponent
             {
                 case "Bullet":
                     Hurt();
-                    Destroy(other);
+                    MyCore.NetDestroyObject(other.gameObject.GetComponent<NetworkComponent>().NetId);
+                    //Destroy(other);
                     break;
                 case "MudShot":
                     Hurt();
-                    Destroy(other);
+                    MyCore.NetDestroyObject(other.gameObject.GetComponent<NetworkComponent>().NetId);
                     slowed = true;
                     StartCoroutine(Slow());
                     break;
                 case "Flame":
                     Hurt();
-                    Destroy(other);
+                    MyCore.NetDestroyObject(other.gameObject.GetComponent<NetworkComponent>().NetId);
                     for (int i = 0; i < 6; i++)
                     {
                         StartCoroutine(Burn());
@@ -258,7 +260,7 @@ public class Enemy : NetworkComponent
                     break;
                 case "WaterBlast":
                     Hurt();
-                    Destroy(other);
+                    MyCore.NetDestroyObject(other.gameObject.GetComponent<NetworkComponent>().NetId);
                     Push();
                     break;
             }

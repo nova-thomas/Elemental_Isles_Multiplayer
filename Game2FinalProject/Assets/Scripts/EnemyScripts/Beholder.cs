@@ -19,7 +19,6 @@ public class Beholder : Enemy
         {
             if (flag == "STOP")
             {
-
                 myAnimator.SetInteger("FWD", 0);
             }
 
