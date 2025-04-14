@@ -6,6 +6,10 @@ using UnityEngine;
 public class Gate : NetworkComponent
 {
     public bool gateDoorOpened;
+
+    public AudioSource audioSource;
+    public AudioClip gateOpenSound;
+
     public override void HandleMessage(string flag, string value)
     {
         if (flag == "OPEN")
@@ -30,6 +34,7 @@ public class Gate : NetworkComponent
             if (gateDoorOpened && this.gameObject.transform.GetChild(0).gameObject.activeSelf)
             {
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                audioSource.PlayOneShot(gateOpenSound);
             }
 
             if (IsDirty)

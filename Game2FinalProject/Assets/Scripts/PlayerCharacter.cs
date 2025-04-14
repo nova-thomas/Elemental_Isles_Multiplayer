@@ -59,6 +59,18 @@ public class PlayerCharacter : NetworkComponent
     public GameObject ScoreboardPanel; //tab 
     public bool isScoreboardLocked = false; //isnt working 
 
+
+    // Audio
+    public AudioSource audioSource;
+    public AudioClip walking;
+    public AudioClip shootSound;
+    public AudioClip dryFire;
+    public AudioClip reload;
+    public AudioClip collectCoin;
+    public AudioClip collectCrystal;
+    public AudioClip collectAntenna;
+    public AudioClip shootAbility;
+
     /*              **Functions**              */
     //Network Functions
     public Vector2 Vector2FromString(string s)
@@ -383,10 +395,21 @@ public class PlayerCharacter : NetworkComponent
     {
         if (!IsLocalPlayer) return;
 
+        
+
         if (fr.phase == InputActionPhase.Started && ammo > 0)
         {
             SendCommand("FIRE", " ");
             ammo--;
+
+            if (ammo >= 1)
+            {
+                audioSource.PlayOneShot(shootSound);
+            }
+            else
+            {
+                audioSource.PlayOneShot(dryFire);
+            }
 
             if (IsServer)
             {
@@ -421,6 +444,7 @@ public class PlayerCharacter : NetworkComponent
         if (IsLocalPlayer)
         {
             playerGun.transform.position = new Vector3(playerGun.transform.position.x, playerGun.transform.position.y -.1f, playerGun.transform.position.z);
+            audioSource.PlayOneShot(reload);
         }
 
         yield return new WaitForSeconds(ReloadTime);
@@ -467,6 +491,7 @@ public class PlayerCharacter : NetworkComponent
             canShootAbility = false;
             SendCommand("FIREABILITY", "");
             StartCoroutine(AbilityCooldown());
+            audioSource.PlayOneShot(shootAbility);
         }
     }
 
@@ -539,6 +564,11 @@ public class PlayerCharacter : NetworkComponent
                 CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                 item.DestroyObj();
             }
+
+            if (IsClient && IsLocalPlayer)
+            {
+                audioSource.PlayOneShot(collectCoin);
+            }
         }
 
         if (other.gameObject.tag == "Crystal")
@@ -556,6 +586,10 @@ public class PlayerCharacter : NetworkComponent
                     CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                     item.DestroyObj();
                 }
+                if (IsClient && IsLocalPlayer)
+                {
+                    audioSource.PlayOneShot(collectCrystal);
+                }
             }
         }
 
@@ -569,6 +603,10 @@ public class PlayerCharacter : NetworkComponent
                 SendUpdate("COLLECTABLE", score.ToString());
                 CollectibleItem item = other.gameObject.GetComponent<CollectibleItem>();
                 item.DestroyObj();
+            }
+            if (IsClient && IsLocalPlayer)
+            {
+                audioSource.PlayOneShot(collectAntenna);
             }
         }
 

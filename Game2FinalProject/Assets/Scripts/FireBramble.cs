@@ -10,6 +10,9 @@ public class FireBramble : NetworkComponent
 
     private bool _isBurning = false;
 
+    public AudioSource audioSource;
+    public AudioClip brambleBurning;
+
     public override void HandleMessage(string flag, string value)
     {
 
@@ -46,13 +49,21 @@ public class FireBramble : NetworkComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Flame" && IsServer)
+        if (other.tag == "Flame")
         {
-            burning = true;
-            if (burning && !_isBurning)
+            if (IsServer)
             {
-                _isBurning = true;
-                StartCoroutine(BurnAndShrink());
+                burning = true;
+                if (burning && !_isBurning)
+                {
+                    _isBurning = true;
+                    StartCoroutine(BurnAndShrink());
+                }
+            }
+            
+            if (IsClient)
+            {
+                audioSource.PlayOneShot(brambleBurning);
             }
         }
     }

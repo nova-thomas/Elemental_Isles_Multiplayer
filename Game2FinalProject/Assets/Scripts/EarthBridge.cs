@@ -14,6 +14,9 @@ public class EarthBridge : NetworkComponent
     public Material baseMaterial;
     public Material TransparentMaterial;
 
+    public AudioSource audioSource;
+    public AudioClip buildingSound;
+
 
     public override void HandleMessage(string flag, string value)
     {
@@ -24,6 +27,7 @@ public class EarthBridge : NetworkComponent
                 built = bool.Parse(value);
                 if (built)
                 {
+                    audioSource.PlayOneShot(buildingSound);
                     if (meshCollider != null) meshCollider.enabled = true;
                     if (renderer != null)
                     {

@@ -10,6 +10,9 @@ public class WaterBolder : NetworkComponent
     public float knockbackForce = 30f; // Adjust this value to control knockback strength
     public Transform lastHitPos;
 
+    public AudioSource audioSource;
+    public AudioClip boulderMove;
+
     public Vector3 Vector3FromString(string s)
     {
         string[] args = s.Trim().Trim('(').Trim(')').Split(',');
@@ -51,13 +54,19 @@ public class WaterBolder : NetworkComponent
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WaterBlast" && IsServer)
+        if (other.tag == "WaterBlast")
         {
-            lastHitPos = other.transform;
-            Vector3 knockbackDirection = (transform.position - lastHitPos.position).normalized;
+            if(IsClient)
+            {
+                audioSource.PlayOneShot(boulderMove);
+            }
+            
+            
 
             if (IsServer)
             {
+                lastHitPos = other.transform;
+                Vector3 knockbackDirection = (transform.position - lastHitPos.position).normalized;
                 rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
             }
         }
