@@ -232,8 +232,8 @@ public class NPM : NetworkComponent
             ammo = pc.ammo;
             AmmoText.text = $"{ammo} / {maxAmmo}";
 
-            Debug.Log($"Updated Ammo to: {ammo}");
-            Debug.Log($"Updated AmmoText to: {AmmoText.text}");
+            //Debug.Log($"Updated Ammo to: {ammo}");
+            //Debug.Log($"Updated AmmoText to: {AmmoText.text}");
         }
 
         if (CrystalText != null)

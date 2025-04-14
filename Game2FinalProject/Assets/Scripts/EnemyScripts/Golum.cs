@@ -34,6 +34,15 @@ public class Golum : Enemy
             {
                 myAnimator.CrossFade("Death", .2f);
             }
+
+            if (flag == "HURT")
+            {
+                if (!healthbar.gameObject.activeSelf)
+                {
+                    healthbar.gameObject.SetActive(true);
+                }
+                healthbar.UpdateHealthBar();
+            }
         }
     }
 

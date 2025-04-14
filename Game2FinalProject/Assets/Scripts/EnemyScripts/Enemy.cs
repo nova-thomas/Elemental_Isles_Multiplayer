@@ -40,6 +40,7 @@ public class Enemy : NetworkComponent
     public bool slowed;
 
     //Prefab Components
+    public HealthbarControl healthbar;
     public NavMeshAgent agent;
     public Rigidbody myRig;
 
@@ -49,8 +50,6 @@ public class Enemy : NetworkComponent
     //private Player playerScript;
 
     public LayerMask whatIsGround, whatIsPlayer;
-
-    //public HealthbarControl healthbar;
 
     public Animator myAnimator;
 
@@ -240,22 +239,26 @@ public class Enemy : NetworkComponent
             switch (tag)
             {
                 case "Bullet":
-                    health--;
+                    Hurt();
+                    Destroy(other);
                     break;
                 case "MudShot":
-                    health--;
+                    Hurt();
+                    Destroy(other);
                     slowed = true;
                     StartCoroutine(Slow());
                     break;
                 case "Flame":
-                    health--;
+                    Hurt();
+                    Destroy(other);
                     for (int i = 0; i < 6; i++)
                     {
                         StartCoroutine(Burn());
                     }
                     break;
                 case "WaterBlast":
-                    health--;
+                    Hurt();
+                    Destroy(other);
                     Push();
                     break;
             }
@@ -280,6 +283,12 @@ public class Enemy : NetworkComponent
         }
     }
 
+    public void Hurt()
+    {
+        health--;
+        SendUpdate("HURT", health.ToString());
+    }
+
     public IEnumerator Death()
     {
         SendUpdate("DEATH", " ");
@@ -296,7 +305,7 @@ public class Enemy : NetworkComponent
     public IEnumerator Burn()
     {
         yield return new WaitForSeconds(.5f);
-        health--;
+        Hurt();
     }
 
     public void Push()

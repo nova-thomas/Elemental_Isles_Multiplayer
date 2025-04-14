@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.AssemblyQualifiedNameParser;
 using UnityEngine;
 
 public class Beholder : Enemy
@@ -40,6 +41,17 @@ public class Beholder : Enemy
             {
                 //myAnimator.CrossFade("Die", .2f);
                 myAnimator.SetBool("DEAD", true);
+            }
+
+            if (flag == "HURT")
+            {
+                /*if (!healthbar.gameObject.activeSelf)
+                {
+                    healthbar.gameObject.SetActive(true);
+                }*/
+                health = int.Parse(value);
+                Debug.Log("Health: " + health);
+                healthbar.UpdateHealthBar();
             }
         }
     }

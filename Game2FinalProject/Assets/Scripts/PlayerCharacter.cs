@@ -393,7 +393,7 @@ public class PlayerCharacter : NetworkComponent
                 SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
             }
 
-            StartCoroutine(Reload());
+            //StartCoroutine(Reload());
         }
     }
 
@@ -424,6 +424,13 @@ public class PlayerCharacter : NetworkComponent
         }
 
         yield return new WaitForSeconds(ReloadTime);
+
+        ammo = maxAmmo;
+
+        if (IsServer)
+        {
+            SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
+        }
 
         if (IsClient && !IsLocalPlayer)
         {

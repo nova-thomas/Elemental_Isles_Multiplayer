@@ -30,6 +30,16 @@ public class Lizard : Enemy
                 isWalking = false;
                 myAnimator.SetInteger("DIR", 0);
             }
+
+            if(flag == "HURT")
+            {
+                //Debug.Log("Hurt");
+                /*if (!healthbar.gameObject.activeSelf)
+                {
+                    healthbar.gameObject.SetActive(true);
+                }*/
+                healthbar.UpdateHealthBar();
+            }
         }
     }
 
