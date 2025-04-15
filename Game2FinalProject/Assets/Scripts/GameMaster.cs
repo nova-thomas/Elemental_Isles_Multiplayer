@@ -112,11 +112,13 @@ public class GameMaster : NetworkComponent
         {
             ScorePanel.SetActive(true);
 
-            yield return new WaitForSeconds(15f);
+            StartCoroutine(GameEnd());
+
+            /*yield return new WaitForSeconds(15f);
             foreach (NPM npm in players)
             {
                 MyCore.UI_Quit();
-            }
+            }*/
         }
     }
 
@@ -321,5 +323,14 @@ public class GameMaster : NetworkComponent
     public float GetCurrentTimer()
     {
         return currentTimer;
+    }
+
+    public IEnumerator GameEnd()
+    {
+        yield return new WaitForSeconds(15f);
+        foreach (NPM npm in players)
+        {
+            MyCore.UI_Quit();
+        }
     }
 }
