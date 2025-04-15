@@ -719,6 +719,7 @@ MonoBehaviour:
   interacting: 0
   antennaCollected: 0
   health: 20
+  maxHealth: 20
   ammo: 12
   maxAmmo: 12
   ScoreboardPanel: {fileID: 0}
@@ -732,6 +733,8 @@ MonoBehaviour:
   collectCrystal: {fileID: 8300000, guid: dca7478d4be26304985f70d539540e4f, type: 3}
   collectAntenna: {fileID: 8300000, guid: 61c54a6ddddb2b5499dcecb87b96f6a6, type: 3}
   shootAbility: {fileID: 8300000, guid: e79e2f11ebd8d4641b3d33d368537c0c, type: 3}
+  winSound: {fileID: 8300000, guid: 3bd2e40acf697d544bf4c18e412937b7, type: 3}
+  deathSound: {fileID: 8300000, guid: 74ecfb16ef3e91c41afb0a67985ce4ef, type: 3}
 --- !u!114 &3360857478583755931
 MonoBehaviour:
   m_ObjectHideFlags: 0

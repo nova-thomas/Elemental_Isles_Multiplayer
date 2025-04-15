@@ -71,6 +71,8 @@ public class PlayerCharacter : NetworkComponent
     public AudioClip collectCrystal;
     public AudioClip collectAntenna;
     public AudioClip shootAbility;
+    public AudioClip winSound;
+    public AudioClip deathSound;
 
     /*              **Functions**              */
     //Network Functions
@@ -101,6 +103,10 @@ public class PlayerCharacter : NetworkComponent
             if (IsClient)
             {
                 health = int.Parse(value);
+                if (IsLocalPlayer && health == 0)
+                {
+                    audioSource.PlayOneShot(deathSound);
+                }
             }
         }
 
@@ -310,10 +316,6 @@ public class PlayerCharacter : NetworkComponent
         {
             if (IsServer)
             {
-                if (health <= 0)
-                {
-                    Respawn();
-                }
                 if (IsDirty)
                 {
                     Debug.Log("Slow Update AMMO:  " + ammo);
@@ -325,6 +327,11 @@ public class PlayerCharacter : NetworkComponent
                     SendUpdate("GETANTENNA", antennaCollected.ToString());
 
                     IsDirty = false;
+                }
+                if (health <= 0)
+                {
+                    SendUpdate("HEALTH", health.ToString());
+                    Respawn();
                 }
             }
             yield return new WaitForSeconds(.1f);
@@ -649,6 +656,8 @@ public class PlayerCharacter : NetworkComponent
 
         if (other.gameObject.tag == "KillFloor" && IsServer)
         {
+            health = 0;
+            SendUpdate("HEALTH", health.ToString());
             Debug.Log("KillFloor");
             Respawn();
         }
