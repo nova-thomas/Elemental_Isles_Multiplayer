@@ -52,7 +52,8 @@ public class PlayerCharacter : NetworkComponent
     public bool canTribute;
     public bool interacting;
     public int antennaCollected;
-    public int health = 20;
+    public int health;
+    public int maxHealth = 20;
     public int ammo;
     public int maxAmmo = 12;
 
@@ -92,6 +93,14 @@ public class PlayerCharacter : NetworkComponent
             if (Enum.TryParse(value, out Elements pe))
             {
                 playerElement = pe;
+            }
+        }
+
+        if (flag == "HEALTH")
+        {
+            if (IsClient)
+            {
+                health = int.Parse(value);
             }
         }
 
@@ -251,6 +260,8 @@ public class PlayerCharacter : NetworkComponent
         antennaCollected = 0;
         score = 0;
         crystals = 0;
+        health = maxHealth;
+        ammo = maxAmmo;
         playerRespawn = this.transform.position;
         if (IsServer)
         {
@@ -301,6 +312,7 @@ public class PlayerCharacter : NetworkComponent
             {
                 Debug.Log("Slow Update AMMO:  " + ammo);
                 SendUpdate("SETUP", PName);
+                SendUpdate("HEALTH", health.ToString());
                 SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
                 SendUpdate("COLLECTABLE", score.ToString());
                 SendUpdate("GETCRYSTALS", crystals.ToString());
@@ -654,7 +666,10 @@ public class PlayerCharacter : NetworkComponent
     private void Respawn()
     {
         this.transform.position = playerRespawn;
-        // Reset health and ammo
+        health = maxHealth;
+        ammo = maxAmmo;
 
+        SendUpdate("HEALTH", health.ToString());
+        SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
     }
 }
