@@ -28,7 +28,9 @@ public class NetworkTransform : NetworkComponent
         }
         if (flag == "SCALE" && IsClient)
         {
-            lastScale = NetworkCore.Vector3FromString(value);
+            Vector3 temp = NetworkCore.Vector3FromString(value);
+            this.transform.localScale = temp;
+            lastScale = temp;
         }
     }
 
