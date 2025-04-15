@@ -308,20 +308,24 @@ public class PlayerCharacter : NetworkComponent
     {
         while (IsConnected)
         {
-            if (IsServer && IsDirty)
+            if (IsServer)
             {
-                Debug.Log("Slow Update AMMO:  " + ammo);
-                SendUpdate("SETUP", PName);
-                SendUpdate("HEALTH", health.ToString());
-                SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
-                SendUpdate("COLLECTABLE", score.ToString());
-                SendUpdate("GETCRYSTALS", crystals.ToString());
-                SendUpdate("GETANTENNA", antennaCollected.ToString());
                 if (health <= 0)
                 {
                     Respawn();
                 }
-                IsDirty = false;
+                if (IsDirty)
+                {
+                    Debug.Log("Slow Update AMMO:  " + ammo);
+                    SendUpdate("SETUP", PName);
+                    SendUpdate("HEALTH", health.ToString());
+                    SendUpdate("AMMO", $"{ammo}/{maxAmmo}");
+                    SendUpdate("COLLECTABLE", score.ToString());
+                    SendUpdate("GETCRYSTALS", crystals.ToString());
+                    SendUpdate("GETANTENNA", antennaCollected.ToString());
+
+                    IsDirty = false;
+                }
             }
             yield return new WaitForSeconds(.1f);
         }
