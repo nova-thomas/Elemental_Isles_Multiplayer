@@ -56,7 +56,7 @@ public class GameMaster : NetworkComponent
             }
 
             SendUpdate("SHOWTIMER", "1");
-           // MyCore.NotifyGameStart();
+            // MyCore.NotifyGameStart();
         }
 
         if (flag == "SHOWTIMER")
@@ -110,10 +110,14 @@ public class GameMaster : NetworkComponent
 
         if (flag == "WIN")
         {
-            // Handle win condition
-        }
+            ScorePanel.SetActive(true);
 
-        // MyCore.UI_Quit(); to disconnect game
+            yield return new WaitForSeconds(15f);
+            foreach (NPM npm in players)
+            {
+                MyCore.UI_Quit();
+            }
+        }
     }
 
     public override void NetworkedStart()
