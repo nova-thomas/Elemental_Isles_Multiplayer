@@ -66,16 +66,24 @@ public class NetworkRigidBody : NetworkComponent
             //Update last Velocity -- notice it is not set here.
             LastVelocity = VectorFromString(value);
         }
-        if(flag == "ROT" && IsClient)
+        if(flag == "ROT" && !IsLocalPlayer)
         {
             //Update rotation
             LastRotation = VectorFromString(value);
             MyRig.rotation = Quaternion.Euler(LastRotation);
+            if (IsServer)
+            {
+                SendUpdate("ROT", MyRig.rotation.eulerAngles.ToString("F3"));
+            }
         }
-        if(flag == "ANG" && IsClient)
+        if(flag == "ANG" && !IsLocalPlayer)
         {
             //Update Last angular velocity -- notice it is not set here.
             LastAngular = VectorFromString(value);
+            if (IsServer)
+            {
+                SendUpdate("ANG", MyRig.angularVelocity.ToString("F3"));
+            }
         }
     }
 
@@ -90,7 +98,23 @@ public class NetworkRigidBody : NetworkComponent
 
        while(true)
         {
-            if(IsServer)
+            if (IsLocalPlayer)
+            {
+                //If difference in roation is greater than threshold send update.
+                if ((LastRotation - MyRig.rotation.eulerAngles).magnitude > Threshold)
+                {
+                    SendCommand("ROT", MyRig.rotation.eulerAngles.ToString("F3"));
+                    LastRotation = MyRig.rotation.eulerAngles;
+                }
+                //if the difference in the angualar velocity is greater than threshold send udpate.
+                if ((LastAngular - MyRig.angularVelocity).magnitude > Threshold)
+                {
+                    SendCommand("ANG", MyRig.angularVelocity.ToString("F3"));
+                    LastAngular = MyRig.angularVelocity;
+                }
+            }
+
+            if (IsServer)
             {
                 //if difference in position is greater than threshold send update.
                 if ((LastPosition - MyRig.position).magnitude > Threshold)
@@ -104,7 +128,7 @@ public class NetworkRigidBody : NetworkComponent
                     SendUpdate("VEL", MyRig.velocity.ToString("F3"));
                     LastVelocity = MyRig.velocity;
                 }
-                //If difference in roation is greater than threshold send update.
+                /*If difference in roation is greater than threshold send update.
                 if ((LastRotation - MyRig.rotation.eulerAngles).magnitude > Threshold)
                 {
                     SendUpdate("ROT", MyRig.rotation.eulerAngles.ToString("F3"));
@@ -115,7 +139,7 @@ public class NetworkRigidBody : NetworkComponent
                 {
                     SendUpdate("ANG", MyRig.angularVelocity.ToString("F3"));
                     LastAngular = MyRig.angularVelocity;
-                }
+                }*/
                 //If game object is dirty send uall updates mark Is Dirty as false.
                 if (IsDirty)
                 {
@@ -160,8 +184,12 @@ public class NetworkRigidBody : NetworkComponent
                 //continously set velocity without velocity.
                 MyRig.velocity = LastVelocity;
             }
-            //Continously update angular velocity.
-            MyRig.angularVelocity = LastAngular;
+
+            if (IsLocalPlayer)
+            {
+                //Continously update angular velocity.
+                MyRig.angularVelocity = LastAngular;
+            }
         }
     }
 }
