@@ -514,6 +514,7 @@ public class PlayerCharacter : NetworkComponent
 
     public void AbilityFire(InputAction.CallbackContext afr)
     {
+        if (!IsLocalPlayer) return;
         if (canShootAbility && crystals > 0)
         {
             canShootAbility = false;
