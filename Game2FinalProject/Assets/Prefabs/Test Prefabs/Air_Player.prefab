@@ -649,7 +649,7 @@ MonoBehaviour:
   Threshold: 0.1
   EThreshold: 2.5
   MyRig: {fileID: 0}
-  UseOffsetVelocity: 1
+  UseOffsetVelocity: 0
   ClientRecv: 0
 --- !u!136 &6696606821070211269
 CapsuleCollider:

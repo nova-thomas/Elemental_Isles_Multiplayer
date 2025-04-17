@@ -1109,6 +1109,7 @@ PrefabInstance:
     - {fileID: 4265824279869891692, guid: 8f3ba674afd2e134eaa0667bdbdd7587, type: 3}
     - {fileID: 8481401670755139006, guid: 8f3ba674afd2e134eaa0667bdbdd7587, type: 3}
     - {fileID: 7218529776207623004, guid: 8f3ba674afd2e134eaa0667bdbdd7587, type: 3}
+    - {fileID: 2097564285889307961, guid: 8f3ba674afd2e134eaa0667bdbdd7587, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1128,7 +1129,7 @@ Animator:
   m_GameObject: {fileID: 465261946}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf6e1ecaee2ae5a46b759c1ee8c5865e, type: 2}
+  m_Controller: {fileID: 9100000, guid: e459d1374e4470147aba0da78287bf0f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1706,7 +1707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &781184909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1724,7 +1725,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.646, y: 0.07515103}
   m_AnchorMax: {x: 0.90218085, y: 0.14433333}
-  m_AnchoredPosition: {x: -4, y: -0.9999695}
+  m_AnchoredPosition: {x: -4, y: -1}
   m_SizeDelta: {x: 0, y: 14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781184910
@@ -3011,7 +3012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.34, y: 0.62833333}
   m_AnchorMax: {x: 0.59522945, y: 0.776849}
-  m_AnchoredPosition: {x: 51, y: -5.540001}
+  m_AnchoredPosition: {x: 51, y: -5.5399933}
   m_SizeDelta: {x: 1, y: 8.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1146574910
@@ -3431,6 +3432,7 @@ PrefabInstance:
     - {fileID: -8522309501098276633, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
     - {fileID: 4749614289340020701, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
     - {fileID: 4391670951777742849, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
+    - {fileID: 5560432972806100401, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -4057,6 +4059,7 @@ PrefabInstance:
     - {fileID: -8522309501098276633, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
     - {fileID: 4749614289340020701, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
     - {fileID: 4391670951777742849, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
+    - {fileID: 5560432972806100401, guid: ed1a34db7129b464898f27628fafcae8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -4148,6 +4151,8 @@ PrefabInstance:
     - {fileID: -6398673518942192440, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
     - {fileID: 4296349059235513373, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
     - {fileID: 7242259573982090029, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
+    - {fileID: 5482036706036007963, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
+    - {fileID: 2139484403763168584, guid: 354681a0d8cdd2e419ab45c7923f2087, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4837,7 +4842,7 @@ Animator:
   m_GameObject: {fileID: 1960969577}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf6e1ecaee2ae5a46b759c1ee8c5865e, type: 2}
+  m_Controller: {fileID: 9100000, guid: e459d1374e4470147aba0da78287bf0f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
