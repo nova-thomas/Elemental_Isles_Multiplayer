@@ -266,17 +266,7 @@ public class Enemy : NetworkComponent
 
             if (health <= 0)
             {
-                for (int i = 0; i < coinAmount; i++) // Drop coin(s)
-                {
-                    SpawnItem(coin);
-                }
-
-                float randomValue = Random.Range(0f, 100f);
-
-                if (randomValue <= 30f) // 30% chance for crystal
-                {
-                    SpawnItem(crystal);
-                }
+                
 
                 //MyCore.NetDestroyObject(NetId);
                 StartCoroutine(Death());
@@ -293,6 +283,17 @@ public class Enemy : NetworkComponent
     public IEnumerator Death()
     {
         SendUpdate("DEATH", " ");
+        for (int i = 0; i < coinAmount; i++) // Drop coin(s)
+        {
+            SpawnItem(coin);
+        }
+
+        float randomValue = Random.Range(0f, 100f);
+
+        if (randomValue <= 30f) // 30% chance for crystal
+        {
+            SpawnItem(crystal);
+        }
         yield return new WaitForSeconds(deathTime);
         MyCore.NetDestroyObject(NetId);
     }
