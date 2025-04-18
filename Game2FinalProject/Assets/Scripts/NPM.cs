@@ -95,7 +95,7 @@ public class NPM : NetworkComponent
             if (HealthBar != null)
             {
                 HealthBar.value = health;
-                HealthBar.maxValue = health;
+                HealthBar.maxValue = 20;
             }
         }
 
