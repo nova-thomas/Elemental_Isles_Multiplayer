@@ -25,6 +25,7 @@ public class PlayerCharacter : NetworkComponent
     //Projectile Variables
     public GameObject bulletLoc;
     public GameObject elementLoc;
+    private Vector3 aimDirection = Vector3.forward;
     public float bulletSpeed = 20f;
     public float flameSpeed = 3f;
     public float waterBlastSpeed = 80f;
@@ -80,6 +81,12 @@ public class PlayerCharacter : NetworkComponent
     {
         string[] args = s.Trim().Trim('(').Trim(')').Split(',');
         return new Vector2(float.Parse(args[0]), float.Parse(args[1]));
+    }
+
+    public Vector3 StringToVector3(string s)
+    {
+        string[] parts = s.Trim('(', ')').Split(',');
+        return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
     }
 
     public override void HandleMessage(string flag, string value)
@@ -139,6 +146,11 @@ public class PlayerCharacter : NetworkComponent
             transform.Rotate(Vector3.up * lookIn.x * Time.deltaTime);
         }
 
+        if (flag == "AIMDIR" && IsServer)
+        {
+            aimDirection = StringToVector3(value);
+        }
+
         if (flag == "JUMP")
         {
             if (IsServer)
@@ -159,13 +171,13 @@ public class PlayerCharacter : NetworkComponent
 
         if (flag == "FIRE" && IsServer)
         {
-            GameObject currentBullet = MyCore.NetCreateObject(23, this.Owner, bulletLoc.transform.position, transform.rotation);
+            GameObject currentBullet = MyCore.NetCreateObject(23, this.Owner, bulletLoc.transform.position, Quaternion.LookRotation(aimDirection));
             Rigidbody bulletRig = currentBullet.GetComponent<Rigidbody>();
 
             if (bulletRig != null)
             {
                 //bulletRig.velocity = bulletLoc.transform.forward * bulletSpeed;
-                bulletRig.velocity = transform.forward * bulletSpeed;
+                bulletRig.velocity = aimDirection.normalized * bulletSpeed;
                 Debug.Log("bullet vel " + bulletRig.velocity);
             }
             Debug.Log("FIRE AMMO:  " + ammo);
@@ -183,15 +195,15 @@ public class PlayerCharacter : NetworkComponent
                 switch (playerElement)
                 {
                     case Elements.Fire:
-                        currentAbility = MyCore.NetCreateObject(24, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
+                        currentAbility = MyCore.NetCreateObject(24, this.Owner, elementLoc.transform.position, Quaternion.LookRotation(aimDirection));
                         abilitySpeed = flameSpeed;
                         break;
                     case Elements.Earth:
-                        currentAbility = MyCore.NetCreateObject(25, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
+                        currentAbility = MyCore.NetCreateObject(25, this.Owner, elementLoc.transform.position, Quaternion.LookRotation(aimDirection));
                         abilitySpeed = mudShotSpeed;
                         break;
                     case Elements.Water:
-                        currentAbility = MyCore.NetCreateObject(26, this.Owner, elementLoc.transform.position, elementLoc.transform.rotation);
+                        currentAbility = MyCore.NetCreateObject(26, this.Owner, elementLoc.transform.position, Quaternion.LookRotation(aimDirection));
                         abilitySpeed = waterBlastSpeed;
                         break;
                     case Elements.Air:
@@ -205,7 +217,7 @@ public class PlayerCharacter : NetworkComponent
                     Rigidbody abilityRig = currentAbility.GetComponent<Rigidbody>();
                     if (abilityRig != null)
                     {
-                        abilityRig.velocity = elementLoc.transform.forward * abilitySpeed;
+                        abilityRig.velocity = aimDirection.normalized * abilitySpeed;
                     }
                 }
 
@@ -407,6 +419,10 @@ public class PlayerCharacter : NetworkComponent
         if (lk.phase == InputActionPhase.Performed)
         {
             lookIn = lk.ReadValue<Vector2>() * lookSpeed;
+
+            // Send both pitch and yaw to server for aiming
+            Vector3 camForward = playerCam.forward;
+            SendCommand("AIMDIR", camForward.ToString("F4"));
         }
     }
 
