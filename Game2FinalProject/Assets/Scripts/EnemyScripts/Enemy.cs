@@ -290,7 +290,7 @@ public class Enemy : NetworkComponent
 
         float randomValue = Random.Range(0f, 100f);
 
-        if (randomValue <= 30f) // 30% chance for crystal
+        if (randomValue <= 100f) // 30% chance for crystal
         {
             SpawnItem(crystal);
         }
