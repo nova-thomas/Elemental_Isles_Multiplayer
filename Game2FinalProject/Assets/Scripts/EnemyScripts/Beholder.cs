@@ -11,6 +11,8 @@ public class Beholder : Enemy
     public float BulletSpeed;
     public int blastType;
 
+    public int damage = 3;
+
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {
@@ -101,6 +103,7 @@ public class Beholder : Enemy
         SendUpdate("BLAST", " ");
         GameObject fireBall = MyCore.NetCreateObject(blastType, Owner, BlastPosition.transform.position, BlastPosition.transform.rotation);
         fireBall.tag = "EnemyBullet";
+        fireBall.GetComponent<Lifetime>().damage = damage;
         Rigidbody fireBallRB = fireBall.GetComponent<Rigidbody>();
 
         if (fireBallRB != null)

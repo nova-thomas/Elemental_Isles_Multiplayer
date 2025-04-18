@@ -653,6 +653,8 @@ public class PlayerCharacter : NetworkComponent
         {
             // Hurt the player
             Debug.Log("Hit");
+            health -= 5;
+            SendUpdate("HEALTH", health.ToString());
         }
 
         if (other.gameObject.tag == "KillFloor" && IsServer)
@@ -661,6 +663,13 @@ public class PlayerCharacter : NetworkComponent
             SendUpdate("HEALTH", health.ToString());
             Debug.Log("KillFloor");
             Respawn();
+        }
+
+        if (other.gameObject.tag == "EnemyBullet" && IsServer)
+        {
+            int atkDmg = other.GetComponent<Lifetime>().damage;
+            health -= atkDmg;
+            SendUpdate("HEALTH", health.ToString());
         }
     }
 

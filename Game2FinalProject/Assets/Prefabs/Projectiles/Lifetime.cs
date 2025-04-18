@@ -8,6 +8,8 @@ public class Lifetime : NetworkComponent
 {
     public float lifetime;
 
+    public int damage;
+
     private Rigidbody rb;
     public override void HandleMessage(string flag, string value)
     {
@@ -78,6 +80,11 @@ public class Lifetime : NetworkComponent
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
+        {
+            MyCore.NetDestroyObject(this.NetId);
+        }
+
+        if (this.tag == "EnemyBullet" && collision.gameObject.tag == "Player")
         {
             MyCore.NetDestroyObject(this.NetId);
         }

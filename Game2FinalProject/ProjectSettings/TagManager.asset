@@ -23,6 +23,8 @@ TagManager:
   - EnemyBullet
   - Hitbox
   - KillFloor
+  - Fire Power
+  - Poison Power
   layers:
   - Default
   - TransparentFX

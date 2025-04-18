@@ -10,6 +10,8 @@ public class Golum : Enemy
     public Transform hitboxTransform;
     public float attackSpeed;
 
+    public int damage = 5;
+
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {

@@ -13,6 +13,8 @@ public class Lizard : Enemy
     public int spitType;
     public bool isWalking;
 
+    public int damage = 1;
+
     /*              **Functions**              */
     public override void HandleMessage(string flag, string value)
     {
@@ -89,6 +91,7 @@ public class Lizard : Enemy
     {
         GameObject fireBall = MyCore.NetCreateObject(spitType, Owner, firePosition.transform.position, firePosition.transform.rotation);
         fireBall.tag = "EnemyBullet";
+        fireBall.GetComponent<Lifetime>().damage = damage;
         Rigidbody fireBallRB = fireBall.GetComponent<Rigidbody>();
 
         if (fireBallRB != null)

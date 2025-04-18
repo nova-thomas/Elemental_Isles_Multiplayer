@@ -37,7 +37,6 @@ public class Enemy : NetworkComponent
     public float health;
     public float maxHealth;
     public float deathTime;
-    public double damage;
     public bool slowed;
 
     //Prefab Components
