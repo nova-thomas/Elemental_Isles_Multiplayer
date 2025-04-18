@@ -1238,9 +1238,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: UI_CreateRoom
+      - m_Target: {fileID: 2124650041}
+        m_TargetAssemblyTypeName: LobbyManager2, Assembly-CSharp
+        m_MethodName: UI_CreateGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5761,8 +5761,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 2124650041}
+        m_TargetAssemblyTypeName: LobbyManager2, Assembly-CSharp
         m_MethodName: UI_Quit
         m_Mode: 1
         m_Arguments:
@@ -6177,8 +6177,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658902906}
   m_HandleRect: {fileID: 1658902905}
   m_Direction: 0
-  m_Value: 0.49625874
-  m_Size: 0.9991483
+  m_Value: 0.4962591
+  m_Size: 0.99909395
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8651,7 +8651,7 @@ MonoBehaviour:
   gameCore: {fileID: 2124650039}
   localGameID: 
   gameCounter: 0
-  maxGameTime: 300
+  maxGameTime: 325
   gameRoomContent: {fileID: 68152913}
   gameNameInput: {fileID: 1642041172}
   createGameButton: {fileID: 211073371}
