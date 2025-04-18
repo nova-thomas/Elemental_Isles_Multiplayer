@@ -278,10 +278,9 @@ MonoBehaviour:
   timeBetweenAttacks: 8
   alreadyAttacked: 0
   speed: 8
-  health: 10
-  maxHealth: 10
+  health: 5
+  maxHealth: 5
   deathTime: 0
-  damage: 1
   slowed: 0
   healthbar: {fileID: 7307742601225667656}
   agent: {fileID: 0}
@@ -303,6 +302,7 @@ MonoBehaviour:
   fireBallSpeed: 2
   spitType: 0
   isWalking: 0
+  damage: 1
 --- !u!54 &3231398508726234817
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -397,9 +397,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5626658462072104335
 GameObject:
   m_ObjectHideFlags: 0

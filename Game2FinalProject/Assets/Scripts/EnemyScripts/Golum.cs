@@ -20,45 +20,28 @@ public class Golum : Enemy
             if (flag == "STOP")
             {
                 myAnimator.SetInteger("DIR", 0);
-                myAnimator.Play("Idle");
-                //myAnimator.CrossFade("Idle", .2f);
             }
 
             if (flag == "WALK")
             {
-                //myAnimator.CrossFade("Walk", .2f);
                 myAnimator.SetInteger("DIR", 1);
-                myAnimator.Play("Walk");
             }
 
             if (flag == "SWIPE")
             {
-                //myAnimator.SetBool("SWIPE", value);
-                Debug.Log("swipe");
-                //myAnimator.CrossFade("Swipe", .2f);
-                if (myAnimator.GetBool("SWIPE"))
+                myAnimator.SetBool("SWIPE", bool.Parse(value));
+                if (bool.Parse(value))
                 {
-                    myAnimator.SetBool("SWIPE", false);
-                }
-                else
-                {
-                    myAnimator.SetBool("SWIPE", true);
-                    myAnimator.Play("Swipe");
+                    myAnimator.CrossFade("Swipe", .2f);
                 }
             }
 
             if (flag == "SLAM")
             {
-                Debug.Log("slam");
-                //myAnimator.CrossFade("Slam", .2f);
-                if (myAnimator.GetBool("SLAM"))
+                myAnimator.SetBool("SLAM", bool.Parse(value));
+                if (bool.Parse(value))
                 {
-                    myAnimator.SetBool("SLAM", false);
-                }
-                else
-                {
-                    myAnimator.SetBool("SLAM", true);
-                    myAnimator.Play("Slam");
+                    myAnimator.CrossFade("Slam", .2f);
                 }
             }
 
@@ -137,11 +120,12 @@ public class Golum : Enemy
     private IEnumerator AttackTime(float attackSpeed)
     {
         yield return new WaitForSeconds(attackSpeed);
-        //SendUpdate("SWIPE", false.ToString());
-        //SendUpdate("SLAM", false.ToString());
         //Debug.Log("attack");
         GameObject hitbox = Instantiate(hitboxPrefab, hitboxTransform);
         Destroy(hitbox, 1);
+        yield return new WaitForSeconds(.5f);
+        SendUpdate("SWIPE", false.ToString());
+        SendUpdate("SLAM", false.ToString());
     }
 
     public void SwingAttack()

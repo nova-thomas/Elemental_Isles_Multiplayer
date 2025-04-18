@@ -26,13 +26,11 @@ public class Beholder : Enemy
 
             if (flag == "WALK")
             {
-                //myAnimator.CrossFade("WalkFWD", .2f);
                 myAnimator.SetInteger("FWD", 1);
             }
 
             if (flag == "BLAST")
             {
-                //myAnimator.CrossFade("Attack01", .2f);
                 myAnimator.SetBool("ATTACK", true);
                 StartCoroutine(AttackTime());
 
@@ -40,7 +38,6 @@ public class Beholder : Enemy
 
             if (flag == "DEATH")
             {
-                //myAnimator.CrossFade("Die", .2f);
                 myAnimator.SetBool("DEAD", true);
             }
 

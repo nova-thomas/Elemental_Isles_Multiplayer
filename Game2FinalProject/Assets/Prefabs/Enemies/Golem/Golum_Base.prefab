@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3618323706069564538}
   - component: {fileID: 1448352803276553519}
   - component: {fileID: -9049952983857955580}
-  - component: {fileID: 4688070219713574337}
   - component: {fileID: 5025304560765926524}
+  - component: {fileID: 8835941791517649583}
   m_Layer: 0
   m_Name: Golum_Base
   m_TagString: Untagged
@@ -85,10 +85,9 @@ MonoBehaviour:
   timeBetweenAttacks: 8
   alreadyAttacked: 0
   speed: 8
-  health: 10
-  maxHealth: 10
+  health: 15
+  maxHealth: 15
   deathTime: 0
-  damage: 3
   slowed: 0
   healthbar: {fileID: 7913428935854068998}
   agent: {fileID: 0}
@@ -109,6 +108,7 @@ MonoBehaviour:
   hitboxPrefab: {fileID: 306649847756534115, guid: 4d9f47a5190a89741bce11f11f14ae74, type: 3}
   hitboxTransform: {fileID: 0}
   attackSpeed: 0
+  damage: 3
 --- !u!195 &1448352803276553519
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -158,31 +158,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &4688070219713574337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263747285305752288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce5419f63af3324458724c5703526335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyCore: {fileID: 0}
-  MyId: {fileID: 0}
-  IsDirty: 0
-  LastPosition: {x: 0, y: 0, z: 0}
-  LastRotation: {x: 0, y: 0, z: 0}
-  LastVelocity: {x: 0, y: 0, z: 0}
-  LastAngular: {x: 0, y: 0, z: 0}
-  OffsetVelocity: {x: 0, y: 0, z: 0}
-  Threshold: 0.1
-  EThreshold: 2.5
-  MyRig: {fileID: 0}
-  UseOffsetVelocity: 1
-  ClientRecv: 0
 --- !u!136 &5025304560765926524
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206,6 +181,27 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &8835941791517649583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263747285305752288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72333cb095b9023459ce9d25664726d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
+  lastPosition: {x: 0, y: 0, z: 0}
+  lastRotation: {x: 0, y: 0, z: 0}
+  lastScale: {x: 0, y: 0, z: 0}
+  Threshold: 0
+  EThreshold: 0
+  speed: 5
 --- !u!1 &2178730545878907344
 GameObject:
   m_ObjectHideFlags: 0
