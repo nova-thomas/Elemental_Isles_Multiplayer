@@ -19,6 +19,7 @@ public class Enemy : NetworkComponent
     public int coinAmount;
     public int crystal;
     public float monsterDropHeight;
+    private bool isDead;
 
     [Header("Movement & Attack")]
     //Patrolling
@@ -264,12 +265,13 @@ public class Enemy : NetworkComponent
                     break;
             }
 
-            if (health <= 0)
+            if (health <= 0 && !isDead)
             {
                 
 
                 //MyCore.NetDestroyObject(NetId);
                 StartCoroutine(Death());
+                isDead = true;
             }
         }
     }
