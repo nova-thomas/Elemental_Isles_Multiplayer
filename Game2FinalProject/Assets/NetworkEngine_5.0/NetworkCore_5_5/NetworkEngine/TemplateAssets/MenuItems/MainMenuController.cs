@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour
         //ArgDisplay.text = System.Environment.CommandLine;
         foreach (string a in args)
         {
+            Debug.Log("ARG: " + a);
             if (a.StartsWith("PORT_") || a.Contains("MASTER"))
             {
                 //Load Wan scene.
@@ -28,6 +29,7 @@ public class MainMenuController : MonoBehaviour
     public void WANConnect()
     {
         //Load Wan scene.
+        Debug.Log("WANConnect clicked!");
         SceneManager.LoadScene(1);
     }
 

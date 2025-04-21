@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.667197, g: 0.50559556, b: 0.38133985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -94,8 +94,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 1e851ab8520517a4b8cac72418885626, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 89f8c3989a39cfb4496cca1dd1f6fb96, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 8f74e471959ae124bb0384176b8735bb, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 09079ee0ffa96ba44a4d6ca4ffe87e3b, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -555,7 +555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 229.43079}
+  m_AnchoredPosition: {x: 0, y: 192.7635}
   m_SizeDelta: {x: 0, y: 810.43}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &68152915
@@ -858,8 +858,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 378318157}
   m_HandleRect: {fileID: 378318156}
   m_Direction: 2
-  m_Value: -0.000003458384
-  m_Size: 0.71688336
+  m_Value: -0.0000009498979
+  m_Size: 0.7621469
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7640,8 +7640,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1904947442}
   m_HandleRect: {fileID: 1904947441}
   m_Direction: 2
-  m_Value: 0.9998895
-  m_Size: 0.04982771
+  m_Value: 0.9998893
+  m_Size: 0.052972693
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
